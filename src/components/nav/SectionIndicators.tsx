@@ -19,6 +19,7 @@ export default function SectionIndicators() {
   return (
     <nav
       aria-label="Page sections"
+      data-floating-nav
       className="pointer-events-auto fixed right-5 top-1/2 z-[45] hidden -translate-y-1/2 lg:block"
     >
       <ul className="flex flex-col items-end gap-4">

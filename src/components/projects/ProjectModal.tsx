@@ -24,11 +24,18 @@ export default function ProjectModal({
 }) {
   const closeBtnRef = useRef<HTMLButtonElement>(null);
 
-  /* ESC key + body scroll lock ------------------------------------------- */
+  /* ESC key + body scroll lock + floating-nav signal ---------------------
+   * The global nav satellites (scroll progress bar, right-edge section
+   * dots, bottom-right back-to-top FAB) subscribe to
+   * `html[data-modal="open"]` in globals.css and fade themselves out while
+   * the drawer is up — otherwise they poke through over the modal at the
+   * same z-range and the whole thing reads as broken. */
   useEffect(() => {
     if (!project) return;
-    const prev = document.body.style.overflow;
+
+    const prevOverflow = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    document.documentElement.setAttribute("data-modal", "open");
 
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") onClose();
@@ -39,7 +46,8 @@ export default function ProjectModal({
     const t = window.setTimeout(() => closeBtnRef.current?.focus(), 60);
 
     return () => {
-      document.body.style.overflow = prev;
+      document.body.style.overflow = prevOverflow;
+      document.documentElement.removeAttribute("data-modal");
       window.removeEventListener("keydown", onKey);
       window.clearTimeout(t);
     };
@@ -58,7 +66,7 @@ export default function ProjectModal({
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
             onClick={onClose}
-            className="fixed inset-0 z-[150] bg-black/70 backdrop-blur-sm"
+            className="fixed inset-0 z-[180] bg-[color:var(--bg-primary)]/85 backdrop-blur-md"
             style={{ cursor: "none" }}
           />
 
@@ -71,7 +79,7 @@ export default function ProjectModal({
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
-            className="fixed right-0 top-0 z-[151] h-dvh w-full max-w-[640px] overflow-y-auto border-l border-[color:var(--accent-primary)]/20 bg-[color:var(--bg-primary)]"
+            className="fixed right-0 top-0 z-[181] h-dvh w-full max-w-[640px] overflow-y-auto border-l border-[color:var(--accent-primary)]/20 bg-[color:var(--bg-primary)]"
             style={{
               boxShadow: "-40px 0 100px -20px rgba(0,0,0,0.8)",
             }}

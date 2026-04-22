@@ -31,6 +31,7 @@ export default function BackToTop() {
           type="button"
           onClick={scrollToTop}
           aria-label="Scroll back to top"
+          data-floating-nav
           data-cursor="hover"
           data-cursor-label="Top"
           initial={{ opacity: 0, y: 16, scale: 0.85 }}

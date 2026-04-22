@@ -18,6 +18,7 @@ export default function ScrollProgress() {
   return (
     <motion.div
       aria-hidden
+      data-floating-nav
       className="pointer-events-none fixed inset-x-0 top-0 z-[55] h-[2px] origin-left"
       style={{
         scaleX: smooth,

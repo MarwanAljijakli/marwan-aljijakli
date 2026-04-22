@@ -122,6 +122,24 @@ section[id] {
 }
 
 /* =========================================================================
+   FLOATING NAV — hide while a modal is open
+   ProjectModal (and any future full-screen dialogs) set
+   `<html data-modal="open">`. The bar, scroll progress, section dots, and
+   back-to-top all carry `data-floating-nav` and fade out together so the
+   modal has exclusive focus instead of fighting the satellites for the
+   same z-range.
+   ========================================================================= */
+[data-floating-nav] {
+  transition: opacity 0.3s ease, visibility 0s linear 0s;
+}
+html[data-modal="open"] [data-floating-nav] {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+}
+
+/* =========================================================================
    AMBIENT VIGNETTE PULSE
    A very slow edge-darken that breathes in the background — makes the page
    feel "alive" without pulling attention anywhere specific. Rendered as a
