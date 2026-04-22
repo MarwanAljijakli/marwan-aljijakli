@@ -134,7 +134,7 @@ export default function Terminal() {
         <span className="inline-block h-2 w-2 rounded-full bg-red-500/70" />
         <span className="inline-block h-2 w-2 rounded-full bg-yellow-500/70" />
         <span className="inline-block h-2 w-2 rounded-full bg-green-500/70" />
-        <span className="ml-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]">
+        <span className="ml-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
           ~/marwan — zsh
         </span>
         <span className="ml-auto font-mono text-[10px] text-[color:var(--text-muted)]">

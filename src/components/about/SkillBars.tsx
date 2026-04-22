@@ -76,7 +76,7 @@ function SkillRow({
   return (
     <div className="group">
       <div className="mb-2 flex items-baseline justify-between gap-4">
-        <span className="font-mono text-[11px] uppercase tracking-[0.22em] text-[color:var(--text-primary)]">
+        <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-primary)]">
           {skill.label}
         </span>
         <motion.span

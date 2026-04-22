@@ -166,14 +166,14 @@ export default function ContactForm() {
       {/* Title bar */}
       <div className="relative mb-8 flex items-center justify-between gap-4">
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+          <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
             /· transmission form
           </div>
           <div className="mt-1.5 font-display text-2xl tracking-wide text-[color:var(--text-primary)] md:text-3xl">
             Compose your signal
           </div>
         </div>
-        <div className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]">
+        <div className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
           <motion.span
             className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)]"
             animate={{ opacity: [0.4, 1, 0.4] }}
@@ -285,7 +285,7 @@ export default function ContactForm() {
               }}
             />
 
-            <span className="relative z-10 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.28em]">
+            <span className="relative z-10 flex items-center gap-3 font-mono text-[11px] font-semibold uppercase tracking-[0.18em]">
               <AnimatePresence mode="wait">
                 {status === "idle" && (
                   <motion.span
@@ -352,7 +352,7 @@ export default function ContactForm() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
                 role="alert"
-                className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.24em] text-[color:var(--accent-tertiary)]"
+                className="mt-3 text-center font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--accent-tertiary)]"
               >
                 {errorMsg}
               </motion.p>
@@ -361,7 +361,7 @@ export default function ContactForm() {
         </div>
 
         {/* Fine print */}
-        <p className="text-center font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]">
+        <p className="text-center font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
           By sending you agree to be replied to from{" "}
           <span className="text-[color:var(--accent-primary)]">Jeddah, KSA</span>
           .

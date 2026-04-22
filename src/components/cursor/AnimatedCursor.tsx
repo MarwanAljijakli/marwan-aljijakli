@@ -215,7 +215,7 @@ export default function AnimatedCursor() {
               className="absolute inset-0 flex items-center justify-between px-3 text-[color:var(--accent-primary)]"
             >
               <ArrowGlyph direction="left" />
-              <span className="font-mono text-[9px] uppercase tracking-[0.2em]">
+              <span className="font-mono text-[10px] uppercase tracking-[0.2em]">
                 Drag
               </span>
               <ArrowGlyph direction="right" />

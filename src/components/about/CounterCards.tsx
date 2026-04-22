@@ -124,7 +124,7 @@ function StatCard({
         )}
       </div>
 
-      <p className="relative mt-3 font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--text-muted)]">
+      <p className="relative mt-3 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         {stat.label}
       </p>
     </motion.div>

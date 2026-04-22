@@ -93,7 +93,7 @@ function FooterImpl() {
               MARWAN <span className="text-gradient">ALJIJAKLI</span>
             </motion.h3>
 
-            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--text-muted)]">
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-muted)]">
               <span>CTO</span>
               <Dot />
               <span>AI / ML Engineer</span>
@@ -104,7 +104,7 @@ function FooterImpl() {
             </div>
 
             {/* Location + status */}
-            <div className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--text-muted)]">
+            <div className="mt-3 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-muted)]">
               <span className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-[color:var(--accent-primary)]" />
               Jeddah, KSA · GMT+3
             </div>
@@ -112,7 +112,7 @@ function FooterImpl() {
 
           {/* Navigation */}
           <nav aria-label="Footer navigation" className="flex flex-col gap-3">
-            <div className="font-mono text-[10px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
               /· navigate
             </div>
             <ul className="flex flex-col gap-2">
@@ -121,7 +121,7 @@ function FooterImpl() {
                   <a
                     href={l.href}
                     data-cursor="hover"
-                    className="group inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.22em] text-[color:var(--text-secondary)] transition-colors hover:text-[color:var(--accent-primary)]"
+                    className="group inline-flex items-center gap-2 font-mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--text-secondary)] transition-colors hover:text-[color:var(--accent-primary)]"
                   >
                     <span
                       aria-hidden
@@ -136,7 +136,7 @@ function FooterImpl() {
 
           {/* Socials */}
           <div className="flex flex-col gap-3">
-            <div className="font-mono text-[10px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+            <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
               /· channels
             </div>
             <div className="flex flex-wrap gap-2">

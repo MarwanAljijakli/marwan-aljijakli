@@ -166,10 +166,10 @@ export default function RagFlowDiagram() {
                 <n.icon className="h-3 w-3" strokeWidth={1.8} />
               </span>
               <div className="min-w-0 flex-1">
-                <div className="truncate font-mono text-[9px] font-semibold uppercase tracking-[0.18em] text-[color:var(--text-primary)]">
+                <div className="truncate font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[color:var(--text-primary)]">
                   {n.label}
                 </div>
-                <div className="truncate font-mono text-[8px] uppercase tracking-[0.12em] text-[color:var(--text-muted)]">
+                <div className="truncate font-mono text-[10px] uppercase tracking-[0.12em] text-[color:var(--text-muted)]">
                   {n.hint}
                 </div>
               </div>

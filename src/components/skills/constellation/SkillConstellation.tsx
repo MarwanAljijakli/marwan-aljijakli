@@ -36,14 +36,14 @@ export default function SkillConstellation() {
     <div className="flex flex-col gap-4">
       <header className="flex items-center justify-between gap-4">
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
             fig. 02 — skill constellation
           </div>
           <div className="mt-1 font-display text-2xl md:text-3xl">
             Tech graph · orbital view
           </div>
         </div>
-        <div className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--text-muted)] md:block">
+        <div className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)] md:block">
           14 stars · 6 domains
         </div>
       </header>
@@ -72,7 +72,7 @@ export default function SkillConstellation() {
         />
 
         {/* Corner readout */}
-        <div className="pointer-events-none absolute top-3 left-3 font-mono text-[9px] uppercase tracking-[0.24em] text-[color:var(--text-muted)]">
+        <div className="pointer-events-none absolute top-3 left-3 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
           <span className="inline-flex items-center gap-1.5">
             <span className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-[color:var(--accent-primary)]" />
             Telemetry · live
@@ -98,7 +98,7 @@ export default function SkillConstellation() {
               }}
             >
               <div
-                className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.24em]"
+                className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.14em]"
                 style={{ color: CATEGORIES[hovered.category].color }}
               >
                 <span
@@ -116,7 +116,7 @@ export default function SkillConstellation() {
               <div className="mt-2 font-mono text-[10px] text-[color:var(--text-secondary)]">
                 {hovered.description}
               </div>
-              <div className="mt-2 flex items-center justify-between border-t border-white/5 pt-1 font-mono text-[9px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
+              <div className="mt-2 flex items-center justify-between border-t border-white/5 pt-1 font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
                 <span>Ring · {hovered.ring}</span>
                 <span>{hovered.ring === 0 ? "Core" : `Orbital ${hovered.ring}`}</span>
               </div>
@@ -131,7 +131,7 @@ export default function SkillConstellation() {
           ([key, def]) => (
             <span
               key={key}
-              className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]"
+              className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]"
             >
               <span
                 className="inline-block h-1.5 w-1.5 rounded-full"

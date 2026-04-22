@@ -104,7 +104,7 @@ export default function AchievementToast() {
 
           {/* Body */}
           <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+            <div className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
               <span>Achievement Unlocked</span>
               <span
                 aria-hidden

@@ -40,7 +40,7 @@ export default function HeroContent() {
             delay: D_LINE_1,
             ease: EASE_OUT_EXPO,
           }}
-          className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.36em] text-[color:var(--accent-primary)]"
+          className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--accent-primary)]"
         >
           <span className="inline-block h-px w-10 bg-[color:var(--accent-primary)]" />
           CTO &amp; AI/ML Engineer
@@ -134,7 +134,7 @@ export default function HeroContent() {
           <a
             href="#work"
             data-cursor="hover"
-            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[color:var(--accent-primary)] px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.26em] text-[color:var(--bg-primary)] transition-transform duration-300 ease-out-expo hover:scale-[1.05]"
+            className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[color:var(--accent-primary)] px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--bg-primary)] transition-transform duration-300 ease-out-expo hover:scale-[1.05]"
             style={{ boxShadow: "0 0 0 rgba(0,212,255,0)" }}
           >
             <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-[color:var(--accent-primary)] opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-70" />
@@ -148,7 +148,7 @@ export default function HeroContent() {
           <a
             href="#contact"
             data-cursor="hover"
-            className="group relative inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--accent-primary)] bg-transparent px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.26em] text-[color:var(--accent-primary)] transition-colors duration-300 hover:bg-[color:var(--accent-primary)] hover:text-[color:var(--bg-primary)]"
+            className="group relative inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--accent-primary)] bg-transparent px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--accent-primary)] transition-colors duration-300 hover:bg-[color:var(--accent-primary)] hover:text-[color:var(--bg-primary)]"
           >
             Get In Touch
             <ArrowUpRight
@@ -168,7 +168,7 @@ export default function HeroContent() {
         transition={{ duration: 0.8, delay: D_SCROLL, ease: EASE_OUT_EXPO }}
         className="pointer-events-none absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2"
       >
-        <span className="font-mono text-[10px] uppercase tracking-[0.36em] text-[color:var(--text-muted)]">
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
           Scroll to explore
         </span>
         <motion.div

@@ -52,7 +52,7 @@ export default function EducationTimeline() {
         initial={{ opacity: 0, y: 20 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.7, ease: EASE_OUT_EXPO }}
-        className="mb-10 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]"
+        className="mb-10 flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]"
       >
         <GraduationCap className="h-3.5 w-3.5 text-[color:var(--accent-primary)]" strokeWidth={1.6} />
         Education &amp; training
@@ -186,7 +186,7 @@ function MilestoneCard({
 
       {/* Text */}
       <div className="min-w-0 flex-1">
-        <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+        <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
           {String(index + 1).padStart(2, "0")} / 0{total}
         </div>
         <h3 className="mt-2 text-base font-semibold text-[color:var(--text-primary)] md:text-[17px]">

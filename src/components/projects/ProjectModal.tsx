@@ -130,7 +130,7 @@ export default function ProjectModal({
                       key={m.label}
                       className="rounded-xl border border-white/5 bg-[color:var(--bg-secondary)]/60 p-4"
                     >
-                      <div className="font-mono text-[9px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]">
+                      <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
                         {m.label}
                       </div>
                       <div className="mt-1.5 font-display text-xl text-[color:var(--accent-primary)]">
@@ -208,8 +208,8 @@ export default function ProjectModal({
                       }
                       className={
                         link.primary
-                          ? "group inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-5 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-[color:var(--bg-primary)] transition-transform duration-300 hover:scale-[1.03]"
-                          : "group inline-flex items-center gap-2 rounded-full border border-white/15 bg-transparent px-5 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent-primary)] hover:text-[color:var(--accent-primary)]"
+                          ? "group inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-primary)] px-5 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--bg-primary)] transition-transform duration-300 hover:scale-[1.03]"
+                          : "group inline-flex items-center gap-2 rounded-full border border-white/15 bg-transparent px-5 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent-primary)] hover:text-[color:var(--accent-primary)]"
                       }
                     >
                       {link.label}
@@ -235,7 +235,7 @@ export default function ProjectModal({
 
 function SectionEyebrow({ children }: { children: React.ReactNode }) {
   return (
-    <div className="font-mono text-[10px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
       {children}
     </div>
   );
@@ -251,7 +251,7 @@ function BadgeChip({ badge }: { badge: Project["badge"] & object }) {
   } as const;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] ${toneClasses[badge.tone]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] ${toneClasses[badge.tone]}`}
     >
       <span aria-hidden>{badge.emoji}</span>
       {badge.label}

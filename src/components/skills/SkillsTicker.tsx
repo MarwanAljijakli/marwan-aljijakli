@@ -59,7 +59,7 @@ function TickerContent() {
       {STATS.map((s) => (
         <span
           key={s.label}
-          className="flex shrink-0 items-center gap-3 font-mono text-[12px] uppercase tracking-[0.26em]"
+          className="flex shrink-0 items-center gap-3 font-mono text-[12px] uppercase tracking-[0.16em]"
         >
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-[color:var(--accent-primary)] shadow-[0_0_8px_rgba(0,212,255,0.7)]" />
           <span className="text-[color:var(--text-muted)]">{s.label}:</span>

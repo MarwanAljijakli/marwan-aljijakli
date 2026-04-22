@@ -100,7 +100,7 @@ export default function ProjectCard({
           {/* Top row: role/year + badge */}
           <div className="flex flex-wrap items-center gap-3">
             {project.badge && <BadgePill badge={project.badge} />}
-            <span className="font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--text-muted)]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-muted)]">
               {project.role}
               {project.role && project.year && " · "}
               {project.year}
@@ -129,7 +129,7 @@ export default function ProjectCard({
           {/* Description */}
           <p
             data-cursor="text"
-            className="text-sm leading-[1.65] text-[color:var(--text-secondary)]"
+            className="text-[15px] leading-[1.65] text-[color:var(--text-secondary)]"
           >
             {project.description}
           </p>
@@ -162,7 +162,7 @@ export default function ProjectCard({
               type="button"
               onClick={onOpen}
               data-cursor="hover"
-              className="group/btn inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.24em] text-[color:var(--text-primary)] transition-colors hover:text-[color:var(--accent-primary)]"
+              className="group/btn inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-primary)] transition-colors hover:text-[color:var(--accent-primary)]"
               style={{ transform: "translateZ(0)" }}
             >
               View Project
@@ -173,7 +173,7 @@ export default function ProjectCard({
             </button>
 
             <span
-              className="font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--text-muted)]"
+              className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]"
             >
               0{index + 2} / 04
             </span>
@@ -198,7 +198,7 @@ function BadgePill({ badge }: { badge: NonNullable<Project["badge"]> }) {
   } as const;
   return (
     <span
-      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.22em] ${toneClasses[badge.tone]}`}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.14em] ${toneClasses[badge.tone]}`}
     >
       <span aria-hidden>{badge.emoji}</span>
       {badge.label}

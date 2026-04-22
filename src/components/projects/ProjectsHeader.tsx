@@ -15,7 +15,7 @@ export default function ProjectsHeader() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]"
+        className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]"
       >
         <span className="inline-block h-px w-10 bg-[color:var(--accent-primary)]" />
         03 · Selected Work
@@ -57,7 +57,7 @@ export default function ProjectsHeader() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-        className="max-w-xl font-mono text-[12px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]"
+        className="max-w-xl font-mono text-[12px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]"
       >
         Production AI systems that create real-world impact.
       </motion.p>

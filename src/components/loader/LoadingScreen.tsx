@@ -143,7 +143,7 @@ export default function LoadingScreen({ onComplete }: LoadingScreenProps) {
               initial={{ opacity: 0 }}
               animate={{ opacity: phase >= 2 && phase < 4 ? 1 : 0 }}
               transition={{ duration: 0.4 }}
-              className="font-mono text-[10px] uppercase tracking-[0.36em] text-[color:var(--text-secondary)]"
+              className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-secondary)]"
             >
               Marwan Aljijakli — Initializing systems
             </motion.span>

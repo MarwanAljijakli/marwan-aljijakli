@@ -73,7 +73,7 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
       />
 
       {/* Status dot — live transmission indicator */}
-      <span className="absolute top-4 right-4 flex items-center gap-1 font-mono text-[8px] uppercase tracking-[0.24em] text-[color:var(--text-muted)]">
+      <span className="absolute top-4 right-4 flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         <motion.span
           className="inline-block h-1.5 w-1.5 rounded-full"
           style={{ backgroundColor: accent, boxShadow: `0 0 8px ${accent}` }}
@@ -110,7 +110,7 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
       {/* Body */}
       <div className="flex flex-col gap-1">
         <div
-          className="font-mono text-[10px] uppercase tracking-[0.28em]"
+          className="font-mono text-[10px] uppercase tracking-[0.18em]"
           style={{ color: accent }}
         >
           {label}
@@ -121,7 +121,7 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
       </div>
 
       {/* Footer arrow indicator */}
-      <div className="mt-auto flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.24em] text-[color:var(--text-muted)]">
+      <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         <span>
           CH · {String(index + 1).padStart(2, "0")}
         </span>

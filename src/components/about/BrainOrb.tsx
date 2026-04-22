@@ -60,7 +60,7 @@ export default function BrainOrb() {
       />
 
       {/* Caption */}
-      <div className="pointer-events-none absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.32em] text-[color:var(--text-muted)]">
+      <div className="pointer-events-none absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
         <span className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-[color:var(--accent-primary)]" />
         Cognitive network · live
       </div>

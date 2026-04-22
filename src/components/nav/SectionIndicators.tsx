@@ -37,7 +37,7 @@ export default function SectionIndicators() {
               >
                 {/* Floating label (reveals on hover) */}
                 <span
-                  className="translate-x-1 rounded-full border border-white/10 bg-[color:var(--bg-secondary)]/80 px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.28em] text-[color:var(--text-primary)] opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
+                  className="translate-x-1 rounded-full border border-white/10 bg-[color:var(--bg-secondary)]/80 px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-primary)] opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:translate-x-0 group-hover:opacity-100"
                   style={{
                     boxShadow: "0 6px 24px -6px rgba(0,212,255,0.3)",
                   }}

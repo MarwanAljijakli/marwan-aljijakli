@@ -39,7 +39,7 @@ export default function MiningBarChart() {
       ref={ref}
       className="relative flex h-full w-full flex-col justify-center rounded-lg bg-black/30 p-4"
     >
-      <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
+      <div className="mb-3 flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         <span className="flex items-center gap-2">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-amber-400 shadow-[0_0_12px_rgba(252,196,78,0.6)]" />
           Mining Optimization Metrics

@@ -99,7 +99,7 @@ export default function TimelineEntry({
             <header className="flex flex-wrap items-center gap-3">
               <time
                 dateTime={entry.period}
-                className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]"
+                className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]"
               >
                 {entry.period}
               </time>
@@ -112,7 +112,7 @@ export default function TimelineEntry({
             <div className="mt-3">
               {entry.tagline && (
                 <div
-                  className="mb-1 font-mono text-[10px] uppercase tracking-[0.28em]"
+                  className="mb-1 font-mono text-[10px] uppercase tracking-[0.18em]"
                   style={{ color: `${color}dd` }}
                 >
                   /· {entry.tagline}
@@ -133,7 +133,7 @@ export default function TimelineEntry({
             </div>
 
             {/* Achievements list */}
-            <ul className="mt-5 flex flex-col gap-2.5">
+            <ul className="mt-5 flex flex-col gap-3">
               {entry.achievements.map((a, i) => (
                 <motion.li
                   key={i}
@@ -145,14 +145,14 @@ export default function TimelineEntry({
                     ease: EASE_OUT_EXPO,
                   }}
                   data-cursor="text"
-                  className="flex items-start gap-2.5 font-mono text-[12px] leading-[1.6] text-[color:var(--text-secondary)]"
+                  className="flex items-start gap-3 text-[15px] leading-[1.6] text-[color:var(--text-secondary)]"
                 >
                   <span
                     aria-hidden
-                    className="mt-0.5 font-semibold"
+                    className="mt-1 font-mono text-[13px] font-semibold"
                     style={{ color }}
                   >
-                    {">"}
+                    &gt;
                   </span>
                   <span>{a}</span>
                 </motion.li>
@@ -268,7 +268,7 @@ function CurrentBadge({ color }: { color: string }) {
         ],
       }}
       transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[9px] uppercase tracking-[0.26em]"
+      className="inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 font-mono text-[10px] uppercase tracking-[0.16em]"
       style={{
         borderColor: `${color}55`,
         backgroundColor: `${color}12`,

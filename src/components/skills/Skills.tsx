@@ -87,7 +87,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]"
+            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]"
           >
             <span className="inline-block h-px w-10 bg-[color:var(--accent-primary)]" />
             04 · The Tech Stack
@@ -115,7 +115,7 @@ export default function Skills() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true, margin: "-15%" }}
               transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="hidden flex-col items-end font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)] lg:flex"
+              className="hidden flex-col items-end font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)] lg:flex"
             >
               <span className="flex items-center gap-2">
                 <span className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-[color:var(--accent-primary)]" />
@@ -150,7 +150,7 @@ export default function Skills() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]"
+            className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]"
           >
             <span className="inline-block h-px w-10 bg-[color:var(--text-muted)]" />
             Capabilities · by domain

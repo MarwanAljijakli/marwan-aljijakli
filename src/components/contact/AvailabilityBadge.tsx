@@ -10,7 +10,7 @@ export default function AvailabilityBadge() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-5%" }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-3 rounded-full border border-[#10dc78]/30 bg-[color:var(--bg-secondary)]/50 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-secondary)] backdrop-blur-sm"
+      className="flex items-center gap-3 rounded-full border border-[#10dc78]/30 bg-[color:var(--bg-secondary)]/50 px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-secondary)] backdrop-blur-sm"
     >
       <span className="relative flex h-2 w-2 items-center justify-center">
         <motion.span

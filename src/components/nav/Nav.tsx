@@ -131,7 +131,7 @@ function NavImpl() {
                     onClick={handleLinkClick(s.id)}
                     data-cursor="hover"
                     aria-current={isActive ? "true" : undefined}
-                    className="group relative block px-3 py-2 font-mono text-[11px] uppercase tracking-[0.24em]"
+                    className="group relative block px-3 py-2 font-mono text-[11px] uppercase tracking-[0.14em]"
                   >
                     <span
                       className={`relative z-10 transition-colors ${
@@ -171,7 +171,7 @@ function NavImpl() {
               href="#contact"
               onClick={handleLinkClick("contact")}
               data-cursor="hover"
-              className="group relative hidden items-center gap-2 overflow-hidden rounded-full bg-[color:var(--accent-primary)] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--bg-primary)] transition-transform duration-200 hover:scale-[1.04] md:inline-flex"
+              className="group relative hidden items-center gap-2 overflow-hidden rounded-full bg-[color:var(--accent-primary)] px-4 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--bg-primary)] transition-transform duration-200 hover:scale-[1.04] md:inline-flex"
             >
               <span
                 aria-hidden
@@ -342,7 +342,7 @@ function MobileOverlay({
                   style={{ fontSize: "clamp(2.25rem, 10vw, 3rem)" }}
                 >
                   <span className="flex items-baseline gap-3">
-                    <span className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]">
+                    <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
                       {String(i + 1).padStart(2, "0")}
                     </span>
                     {s.label.toUpperCase()}
@@ -371,12 +371,12 @@ function MobileOverlay({
         >
           <a
             href="mailto:marwan2004000@gmail.com"
-            className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/40 bg-[color:var(--accent-primary)]/10 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.26em] text-[color:var(--accent-primary)] transition-colors hover:bg-[color:var(--accent-primary)] hover:text-[color:var(--bg-primary)]"
+            className="group inline-flex items-center gap-2 rounded-full border border-[color:var(--accent-primary)]/40 bg-[color:var(--accent-primary)]/10 px-4 py-2 font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--accent-primary)] transition-colors hover:bg-[color:var(--accent-primary)] hover:text-[color:var(--bg-primary)]"
           >
             <Mail className="h-3.5 w-3.5" strokeWidth={2} />
             marwan2004000@gmail.com
           </a>
-          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
             Jeddah, KSA · GMT+3
           </div>
         </motion.div>

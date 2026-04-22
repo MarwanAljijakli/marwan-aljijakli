@@ -58,13 +58,13 @@ export default function AuraFeaturedCard({
               ],
             }}
             transition={{ duration: 2.2, repeat: Infinity, ease: "easeInOut" }}
-            className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.24em] text-amber-300"
+            className="inline-flex items-center gap-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.14em] text-amber-300"
           >
             <span aria-hidden>🏆</span>
             Flagship Project
           </motion.span>
           {project.year && (
-            <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-[color:var(--text-muted)]">
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
               {project.year}
             </span>
           )}
@@ -90,7 +90,7 @@ export default function AuraFeaturedCard({
         {/* Description */}
         <p
           data-cursor="text"
-          className="max-w-xl text-[color:var(--text-secondary)] md:text-[15px] md:leading-[1.65]"
+          className="max-w-xl text-[15px] leading-[1.65] text-[color:var(--text-secondary)] md:text-[16px] md:leading-[1.7]"
         >
           {project.description}
         </p>
@@ -116,7 +116,7 @@ export default function AuraFeaturedCard({
             type="button"
             onClick={onOpen}
             data-cursor="hover"
-            className="group/btn inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-tertiary)] px-6 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-[color:var(--bg-primary)] transition-transform duration-300 ease-out-expo hover:scale-[1.04]"
+            className="group/btn inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-tertiary)] px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--bg-primary)] transition-transform duration-300 ease-out-expo hover:scale-[1.04]"
             style={{
               boxShadow: "0 0 0 rgba(255,107,53,0)",
             }}
@@ -136,7 +136,7 @@ export default function AuraFeaturedCard({
             type="button"
             onClick={onOpen}
             data-cursor="hover"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-transparent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.24em] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent-tertiary)] hover:text-[color:var(--accent-tertiary)]"
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-transparent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent-tertiary)] hover:text-[color:var(--accent-tertiary)]"
           >
             Technical Details
             <ArrowRight className="h-4 w-4" strokeWidth={2} />
@@ -160,7 +160,7 @@ export default function AuraFeaturedCard({
         <AuraSimulation speedRef={speedRef} />
 
         {/* Legend overlay */}
-        <div className="pointer-events-none absolute bottom-5 left-5 flex flex-wrap items-center gap-3 font-mono text-[9px] uppercase tracking-[0.22em] text-white/80">
+        <div className="pointer-events-none absolute bottom-5 left-5 flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.14em] text-white/80">
           <LegendDot color="#ffce3c" label="Worker" />
           <LegendDot color="#ff3b5c" label="Restricted" />
           <LegendDot color="#ffd93c" label="CCTV FOV" />
@@ -169,7 +169,7 @@ export default function AuraFeaturedCard({
         </div>
 
         {/* "Live" tag */}
-        <div className="pointer-events-none absolute top-5 right-5 flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[9px] uppercase tracking-[0.28em] text-white/90 backdrop-blur-sm">
+        <div className="pointer-events-none absolute top-5 right-5 flex items-center gap-2 rounded-full border border-white/10 bg-black/40 px-3 py-1 font-mono text-[10px] uppercase tracking-[0.18em] text-white/90 backdrop-blur-sm">
           <span className="inline-block h-1.5 w-1.5 rounded-full bg-red-500 shadow-[0_0_10px_rgba(255,60,80,0.8)]" />
           Live simulation
         </div>

@@ -123,7 +123,7 @@ function SectionEyebrow() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]"
+      className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]"
     >
       <span className="inline-block h-px w-10 bg-[color:var(--accent-primary)]" />
       02 · About

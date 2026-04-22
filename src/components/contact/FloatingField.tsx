@@ -123,9 +123,9 @@ export default function FloatingField(props: FloatingFieldProps) {
         htmlFor={id}
         className={`pointer-events-none absolute left-0 origin-left font-mono uppercase transition-all duration-200 ease-out
           peer-placeholder-shown:top-[22px] peer-placeholder-shown:text-[13px] peer-placeholder-shown:tracking-[0.02em] peer-placeholder-shown:text-[color:var(--text-muted)]
-          peer-focus:top-0 peer-focus:text-[9px] peer-focus:tracking-[0.32em] peer-focus:text-[color:var(--accent-primary)]
-          top-0 text-[9px] tracking-[0.32em] text-[color:var(--text-muted)]
-          ${alwaysFloat ? "!top-0 !text-[9px] !tracking-[0.32em]" : ""}
+          peer-focus:top-0 peer-focus:text-[10px] peer-focus:tracking-[0.2em] peer-focus:text-[color:var(--accent-primary)]
+          top-0 text-[10px] tracking-[0.2em] text-[color:var(--text-muted)]
+          ${alwaysFloat ? "!top-0 !text-[10px] !tracking-[0.2em]" : ""}
         `}
       >
         {label}

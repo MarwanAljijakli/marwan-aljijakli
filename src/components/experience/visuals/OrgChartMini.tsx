@@ -63,7 +63,7 @@ export default function OrgChartMini({
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-[9px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
+      <div className="flex items-center justify-between px-3 pt-2 pb-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         <span>/· org · structure</span>
         <span>depth = 3 · breadth = 6</span>
       </div>

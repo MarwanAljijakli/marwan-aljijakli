@@ -98,14 +98,14 @@ export default function RadarChart() {
     <div ref={ref} className="relative flex flex-col gap-4">
       <header className="flex items-center justify-between gap-4">
         <div>
-          <div className="font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--accent-primary)]">
+          <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
             fig. 01 — capability radar
           </div>
           <div className="mt-1 font-display text-2xl md:text-3xl">
             Skill surface · normalised
           </div>
         </div>
-        <div className="hidden font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--text-muted)] md:block">
+        <div className="hidden font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)] md:block">
           n = {AXES.length} · max = 100
         </div>
       </header>

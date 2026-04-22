@@ -31,7 +31,7 @@ export default function Portrait() {
       whileInView={{ opacity: 1, y: 0, scale: 1 }}
       viewport={{ once: true, margin: "-10%" }}
       transition={{ duration: 0.9, ease: EASE_OUT_EXPO }}
-      className="relative mx-auto w-full max-w-[460px]"
+      className="relative mx-auto w-full max-w-[320px]"
     >
       {/* ---- Outer animated gradient border ----------------------------- */}
       <motion.span
@@ -103,7 +103,7 @@ export default function Portrait() {
             />
 
             {/* Top-right "live" chip */}
-            <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/50 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.28em] text-white/90 backdrop-blur-sm">
+            <div className="absolute top-3 right-3 flex items-center gap-1.5 rounded-full border border-white/10 bg-black/50 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.16em] text-white/90 backdrop-blur-sm">
               <motion.span
                 className="inline-block h-1.5 w-1.5 rounded-full bg-[#10dc78]"
                 style={{ boxShadow: "0 0 10px #10dc78" }}
@@ -118,23 +118,23 @@ export default function Portrait() {
                     : { duration: 2, repeat: Infinity, ease: "easeInOut" }
                 }
               />
-              On the ground · ICAIS 2025
+              ICAIS 2025
             </div>
 
             {/* In-image caption */}
-            <div className="absolute inset-x-0 bottom-0 px-5 pb-4">
-              <div className="font-mono text-[9px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]">
+            <div className="absolute inset-x-0 bottom-0 px-4 pb-3.5">
+              <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]">
                 /· profile · subject_01
               </div>
               <div
-                className="mt-1.5 font-display leading-none tracking-tight text-white"
-                style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)" }}
+                className="mt-1 font-display leading-none tracking-tight text-white"
+                style={{ fontSize: "clamp(1.25rem, 2.2vw, 1.6rem)" }}
               >
                 Marwan Aljijakli
               </div>
-              <div className="mt-1 flex items-center gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-white/75">
-                <MapPin className="h-3 w-3" strokeWidth={1.6} />
-                Jeddah, KSA · GMT+3
+              <div className="mt-1 flex items-center gap-1.5 font-mono text-[11px] text-white/80">
+                <MapPin className="h-3 w-3" strokeWidth={1.8} />
+                Jeddah · GMT+3
               </div>
             </div>
           </div>
@@ -142,15 +142,15 @@ export default function Portrait() {
       </div>
 
       {/* ---- Credential strip under the photo --------------------------- */}
-      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--text-muted)]">
+      <div className="mt-3 flex flex-wrap items-center justify-between gap-2 font-mono text-[11px] tracking-[0.04em] text-[color:var(--text-secondary)]">
         <span className="flex items-center gap-1.5">
           <CheckCircle2
-            className="h-3 w-3 text-[color:var(--accent-primary)]"
+            className="h-3.5 w-3.5 text-[color:var(--accent-primary)]"
             strokeWidth={2}
           />
-          Verified · CTO &amp; AI/ML Engineer
+          Verified operator
         </span>
-        <span>fig. 00 — operator</span>
+        <span className="text-[color:var(--text-muted)]">fig. 00</span>
       </div>
     </motion.div>
   );

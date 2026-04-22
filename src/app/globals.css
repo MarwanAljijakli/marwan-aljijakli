@@ -16,10 +16,14 @@
   --accent-secondary: #7b2fbe; /* deep violet */
   --accent-tertiary: #ff6b35;  /* orange highlight */
 
-  /* Text */
+  /* Text
+   * - --text-primary:   body copy, headlines
+   * - --text-secondary: supporting paragraphs, meta rows      (WCAG AAA on bg-primary)
+   * - --text-muted:     decorative eyebrows / axis labels     (WCAG AA  on bg-primary)
+   */
   --text-primary: #e8f4fd;
-  --text-secondary: #8ba3c7;
-  --text-muted: #5a7298;
+  --text-secondary: #a4b6d1;
+  --text-muted: #7d92b8;
 
   /* Utility */
   --grid-lines: rgba(0, 212, 255, 0.08);
@@ -45,6 +49,19 @@
   box-sizing: border-box;
 }
 
+html {
+  /* Base unit so the whole site scales from one lever. 16px on small screens,
+     gently larger on big displays so desktop reading is comfortable. */
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (min-width: 1280px) {
+  html {
+    font-size: 17px;
+  }
+}
+
 html,
 body {
   padding: 0;
@@ -52,11 +69,15 @@ body {
   background: var(--bg-primary);
   color: var(--text-primary);
   font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
-  font-feature-settings: "ss01", "cv11";
+  /* Inter stylistic sets: ss01 alt-style letters, cv11 alt curly numerals.
+     Remove old `ss01 cv11` if they're making glyphs look awkward. */
+  font-feature-settings: "cv11";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  font-synthesis: none;
   overflow-x: hidden;
+  line-height: 1.55;
 }
 
 html.lenis,

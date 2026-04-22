@@ -237,7 +237,7 @@ export default function EcgChart({ speedMul = 1 }: { speedMul?: number }) {
       </svg>
 
       {/* HR readout */}
-      <div className="absolute left-4 top-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
+      <div className="absolute left-4 top-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         HR
         <span className="text-base font-semibold tabular-nums text-[#12ff88]">
           {hr}
@@ -246,7 +246,7 @@ export default function EcgChart({ speedMul = 1 }: { speedMul?: number }) {
       </div>
 
       {/* SpO₂ readout */}
-      <div className="absolute right-4 top-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
+      <div className="absolute right-4 top-3 flex items-baseline gap-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         SpO₂
         <span className="text-base font-semibold tabular-nums text-[#12ff88]">
           98

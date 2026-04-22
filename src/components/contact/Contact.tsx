@@ -52,7 +52,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
-            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-[color:var(--accent-tertiary)]"
+            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-tertiary)]"
           >
             <span className="inline-block h-px w-10 bg-[color:var(--accent-tertiary)]" />
             06 · Initiate Contact
@@ -115,7 +115,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
-            className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.28em] text-[color:var(--text-muted)]"
+            className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]"
           >
             <span className="inline-block h-px w-10 bg-[color:var(--text-muted)]" />
             Transmission channels · 5 open

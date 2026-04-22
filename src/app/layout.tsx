@@ -130,7 +130,7 @@ export default function RootLayout({
         {/* Skip to main content — hidden until focused by keyboard. */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-[color:var(--accent-primary)] focus:px-4 focus:py-2 focus:font-mono focus:text-[11px] focus:uppercase focus:tracking-[0.24em] focus:text-[color:var(--bg-primary)] focus:shadow-lg"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-[color:var(--accent-primary)] focus:px-4 focus:py-2 focus:font-mono focus:text-[11px] focus:uppercase focus:tracking-[0.14em] focus:text-[color:var(--bg-primary)] focus:shadow-lg"
         >
           Skip to content
         </a>

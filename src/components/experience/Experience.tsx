@@ -63,7 +63,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, ease: EASE_OUT_EXPO }}
-            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.32em] text-[color:var(--accent-primary)]"
+            className="flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.2em] text-[color:var(--accent-primary)]"
           >
             <Terminal className="h-3.5 w-3.5" strokeWidth={1.6} />
             05 · Mission Log
@@ -90,7 +90,7 @@ export default function Experience() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-10%" }}
             transition={{ duration: 0.6, delay: 0.15, ease: EASE_OUT_EXPO }}
-            className="max-w-xl font-mono text-[12px] uppercase leading-relaxed tracking-[0.22em] text-[color:var(--text-muted)]"
+            className="max-w-xl font-mono text-[12px] uppercase leading-relaxed tracking-[0.14em] text-[color:var(--text-muted)]"
           >
             A chronological log of shipped work — roles, responsibilities,
             and the systems that came out of each sprint.
@@ -148,7 +148,7 @@ export default function Experience() {
             className="relative mt-12 ml-6 md:ml-0 md:text-center"
           >
             <span
-              className="inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--accent-secondary)]/30 bg-[color:var(--bg-secondary)]/60 px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.26em] text-[color:var(--text-muted)] backdrop-blur-sm md:translate-x-0"
+              className="inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-[color:var(--accent-secondary)]/30 bg-[color:var(--bg-secondary)]/60 px-4 py-1.5 font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-muted)] backdrop-blur-sm md:translate-x-0"
             >
               <span className="animate-cursor-blink text-[color:var(--accent-primary)]">
                 $_

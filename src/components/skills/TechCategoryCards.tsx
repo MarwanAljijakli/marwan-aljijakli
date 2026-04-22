@@ -136,7 +136,7 @@ function Card({ category, index }: { category: Category; index: number }) {
             </h3>
           </div>
           <div
-            className="mt-0.5 font-mono text-[9px] uppercase tracking-[0.28em]"
+            className="mt-0.5 font-mono text-[10px] uppercase tracking-[0.18em]"
             style={{ color: `${category.accent}cc` }}
           >
             {String(index + 1).padStart(2, "0")} / 06

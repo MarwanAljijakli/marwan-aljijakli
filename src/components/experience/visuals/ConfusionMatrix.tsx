@@ -45,7 +45,7 @@ export default function ConfusionMatrix({
 
   return (
     <div className="relative">
-      <div className="flex items-center justify-between px-3 pt-2 font-mono text-[9px] uppercase tracking-[0.22em] text-[color:var(--text-muted)]">
+      <div className="flex items-center justify-between px-3 pt-2 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
         <span className="flex items-center gap-1.5">
           <span
             className="inline-block h-1.5 w-1.5 rounded-full"
