@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import GridBackground from "@/components/backgrounds/GridBackground";
 import MathBackground from "@/components/backgrounds/MathBackground";
+import { useLazySection } from "@/lib/hooks/useLazySection";
 import HeroContent from "./HeroContent";
 
 /**
@@ -21,10 +22,20 @@ const HeroScene = dynamic(() => import("./scene/HeroScene"), {
  *   1. A WebGL canvas (neural network + math particles + grid floor)
  *   2. A subtle vignette + gradient overlay for text legibility
  *   3. The absolute-positioned foreground (reveal animations + typewriter)
+ *
+ * The hero is above the fold, so we mount the Canvas immediately — but we
+ * still flip `frameloop` to "never" once the user has scrolled away, so the
+ * GPU isn't burning watts rendering a scene nobody's looking at.
  */
 export default function Hero() {
+  const { ref, isVisible } = useLazySection<HTMLElement>({
+    rootMargin: "0px",
+    threshold: 0.01,
+  });
+
   return (
     <section
+      ref={ref}
       id="top"
       aria-label="Marwan Aljijakli — CTO & AI/ML Engineer"
       className="relative isolate h-[100svh] min-h-[680px] w-full overflow-hidden bg-[color:var(--bg-primary)]"
@@ -41,7 +52,7 @@ export default function Hero() {
         className="absolute inset-0 z-[1]"
         aria-hidden="true"
       >
-        <HeroScene />
+        <HeroScene visible={isVisible} />
       </div>
 
       {/* --- Layer 2: Readability overlay ---

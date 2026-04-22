@@ -1,3 +1,9 @@
+import bundleAnalyzer from "@next/bundle-analyzer";
+
+const withBundleAnalyzer = bundleAnalyzer({
+  enabled: process.env.ANALYZE === "true",
+});
+
 /** @type {import('next').NextConfig} */
 
 // Headers applied to every response. Tight defaults for a portfolio that
@@ -26,10 +32,9 @@ const nextConfig = {
   // project screenshots or avatars on a CDN.
   images: {
     formats: ["image/avif", "image/webp"],
-    remotePatterns: [
-      // Example once deployed:
-      // { protocol: "https", hostname: "cdn.marwan.dev" },
-    ],
+    deviceSizes: [360, 640, 750, 828, 1080, 1200, 1920],
+    imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
+    remotePatterns: [],
   },
 
   // Faster `next build`: lean on SWC for both compilation and minification.
@@ -40,14 +45,49 @@ const nextConfig = {
         : false,
   },
 
+  experimental: {
+    // Tree-shakes barrel imports for these libraries — huge win for
+    // `lucide-react`, `@react-three/drei`, and `framer-motion`, all of which
+    // ship large index exports that webpack would otherwise bundle whole.
+    optimizePackageImports: [
+      "framer-motion",
+      "lucide-react",
+      "@react-three/drei",
+      "@react-three/fiber",
+      "d3-scale",
+      "d3-shape",
+    ],
+  },
+
   async headers() {
     return [
       {
         source: "/:path*",
         headers: securityHeaders,
       },
+      // Immutable hashed assets — safe to cache for a year at the edge.
+      {
+        source: "/_next/static/(.*)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      // Public static assets (portrait, fonts, og-image) — long cache with
+      // revalidation so updates still land.
+      {
+        source: "/(.*)\\.(png|jpg|jpeg|webp|avif|svg|ico|woff2|woff)",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
     ];
   },
 };
 
-export default nextConfig;
+export default withBundleAnalyzer(nextConfig);

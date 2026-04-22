@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef, type RefObject } from "react";
 import * as THREE from "three";
+import { useAdaptiveQuality } from "@/lib/hooks/useAdaptiveQuality";
 
 /* ==========================================================================
  * AuraSimulation
@@ -24,13 +25,26 @@ import * as THREE from "three";
 export interface AuraSimulationProps {
   /** Ref whose current value is used as a global speed multiplier. */
   speedRef: RefObject<number>;
+  /** Pauses the R3F frameloop when false. */
+  visible?: boolean;
 }
 
-export default function AuraSimulationScene({ speedRef }: AuraSimulationProps) {
+export default function AuraSimulationScene({
+  speedRef,
+  visible = true,
+}: AuraSimulationProps) {
+  const { config } = useAdaptiveQuality();
+
   return (
     <Canvas
-      dpr={[1, 1.75]}
-      gl={{ antialias: true, alpha: true, powerPreference: "high-performance" }}
+      dpr={[1, config.pixelRatio]}
+      frameloop={visible ? "always" : "never"}
+      gl={{
+        antialias: config.antialias,
+        alpha: true,
+        powerPreference: "high-performance",
+        stencil: false,
+      }}
       camera={{ position: [0, 12, 6.5], fov: 35, near: 0.1, far: 50 }}
     >
       <FactoryScene speedRef={speedRef} />

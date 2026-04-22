@@ -5,6 +5,8 @@ import type { RefObject } from "react";
 
 export interface AuraSimulationProps {
   speedRef: RefObject<number>;
+  /** Forwarded to the scene — pauses the R3F frameloop when false. */
+  visible?: boolean;
 }
 
 /**

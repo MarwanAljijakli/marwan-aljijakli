@@ -73,28 +73,39 @@ export default function MathBackground({
   const visible = useInViewport(wrapRef, "200px 0px");
   const prefersReduced = useReducedMotion();
 
-  /* --- Pointer tracking -------------------------------------------------- */
+  /* --- Pointer tracking --------------------------------------------------
+   * Cache the wrap's bounding rect and only refresh it on resize / scroll
+   * changes. Previously we called getBoundingClientRect() on *every* move
+   * which was the only reflow-trigger inside the hot animation loop.
+   * ---------------------------------------------------------------------- */
   useEffect(() => {
     const wrap = wrapRef.current;
     if (!wrap) return;
 
+    let rect = wrap.getBoundingClientRect();
+    const refreshRect = () => {
+      rect = wrap.getBoundingClientRect();
+    };
+
     const onMove = (e: PointerEvent) => {
-      const r = wrap.getBoundingClientRect();
-      mouseRef.current = {
-        x: e.clientX - r.left,
-        y: e.clientY - r.top,
-        active: true,
-      };
+      mouseRef.current.x = e.clientX - rect.left;
+      mouseRef.current.y = e.clientY - rect.top;
+      mouseRef.current.active = true;
     };
     const onLeave = () => {
       mouseRef.current.active = false;
     };
 
-    wrap.addEventListener("pointermove", onMove);
+    wrap.addEventListener("pointermove", onMove, { passive: true });
     wrap.addEventListener("pointerleave", onLeave);
+    window.addEventListener("resize", refreshRect);
+    window.addEventListener("scroll", refreshRect, { passive: true });
+
     return () => {
       wrap.removeEventListener("pointermove", onMove);
       wrap.removeEventListener("pointerleave", onLeave);
+      window.removeEventListener("resize", refreshRect);
+      window.removeEventListener("scroll", refreshRect);
     };
   }, []);
 

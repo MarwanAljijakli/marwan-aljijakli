@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useAdaptiveQuality } from "@/lib/hooks/useAdaptiveQuality";
 
 /* ==========================================================================
  * BrainOrbScene
@@ -33,17 +34,25 @@ const COLOR_EDGE_ACTIVE = new THREE.Color("#BFF7FF");
 
 interface SceneProps {
   hoveredRef: React.MutableRefObject<boolean>;
+  visible?: boolean;
 }
 
-export default function BrainOrbScene({ hoveredRef }: SceneProps) {
+export default function BrainOrbScene({
+  hoveredRef,
+  visible = true,
+}: SceneProps) {
+  const { config } = useAdaptiveQuality();
+
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, config.pixelRatio]}
+      frameloop={visible ? "always" : "never"}
       camera={{ position: [0, 0, 5.8], fov: 45, near: 0.1, far: 30 }}
       gl={{
         alpha: true,
-        antialias: true,
+        antialias: config.antialias,
         powerPreference: "high-performance",
+        stencil: false,
       }}
     >
       <BrainNetwork hoveredRef={hoveredRef} />
@@ -294,7 +303,10 @@ function BrainNetwork({ hoveredRef }: SceneProps) {
       <group ref={spinRef}>
         {/* Wireframe geodesic skull */}
         <mesh>
-          <icosahedronGeometry args={[RADIUS, 4]} />
+          {/* detail=3 → 320 tris; detail=4 → 1280 tris. At this size the
+             silhouette difference is invisible but we cut 75 % off the
+             wireframe's rasterisation cost. */}
+          <icosahedronGeometry args={[RADIUS, 3]} />
           <meshBasicMaterial
             color="#00D4FF"
             wireframe
@@ -306,7 +318,7 @@ function BrainNetwork({ hoveredRef }: SceneProps) {
 
         {/* Faint inner glow sphere */}
         <mesh>
-          <sphereGeometry args={[RADIUS * 0.97, 24, 24]} />
+          <sphereGeometry args={[RADIUS * 0.97, 16, 12]} />
           <meshBasicMaterial
             color="#00D4FF"
             transparent
@@ -333,7 +345,9 @@ function BrainNetwork({ hoveredRef }: SceneProps) {
           args={[undefined, undefined, NODE_COUNT]}
           frustumCulled={false}
         >
-          <sphereGeometry args={[0.04, 10, 10]} />
+          {/* 150 instances × octahedron (8 tris) = 1.2k tris total
+             instead of 24k. Indistinguishable at this scale. */}
+          <octahedronGeometry args={[0.05, 0]} />
           <meshBasicMaterial color="#ffffff" toneMapped={false} />
         </instancedMesh>
       </group>

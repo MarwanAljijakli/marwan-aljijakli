@@ -3,6 +3,7 @@
 import { useFrame, useThree } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useAdaptiveQuality } from "@/lib/hooks/useAdaptiveQuality";
 
 /* ==========================================================================
  * NeuralNetwork
@@ -21,7 +22,7 @@ import * as THREE from "three";
  *                are gently pulled toward it.
  * ========================================================================== */
 
-const NODE_COUNT = 200;
+const BASE_NODE_COUNT = 200;
 
 const BOUNDS_X = 7;
 const BOUNDS_Y = 4;
@@ -55,6 +56,15 @@ export default function NeuralNetwork() {
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const linesRef = useRef<THREE.LineSegments>(null);
 
+  // Adaptive node count — high-quality desktops get the full 200 nodes,
+  // mid-tier hardware 120, low-end phones 60 or fewer. The per-frame cost
+  // is O(n²) for edge detection so this compounds massively.
+  const { config } = useAdaptiveQuality();
+  const NODE_COUNT = Math.max(
+    20,
+    Math.round(BASE_NODE_COUNT * config.particleCount)
+  );
+
   // --- Per-node state (persistent across frames) ---------------------------
   const basePositions = useMemo(() => {
     const arr = new Float32Array(NODE_COUNT * 3);
@@ -64,16 +74,22 @@ export default function NeuralNetwork() {
       arr[i * 3 + 2] = (Math.random() - 0.5) * 2 * BOUNDS_Z;
     }
     return arr;
-  }, []);
+  }, [NODE_COUNT]);
 
   const seeds = useMemo(() => {
     const arr = new Float32Array(NODE_COUNT);
     for (let i = 0; i < NODE_COUNT; i++) arr[i] = Math.random() * 100;
     return arr;
-  }, []);
+  }, [NODE_COUNT]);
 
-  const positions = useMemo(() => new Float32Array(NODE_COUNT * 3), []);
-  const nodeEnergy = useMemo(() => new Float32Array(NODE_COUNT), []);
+  const positions = useMemo(
+    () => new Float32Array(NODE_COUNT * 3),
+    [NODE_COUNT]
+  );
+  const nodeEnergy = useMemo(
+    () => new Float32Array(NODE_COUNT),
+    [NODE_COUNT]
+  );
 
   // --- Shared edge buffers (pre-allocated, reused every frame) --------------
   const edgePositions = useMemo(() => new Float32Array(MAX_EDGES * 2 * 3), []);
@@ -103,7 +119,7 @@ export default function NeuralNetwork() {
       mesh.setColorAt(i, COLOR_NODE_REST);
     }
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true;
-  }, []);
+  }, [NODE_COUNT]);
 
   // Give material access to the shared geometry once.
   useEffect(() => {
@@ -311,12 +327,18 @@ export default function NeuralNetwork() {
 
   return (
     <group>
+      {/* Re-key on NODE_COUNT so the InstancedMesh reallocates its buffer
+         the rare case we hot-swap quality tier at runtime. */}
       <instancedMesh
+        key={`nodes-${NODE_COUNT}`}
         ref={meshRef}
         args={[undefined, undefined, NODE_COUNT]}
         frustumCulled={false}
       >
-        <sphereGeometry args={[0.05, 12, 12]} />
+        {/* Octahedron = 8 tris (vs 288 for a 12×12 sphere) — visually
+           identical at 0.05u screen size. Huge vertex-count win at 200
+           instances. */}
+        <octahedronGeometry args={[0.06, 0]} />
         {/* toneMapped:false keeps the cyan punchy without ACES compression. */}
         <meshBasicMaterial color="#ffffff" toneMapped={false} />
       </instancedMesh>

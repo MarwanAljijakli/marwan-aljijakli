@@ -3,6 +3,7 @@
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 import * as THREE from "three";
+import { useAdaptiveQuality } from "@/lib/hooks/useAdaptiveQuality";
 
 import NeuralNetwork from "./NeuralNetwork";
 import MathParticles from "./MathParticles";
@@ -18,17 +19,29 @@ import CameraRig from "./CameraRig";
  *   3. Animated grid floor with a scanning sweep
  *
  * CameraRig wires up the slow orbit + mouse tilt.
+ *
+ * `visible` is forwarded from the wrapper so we can drop the Canvas's
+ * frameloop to "never" once the hero scrolls off-screen — killing GPU cost
+ * for the rest of the session.
  */
-export default function HeroScene() {
+interface HeroSceneProps {
+  visible?: boolean;
+}
+
+export default function HeroScene({ visible = true }: HeroSceneProps) {
+  const { config } = useAdaptiveQuality();
+
   return (
     <Canvas
-      dpr={[1, 1.75]}
-      frameloop="always"
+      dpr={[1, config.pixelRatio]}
+      frameloop={visible ? "always" : "never"}
       gl={{
-        antialias: true,
+        antialias: config.antialias,
         alpha: true,
         powerPreference: "high-performance",
         toneMapping: THREE.NoToneMapping,
+        stencil: false,
+        depth: true,
       }}
       camera={{ position: [0, 0, 8], fov: 55, near: 0.1, far: 60 }}
     >

@@ -2,6 +2,7 @@
 
 import dynamic from "next/dynamic";
 import { useRef, useState } from "react";
+import { useLazySection } from "@/lib/hooks/useLazySection";
 
 const BrainOrbScene = dynamic(() => import("./BrainOrbScene"), {
   ssr: false,
@@ -13,13 +14,23 @@ const BrainOrbScene = dynamic(() => import("./BrainOrbScene"), {
  * R3F frame loop can read it without the scene re-mounting on every hover
  * change, and carries the scene's cursor semantics (`data-three-canvas` →
  * automatic crosshair cursor).
+ *
+ * The heavy R3F subtree is only mounted the first time the orb approaches
+ * the viewport, and its render loop is paused whenever the orb scrolls
+ * off-screen — saving the GPU from rendering 150 nodes + connection graph
+ * while the reader is elsewhere on the page.
  */
 export default function BrainOrb() {
   const hoveredRef = useRef(false);
   const [, setBumpKey] = useState(0); // trivial re-render on hover to trigger fade
 
+  const { ref, hasBeenVisible, isVisible } = useLazySection<HTMLDivElement>({
+    rootMargin: "250px",
+  });
+
   return (
     <div
+      ref={ref}
       data-three-canvas
       onPointerEnter={() => {
         hoveredRef.current = true;
@@ -47,7 +58,9 @@ export default function BrainOrb() {
         }}
       />
 
-      <BrainOrbScene hoveredRef={hoveredRef} />
+      {hasBeenVisible && (
+        <BrainOrbScene hoveredRef={hoveredRef} visible={isVisible} />
+      )}
 
       {/* Inner vignette — keeps the orb feeling contained */}
       <div
@@ -60,7 +73,7 @@ export default function BrainOrb() {
       />
 
       {/* Caption */}
-      <div className="pointer-events-none absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.2em] text-[color:var(--text-muted)]">
+      <div className="pointer-events-none absolute bottom-3 left-0 right-0 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--text-muted)]">
         <span className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-[color:var(--accent-primary)]" />
         Cognitive network · live
       </div>

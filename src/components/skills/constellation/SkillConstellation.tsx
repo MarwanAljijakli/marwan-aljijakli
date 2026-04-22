@@ -2,7 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
+import { useLazySection } from "@/lib/hooks/useLazySection";
 import { CATEGORIES, type Star } from "./starData";
 
 const ConstellationScene = dynamic(() => import("./ConstellationScene"), {
@@ -23,14 +24,26 @@ const ConstellationScene = dynamic(() => import("./ConstellationScene"), {
 export default function SkillConstellation() {
   const [hovered, setHovered] = useState<Star | null>(null);
   const [mouse, setMouse] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
-  const wrapRef = useRef<HTMLDivElement>(null);
 
-  const onMove = (e: React.PointerEvent) => {
+  // Use a ref-backed mount gate so the heavy R3F scene only enters the
+  // tree once the skills section is close to the viewport, and its
+  // frameloop pauses the moment it leaves again.
+  const { ref: wrapRef, hasBeenVisible, isVisible } = useLazySection<HTMLDivElement>({
+    rootMargin: "250px",
+  });
+
+  // Throttle mouse tracking — we only need it for tooltip positioning and
+  // it caused a re-render per pixel otherwise.
+  const lastMoveRef = useRef(0);
+  const onMove = useCallback((e: React.PointerEvent) => {
+    const now = performance.now();
+    if (now - lastMoveRef.current < 33) return; // ~30fps is plenty
+    lastMoveRef.current = now;
     const el = wrapRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
     setMouse({ x: e.clientX - r.left, y: e.clientY - r.top });
-  };
+  }, [wrapRef]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -66,10 +79,13 @@ export default function SkillConstellation() {
         {/* Faint grid */}
         <div aria-hidden className="absolute inset-0 opacity-30 grid-bg" />
 
-        <ConstellationScene
-          hoveredName={hovered?.name ?? null}
-          onHoverChange={setHovered}
-        />
+        {hasBeenVisible && (
+          <ConstellationScene
+            hoveredName={hovered?.name ?? null}
+            onHoverChange={setHovered}
+            visible={isVisible}
+          />
+        )}
 
         {/* Corner readout */}
         <div className="pointer-events-none absolute top-3 left-3 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">

@@ -3,6 +3,7 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { useEffect, useMemo, useRef } from "react";
 import * as THREE from "three";
+import { useAdaptiveQuality } from "@/lib/hooks/useAdaptiveQuality";
 import {
   STARS,
   buildEdges,
@@ -27,17 +28,27 @@ import {
 interface Props {
   hoveredName: string | null;
   onHoverChange: (star: Star | null) => void;
+  visible?: boolean;
 }
 
 export default function ConstellationScene({
   hoveredName,
   onHoverChange,
+  visible = true,
 }: Props) {
+  const { config } = useAdaptiveQuality();
+
   return (
     <Canvas
-      dpr={[1, 2]}
+      dpr={[1, config.pixelRatio]}
+      frameloop={visible ? "always" : "never"}
       camera={{ position: [0, 1.8, 13], fov: 55, near: 0.1, far: 60 }}
-      gl={{ alpha: true, antialias: true }}
+      gl={{
+        alpha: true,
+        antialias: config.antialias,
+        powerPreference: "high-performance",
+        stencil: false,
+      }}
     >
       <Constellation hoveredName={hoveredName} onHoverChange={onHoverChange} />
     </Canvas>

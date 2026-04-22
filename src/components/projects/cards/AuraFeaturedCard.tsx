@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
+import { useLazySection } from "@/lib/hooks/useLazySection";
 import AuraSimulation from "../visuals/AuraSimulation";
 import TechPill from "../TechPill";
 import type { Project } from "../data";
@@ -24,6 +25,15 @@ export default function AuraFeaturedCard({
   const setSpeed = (s: number) => {
     speedRef.current = s;
   };
+
+  // Only mount the R3F factory scene once the card nears the viewport, and
+  // pause its render loop when it leaves. This was the single heaviest
+  // background animation on the page.
+  const {
+    ref: simWrapRef,
+    hasBeenVisible,
+    isVisible,
+  } = useLazySection<HTMLDivElement>({ rootMargin: "400px" });
 
   return (
     <motion.article
@@ -148,6 +158,7 @@ export default function AuraFeaturedCard({
       {/* RIGHT: live simulation                                           */}
       {/* ---------------------------------------------------------------- */}
       <div
+        ref={simWrapRef}
         data-three-canvas
         className="relative min-h-[300px] lg:min-h-0"
       >
@@ -156,8 +167,10 @@ export default function AuraFeaturedCard({
           aria-hidden
           className="pointer-events-none absolute inset-4 rounded-2xl border border-white/5"
         />
-        {/* Canvas */}
-        <AuraSimulation speedRef={speedRef} />
+        {/* Canvas — only mounts once near viewport, pauses when off-screen */}
+        {hasBeenVisible && (
+          <AuraSimulation speedRef={speedRef} visible={isVisible} />
+        )}
 
         {/* Legend overlay */}
         <div className="pointer-events-none absolute bottom-5 left-5 flex flex-wrap items-center gap-3 font-mono text-[10px] uppercase tracking-[0.14em] text-white/80">
