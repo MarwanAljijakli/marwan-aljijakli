@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import MathBackground from "@/components/backgrounds/MathBackground";
 import GlitchText from "@/components/common/GlitchText";
 import BioReveal from "./BioReveal";
+import Portrait from "./Portrait";
 import BrainOrb from "./BrainOrb";
 import CounterCards from "./CounterCards";
 import EducationTimeline from "./EducationTimeline";
@@ -96,6 +97,7 @@ export default function About() {
 
           {/* ================= RIGHT COLUMN (40%) ===================== */}
           <div className="flex flex-col gap-10 lg:col-span-2">
+            <Portrait />
             <BrainOrb />
             <Terminal />
           </div>
