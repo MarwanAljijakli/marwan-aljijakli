@@ -159,7 +159,7 @@ export default function CapabilityBars() {
         {/* Column labels */}
         <div className="mb-2 flex items-center gap-3 font-mono text-[9.5px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]">
           <span className="w-6 shrink-0" />
-          <span className="w-28 shrink-0 md:w-36">domain</span>
+          <span className="w-40 shrink-0">domain</span>
           <span className="flex-1">capability</span>
           <span className="w-10 shrink-0 text-right">score</span>
         </div>
@@ -185,7 +185,7 @@ export default function CapabilityBars() {
         {/* Scale axis */}
         <div className="mt-2 flex items-center gap-3">
           <span className="w-6 shrink-0" />
-          <span className="w-28 shrink-0 md:w-36" />
+          <span className="w-40 shrink-0" />
           <div className="relative flex-1">
             <div className="flex justify-between font-mono text-[9.5px] tabular-nums text-[color:var(--text-muted)]">
               {[0, 20, 40, 60, 80, 100].map((n) => (
@@ -244,14 +244,14 @@ function BarRow({
       </span>
 
       {/* Label */}
-      <div className="w-28 shrink-0 md:w-36">
+      <div className="w-40 shrink-0">
         <div
-          className="truncate font-mono text-[11.5px] uppercase tracking-[0.14em] transition-colors"
+          className="font-mono text-[11px] uppercase leading-tight tracking-[0.12em] transition-colors"
           style={{ color: isHovered ? domain.color : "#E8F4FD" }}
         >
           {domain.name}
         </div>
-        <div className="mt-0.5 truncate text-[10.5px] text-[color:var(--text-muted)]">
+        <div className="mt-1 text-[10.5px] leading-snug text-[color:var(--text-muted)]">
           {domain.sub}
         </div>
       </div>
@@ -316,10 +316,10 @@ function MeanLine({ mean, inView }: { mean: number; inView: boolean }) {
       transition={{ duration: 0.5, delay: 1.4, ease: EASE }}
       className="pointer-events-none absolute inset-y-0 flex items-stretch"
       style={{
-        // Left = rank chip (24px) + gap (12px) + label (144px on md+) + gap (12px)
-        // We approximate by pushing in from the label cell; on mobile it
-        // just shifts a bit but the line still reads clearly.
-        left: "calc(24px + 12px + 144px + 12px)",
+        // Left = rank chip (24px) + gap (12px) + label column (160px · w-40)
+        //        + gap (12px). Kept consistent at all breakpoints so the
+        //        μ marker stays aligned with the start of every bar track.
+        left: "calc(24px + 12px + 160px + 12px)",
         right: "calc(40px + 12px)",
       }}
     >
