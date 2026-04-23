@@ -31,57 +31,71 @@ interface Domain {
 const RAW: Domain[] = [
   {
     name: "Prompt Engineering",
-    sub: "Chain-of-thought · guardrails · tool use",
+    sub: "Chain-of-thought · guardrails · structured output",
     value: 97,
     color: "#fcc44e",
     glow: "rgba(252,196,78,0.35)",
   },
   {
-    name: "LLM · GenAI",
-    sub: "GPT-4 · Claude · Llama · Qwen",
+    name: "LLM & GenAI Engineering",
+    sub: "GPT-4 · Claude · Llama · Ollama · vLLM",
     value: 95,
-    color: "#00D4FF",
-    glow: "rgba(0,212,255,0.35)",
+    color: "#38BDF8",
+    glow: "rgba(56,189,248,0.4)",
   },
   {
-    name: "RAG Systems",
-    sub: "LangChain · FAISS · hybrid retrieval",
+    name: "RAG & Vector Search",
+    sub: "LangChain · FAISS · Qdrant · hybrid retrieval",
     value: 95,
-    color: "#00D4FF",
-    glow: "rgba(0,212,255,0.35)",
+    color: "#A78BFA",
+    glow: "rgba(167,139,250,0.4)",
   },
   {
     name: "Computer Vision",
-    sub: "OpenCV · YOLO · MediaPipe · rPPG",
-    value: 90,
+    sub: "YOLO · OpenCV · MediaPipe · rPPG · ONNX",
+    value: 92,
     color: "#10dc78",
     glow: "rgba(16,220,120,0.35)",
   },
   {
+    name: "AI / ML Training",
+    sub: "PyTorch · TensorFlow · CUDA · LoRA / PEFT",
+    value: 90,
+    color: "#00D4FF",
+    glow: "rgba(0,212,255,0.35)",
+  },
+  {
     name: "System Architecture",
-    sub: "FastAPI · microservices · vector DBs",
+    sub: "Microservices · async · vector DBs · edge",
     value: 88,
     color: "#BFF7FF",
     glow: "rgba(191,247,255,0.35)",
   },
   {
-    name: "DevOps",
-    sub: "Docker · CI/CD · Linux edge",
+    name: "Backend & APIs",
+    sub: "FastAPI · WebSocket · Celery · Redis queues",
     value: 88,
+    color: "#F59E0B",
+    glow: "rgba(245,158,11,0.4)",
+  },
+  {
+    name: "DevOps & Cloud",
+    sub: "Docker · Kubernetes · AWS · CI/CD · Nginx",
+    value: 85,
     color: "#FF6B35",
     glow: "rgba(255,107,53,0.35)",
   },
   {
     name: "Data Engineering",
-    sub: "Python · SQL · Postgres · feature stores",
+    sub: "Postgres · Redis · MongoDB · pipelines",
     value: 82,
     color: "#7B2FBE",
     glow: "rgba(123,47,190,0.4)",
   },
   {
-    name: "Mobile",
-    sub: "Flutter · Dart · streaming APIs",
-    value: 75,
+    name: "Frontend & Mobile",
+    sub: "Next.js · Tailwind · Three.js · Flutter",
+    value: 78,
     color: "#a4b6d1",
     glow: "rgba(164,182,209,0.3)",
   },
@@ -106,10 +120,10 @@ export default function CapabilityBars() {
       <header className="flex items-start justify-between gap-4">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
-            fig. 01 — capability profile
+            fig. 01 — production capability profile
           </div>
           <div className="mt-1 font-display text-2xl md:text-3xl">
-            Domain depth · ranked
+            Engineering depth · ranked
           </div>
         </div>
         <div className="flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
@@ -121,6 +135,24 @@ export default function CapabilityBars() {
           </span>
         </div>
       </header>
+
+      {/* ── Seniority strip — what the numbers actually represent ────── */}
+      <div className="flex flex-wrap items-center gap-1.5">
+        {[
+          "End-to-end ownership",
+          "Applied research",
+          "Production AI",
+          "Team leadership",
+          "Strategic roadmap",
+        ].map((cap) => (
+          <span
+            key={cap}
+            className="rounded-md border border-[color:var(--accent-primary)]/20 bg-[color:var(--accent-primary)]/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--accent-primary)]"
+          >
+            {cap}
+          </span>
+        ))}
+      </div>
 
       {/* ── Bars card ───────────────────────────────────────────────── */}
       <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent p-4 md:p-5">
