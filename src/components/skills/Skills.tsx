@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import DataStreamBackground from "@/components/backgrounds/DataStreamBackground";
 import GlitchText from "@/components/common/GlitchText";
 import LossCurveBackground from "./LossCurveBackground";
-import CapabilityBars from "./CapabilityBars";
 import SkillsTicker from "./SkillsTicker";
 import TechCategoryCards from "./TechCategoryCards";
 import TechMatrix from "./TechMatrix";
@@ -132,15 +131,13 @@ export default function Skills() {
             transition={{ duration: 0.7, delay: 0.2 }}
             className="max-w-xl text-[color:var(--text-secondary)]"
           >
-            A live dashboard of the tools and frameworks that ship the systems.
-            The capability profile ranks depth per domain; the matrix lists
-            every tool with years of use.
+            A live inventory of the tools and frameworks that ship the
+            systems. Grouped by domain, with years of hands-on use.
           </motion.p>
         </header>
 
-        {/* Main visualisations — side by side on lg+ */}
-        <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-12 lg:items-start">
-          <CapabilityBars />
+        {/* Tech matrix — full width */}
+        <div className="mx-auto w-full max-w-5xl">
           <TechMatrix />
         </div>
 

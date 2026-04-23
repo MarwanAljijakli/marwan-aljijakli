@@ -239,8 +239,8 @@ export default function TechMatrix() {
         ))}
       </div>
 
-      {/* ── Body ────────────────────────────────────────────────────── */}
-      <div className="flex flex-col gap-3">
+      {/* ── Body — masonry-style 2-col grid on lg+ ──────────────────── */}
+      <div className="grid grid-cols-1 gap-3 lg:grid-cols-2">
         {DOMAINS.map((domain, domainIdx) => (
           <DomainGroup
             key={domain.id}
