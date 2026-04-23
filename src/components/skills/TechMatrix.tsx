@@ -208,7 +208,7 @@ export default function TechMatrix() {
             fig. 02 — production technology index
           </div>
           <div className="mt-1 font-display text-2xl md:text-3xl">
-            Engineering stack · matrix view
+            Engineering stack
           </div>
         </div>
         <div className="flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
