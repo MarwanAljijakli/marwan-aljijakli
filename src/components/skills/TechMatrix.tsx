@@ -19,7 +19,16 @@ import { useRef, useState } from "react";
  * its own full-width header row so names never truncate.
  * ========================================================================== */
 
-type CategoryId = "language" | "ai" | "cv" | "data" | "devops" | "frontend";
+type CategoryId =
+  | "language"
+  | "ai"
+  | "llm"
+  | "cv"
+  | "rag"
+  | "backend"
+  | "data"
+  | "devops"
+  | "frontend";
 
 interface Domain {
   id: CategoryId;
@@ -38,6 +47,7 @@ interface Tech {
 }
 
 const DOMAINS: Domain[] = [
+  /* ── 1. Languages ──────────────────────────────────────────────── */
   {
     id: "language",
     label: "Languages",
@@ -45,71 +55,49 @@ const DOMAINS: Domain[] = [
     color: "#BFF7FF",
     glow: "rgba(191,247,255,0.35)",
     items: [
-      {
-        name: "Python",
-        proficiency: 98,
-        years: "6+",
-        note: "End-to-end · every project",
-      },
-      {
-        name: "TypeScript",
-        proficiency: 85,
-        years: "2",
-        note: "React · Next.js · typed APIs",
-      },
-      {
-        name: "SQL",
-        proficiency: 88,
-        years: "3",
-        note: "Postgres · analytics · joins",
-      },
-      {
-        name: "Dart",
-        proficiency: 80,
-        years: "2",
-        note: "Flutter mobile applications",
-      },
-      {
-        name: "Bash / Shell",
-        proficiency: 82,
-        years: "4",
-        note: "Automation · Linux pipelines",
-      },
-      {
-        name: "C++",
-        proficiency: 72,
-        years: "2",
-        note: "CV perf-critical modules",
-      },
+      { name: "Python", proficiency: 98, years: "6+", note: "End-to-end · every production service" },
+      { name: "TypeScript", proficiency: 85, years: "2", note: "React · Next.js · typed APIs" },
+      { name: "SQL", proficiency: 88, years: "3", note: "Postgres · analytics · window functions" },
+      { name: "Dart", proficiency: 80, years: "2", note: "Flutter mobile applications" },
+      { name: "Bash / Shell", proficiency: 82, years: "4", note: "Automation · Linux pipelines" },
+      { name: "C++", proficiency: 72, years: "2", note: "Perf-critical CV modules · bindings" },
     ],
   },
+
+  /* ── 2. AI / ML frameworks ─────────────────────────────────────── */
   {
     id: "ai",
-    label: "AI / ML",
+    label: "AI / ML Frameworks",
     unit: "framework",
     color: "#00D4FF",
     glow: "rgba(0,212,255,0.35)",
     items: [
-      {
-        name: "PyTorch",
-        proficiency: 95,
-        years: "2",
-        note: "Model training · research to prod",
-      },
-      {
-        name: "TensorFlow",
-        proficiency: 88,
-        years: "2",
-        note: "Production inference & serving",
-      },
-      {
-        name: "LangChain",
-        proficiency: 95,
-        years: "2",
-        note: "LLM orchestration · RAG",
-      },
+      { name: "PyTorch", proficiency: 95, years: "2", note: "Model training · research to production" },
+      { name: "TensorFlow / Keras", proficiency: 88, years: "2", note: "Production inference · serving" },
+      { name: "Hugging Face Transformers", proficiency: 92, years: "2", note: "Pretrained models · pipelines" },
+      { name: "scikit-learn", proficiency: 90, years: "3", note: "Classical ML · feature engineering" },
+      { name: "CUDA / GPU", proficiency: 78, years: "2", note: "GPU acceleration · mixed precision" },
     ],
   },
+
+  /* ── 3. LLM & GenAI engineering ─────────────────────────────────── */
+  {
+    id: "llm",
+    label: "LLM & GenAI Engineering",
+    unit: "stack",
+    color: "#38BDF8",
+    glow: "rgba(56,189,248,0.4)",
+    items: [
+      { name: "LangChain / LangGraph", proficiency: 95, years: "2", note: "Agent orchestration · tool use" },
+      { name: "OpenAI API", proficiency: 95, years: "2", note: "GPT-4 · function calling · structured output" },
+      { name: "Anthropic Claude API", proficiency: 92, years: "2", note: "Long-context reasoning · tool use" },
+      { name: "Ollama / vLLM", proficiency: 82, years: "1", note: "Self-hosted LLM inference serving" },
+      { name: "LoRA · PEFT", proficiency: 78, years: "1", note: "Parameter-efficient fine-tuning" },
+      { name: "Prompt Engineering", proficiency: 97, years: "2", note: "CoT · guardrails · few-shot" },
+    ],
+  },
+
+  /* ── 4. Computer Vision ─────────────────────────────────────────── */
   {
     id: "cv",
     label: "Computer Vision",
@@ -117,80 +105,77 @@ const DOMAINS: Domain[] = [
     color: "#10dc78",
     glow: "rgba(16,220,120,0.35)",
     items: [
-      {
-        name: "OpenCV",
-        proficiency: 92,
-        years: "2",
-        note: "Image & video pipelines",
-      },
-      {
-        name: "YOLO v8 / v11",
-        proficiency: 94,
-        years: "2",
-        note: "Real-time object detection",
-      },
-      {
-        name: "MediaPipe",
-        proficiency: 85,
-        years: "1",
-        note: "Face · pose · hand tracking",
-      },
+      { name: "OpenCV", proficiency: 92, years: "2", note: "Image & video processing pipelines" },
+      { name: "YOLO v8 / v11", proficiency: 94, years: "2", note: "Real-time object detection" },
+      { name: "MediaPipe", proficiency: 85, years: "1", note: "Face · pose · hand tracking" },
+      { name: "ONNX Runtime", proficiency: 80, years: "1", note: "Cross-framework model deployment" },
+      { name: "rPPG", proficiency: 90, years: "2", note: "Contactless vitals from RGB video" },
     ],
   },
+
+  /* ── 5. RAG & Vector DBs ────────────────────────────────────────── */
+  {
+    id: "rag",
+    label: "RAG & Vector DBs",
+    unit: "store",
+    color: "#A78BFA",
+    glow: "rgba(167,139,250,0.4)",
+    items: [
+      { name: "FAISS", proficiency: 95, years: "2", note: "High-performance similarity search" },
+      { name: "ChromaDB", proficiency: 90, years: "2", note: "Embedded vector database" },
+      { name: "Qdrant", proficiency: 82, years: "1", note: "Production vector search · filters" },
+      { name: "Hybrid Retrieval", proficiency: 88, years: "1", note: "BM25 + dense · re-ranking" },
+    ],
+  },
+
+  /* ── 6. Backend & APIs ──────────────────────────────────────────── */
+  {
+    id: "backend",
+    label: "Backend & APIs",
+    unit: "framework",
+    color: "#F59E0B",
+    glow: "rgba(245,158,11,0.4)",
+    items: [
+      { name: "FastAPI", proficiency: 95, years: "2", note: "Async Python microservices · Pydantic" },
+      { name: "Flask", proficiency: 82, years: "3", note: "Lightweight services · prototypes" },
+      { name: "WebSocket / SSE", proficiency: 85, years: "2", note: "Real-time streaming telemetry" },
+      { name: "Celery / Redis Queues", proficiency: 80, years: "2", note: "Background workers · async tasks" },
+    ],
+  },
+
+  /* ── 7. Data Stores ─────────────────────────────────────────────── */
   {
     id: "data",
-    label: "Data",
+    label: "Data Stores",
     unit: "store",
     color: "#7B2FBE",
     glow: "rgba(123,47,190,0.4)",
     items: [
-      {
-        name: "FAISS",
-        proficiency: 95,
-        years: "2",
-        note: "Vector similarity search",
-      },
-      {
-        name: "PostgreSQL",
-        proficiency: 88,
-        years: "2",
-        note: "Relational & structured data",
-      },
+      { name: "PostgreSQL", proficiency: 88, years: "2", note: "Relational · structured data" },
+      { name: "Redis", proficiency: 82, years: "2", note: "Caching · pub/sub · rate limiting" },
+      { name: "MongoDB", proficiency: 75, years: "2", note: "Document store · flexible schema" },
     ],
   },
+
+  /* ── 8. DevOps & Cloud ──────────────────────────────────────────── */
   {
     id: "devops",
-    label: "DevOps",
+    label: "DevOps & Cloud",
     unit: "tool",
     color: "#FF6B35",
     glow: "rgba(255,107,53,0.35)",
     items: [
-      {
-        name: "FastAPI",
-        proficiency: 95,
-        years: "2",
-        note: "Async Python microservices",
-      },
-      {
-        name: "Docker",
-        proficiency: 92,
-        years: "2",
-        note: "Containerised deployments",
-      },
-      {
-        name: "Git",
-        proficiency: 96,
-        years: "4",
-        note: "Source control & collaboration",
-      },
-      {
-        name: "Linux",
-        proficiency: 90,
-        years: "6+",
-        note: "Servers and edge hosts",
-      },
+      { name: "Docker · Compose", proficiency: 92, years: "2", note: "Containerised deployments" },
+      { name: "Kubernetes", proficiency: 72, years: "1", note: "Orchestration · scaling · rollouts" },
+      { name: "GitHub Actions", proficiency: 88, years: "2", note: "CI/CD · automated builds" },
+      { name: "AWS", proficiency: 80, years: "2", note: "EC2 · S3 · Lambda · CloudFront" },
+      { name: "Nginx", proficiency: 82, years: "2", note: "Reverse proxy · TLS · load balancing" },
+      { name: "Git", proficiency: 96, years: "4", note: "Source control & collaboration" },
+      { name: "Linux", proficiency: 90, years: "6+", note: "Servers · edge hosts · Ubuntu/Debian" },
     ],
   },
+
+  /* ── 9. Frontend & Mobile ───────────────────────────────────────── */
   {
     id: "frontend",
     label: "Frontend & Mobile",
@@ -198,18 +183,10 @@ const DOMAINS: Domain[] = [
     color: "#fcc44e",
     glow: "rgba(252,196,78,0.35)",
     items: [
-      {
-        name: "Flutter",
-        proficiency: 82,
-        years: "2",
-        note: "Cross-platform mobile apps",
-      },
-      {
-        name: "Next.js",
-        proficiency: 85,
-        years: "1",
-        note: "This portfolio · App Router",
-      },
+      { name: "Next.js / React", proficiency: 85, years: "2", note: "App Router · SSR · RSC" },
+      { name: "Tailwind CSS", proficiency: 90, years: "2", note: "Utility-first design system" },
+      { name: "Three.js / R3F", proficiency: 80, years: "1", note: "3D scenes · GPU particles" },
+      { name: "Flutter", proficiency: 82, years: "2", note: "Cross-platform mobile apps" },
     ],
   },
 ];
@@ -228,10 +205,10 @@ export default function TechMatrix() {
       <header className="flex items-start justify-between gap-4">
         <div>
           <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--accent-primary)]">
-            fig. 02 — technology index
+            fig. 02 — production technology index
           </div>
           <div className="mt-1 font-display text-2xl md:text-3xl">
-            Tech stack · matrix view
+            Engineering stack · matrix view
           </div>
         </div>
         <div className="flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
@@ -241,6 +218,26 @@ export default function TechMatrix() {
           <span>{DOMAINS.length} domains</span>
         </div>
       </header>
+
+      {/* ── Capability strip — high-signal callouts ──────────────────── */}
+      <div className="flex flex-wrap items-center gap-1.5">
+        {[
+          "GPU · CUDA",
+          "RAG · Hybrid Retrieval",
+          "LLM Fine-tuning",
+          "Real-time CV",
+          "Vector Search",
+          "Multi-cloud",
+          "Production Microservices",
+        ].map((cap) => (
+          <span
+            key={cap}
+            className="rounded-md border border-[color:var(--accent-primary)]/20 bg-[color:var(--accent-primary)]/5 px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--accent-primary)]"
+          >
+            {cap}
+          </span>
+        ))}
+      </div>
 
       {/* ── Body ────────────────────────────────────────────────────── */}
       <div className="flex flex-col gap-3">
