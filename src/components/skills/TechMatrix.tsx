@@ -24,6 +24,7 @@ type CategoryId = "language" | "ai" | "cv" | "data" | "devops" | "frontend";
 interface Domain {
   id: CategoryId;
   label: string;
+  unit: string; // singular noun for count badge ("tool", "language", …)
   color: string;
   glow: string;
   items: Tech[];
@@ -39,7 +40,8 @@ interface Tech {
 const DOMAINS: Domain[] = [
   {
     id: "language",
-    label: "Language",
+    label: "Languages",
+    unit: "language",
     color: "#BFF7FF",
     glow: "rgba(191,247,255,0.35)",
     items: [
@@ -49,11 +51,42 @@ const DOMAINS: Domain[] = [
         years: "6+",
         note: "End-to-end · every project",
       },
+      {
+        name: "TypeScript",
+        proficiency: 85,
+        years: "2",
+        note: "React · Next.js · typed APIs",
+      },
+      {
+        name: "SQL",
+        proficiency: 88,
+        years: "3",
+        note: "Postgres · analytics · joins",
+      },
+      {
+        name: "Dart",
+        proficiency: 80,
+        years: "2",
+        note: "Flutter mobile applications",
+      },
+      {
+        name: "Bash / Shell",
+        proficiency: 82,
+        years: "4",
+        note: "Automation · Linux pipelines",
+      },
+      {
+        name: "C++",
+        proficiency: 72,
+        years: "2",
+        note: "CV perf-critical modules",
+      },
     ],
   },
   {
     id: "ai",
     label: "AI / ML",
+    unit: "framework",
     color: "#00D4FF",
     glow: "rgba(0,212,255,0.35)",
     items: [
@@ -80,6 +113,7 @@ const DOMAINS: Domain[] = [
   {
     id: "cv",
     label: "Computer Vision",
+    unit: "library",
     color: "#10dc78",
     glow: "rgba(16,220,120,0.35)",
     items: [
@@ -106,6 +140,7 @@ const DOMAINS: Domain[] = [
   {
     id: "data",
     label: "Data",
+    unit: "store",
     color: "#7B2FBE",
     glow: "rgba(123,47,190,0.4)",
     items: [
@@ -126,6 +161,7 @@ const DOMAINS: Domain[] = [
   {
     id: "devops",
     label: "DevOps",
+    unit: "tool",
     color: "#FF6B35",
     glow: "rgba(255,107,53,0.35)",
     items: [
@@ -158,6 +194,7 @@ const DOMAINS: Domain[] = [
   {
     id: "frontend",
     label: "Frontend & Mobile",
+    unit: "framework",
     color: "#fcc44e",
     glow: "rgba(252,196,78,0.35)",
     items: [
@@ -270,8 +307,8 @@ function DomainGroup({
           </span>
         </div>
         <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
-          {domain.items.length}
-          {domain.items.length === 1 ? " tool" : " tools"}
+          {domain.items.length} {domain.unit}
+          {domain.items.length === 1 ? "" : "s"}
         </span>
       </header>
 
