@@ -84,7 +84,7 @@ const DOMAINS: Domain[] = [
     items: [
       { name: "FastAPI", proficiency: 95, years: "2", note: "Async microservices" },
       { name: "Docker", proficiency: 92, years: "2", note: "Containerised deploys" },
-      { name: "Git", proficiency: 96, years: "6+", note: "Source control · collab" },
+      { name: "Git", proficiency: 96, years: "4", note: "Source control · collab" },
       { name: "Linux", proficiency: 90, years: "6+", note: "Servers + edge hosts" },
     ],
   },
