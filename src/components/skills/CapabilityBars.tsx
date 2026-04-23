@@ -165,21 +165,6 @@ export default function CapabilityBars() {
         </div>
       </div>
 
-      {/* ── Caption ─────────────────────────────────────────────────── */}
-      <div className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
-        <p className="text-[13px] leading-relaxed text-[color:var(--text-secondary)]">
-          <span className="font-mono uppercase tracking-[0.14em] text-[color:var(--accent-primary)]">
-            How to read:
-          </span>{" "}
-          eight capability domains ranked top-to-bottom by self-rated depth
-          (0–100). The{" "}
-          <span className="font-mono text-[12px] text-[color:var(--accent-primary)]">
-            μ
-          </span>{" "}
-          dashed line marks the mean across all domains, so it&apos;s easy
-          to see which areas run above and below the average.
-        </p>
-      </div>
     </div>
   );
 }
