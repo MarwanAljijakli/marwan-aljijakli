@@ -6,108 +6,158 @@ import { useRef, useState } from "react";
 /* ==========================================================================
  * CapabilityBars — fig. 01 of the Skills section
  * --------------------------------------------------------------------------
- * Replaces the radar chart with a ranked horizontal bar chart. Rationale:
- *   - Most values are high, so the radar polygon looked like a uniform
- *     heptagon — visually "all strong" with no information shown.
- *   - Horizontal bars give a direct, ordered comparison and a clear mean
- *     reference line for the eye.
+ * A tier-based capability profile. Instead of arbitrary self-rated
+ * percentages (which read as amateur), each engineering domain is tagged
+ * with one of four qualitative tiers that hiring managers and CTOs
+ * recognise immediately:
  *
- * Each domain carries:
- *   - a rank chip on the left
- *   - a named label with its key technologies underneath
- *   - a capability bar coloured by domain with a cyan value pill at the
- *     right of the bar, and a years-of-focus badge
- *   - a dashed μ (mean) reference line painted across every row
+ *   CORE     — specialist depth, research + production
+ *   DEEP     — production-grade, shipped multiple systems
+ *   PROVEN   — delivered repeatedly across projects
+ *   ACTIVE   — currently growing · actively shipping
+ *
+ * The horizontal bar is purely a visual reinforcement of the tier; it is
+ * never labelled with a numeric value and has no 0-100 axis underneath.
  * ========================================================================== */
+
+type TierId = "core" | "deep" | "proven" | "active";
+
+interface TierDef {
+  id: TierId;
+  label: string;
+  fill: number; // 0-1, bar fill ratio
+  accent: string;
+  glow: string;
+  description: string;
+}
+
+const TIERS: Record<TierId, TierDef> = {
+  core: {
+    id: "core",
+    label: "Core",
+    fill: 1.0,
+    accent: "#00D4FF",
+    glow: "rgba(0,212,255,0.4)",
+    description: "Specialist depth · research + production",
+  },
+  deep: {
+    id: "deep",
+    label: "Deep",
+    fill: 0.88,
+    accent: "#38BDF8",
+    glow: "rgba(56,189,248,0.35)",
+    description: "Production-grade · multiple shipped systems",
+  },
+  proven: {
+    id: "proven",
+    label: "Proven",
+    fill: 0.76,
+    accent: "#BFF7FF",
+    glow: "rgba(191,247,255,0.3)",
+    description: "Delivered repeatedly across projects",
+  },
+  active: {
+    id: "active",
+    label: "Active",
+    fill: 0.62,
+    accent: "#a4b6d1",
+    glow: "rgba(164,182,209,0.25)",
+    description: "Currently growing · actively shipping",
+  },
+};
 
 interface Domain {
   name: string;
-  sub: string; // examples underneath
-  value: number; // 0-100
+  sub: string;
+  tier: TierId;
   color: string;
   glow: string;
 }
 
-const RAW: Domain[] = [
+const DOMAINS: Domain[] = [
   {
     name: "Prompt Engineering",
     sub: "Chain-of-thought · guardrails · structured output",
-    value: 97,
+    tier: "core",
     color: "#fcc44e",
     glow: "rgba(252,196,78,0.35)",
   },
   {
     name: "LLM & GenAI Engineering",
     sub: "GPT-4 · Claude · Llama · Ollama · vLLM",
-    value: 95,
+    tier: "core",
     color: "#38BDF8",
     glow: "rgba(56,189,248,0.4)",
   },
   {
     name: "RAG & Vector Search",
     sub: "LangChain · FAISS · Qdrant · hybrid retrieval",
-    value: 95,
+    tier: "core",
     color: "#A78BFA",
     glow: "rgba(167,139,250,0.4)",
   },
   {
     name: "Computer Vision",
     sub: "YOLO · OpenCV · MediaPipe · rPPG · ONNX",
-    value: 92,
+    tier: "deep",
     color: "#10dc78",
     glow: "rgba(16,220,120,0.35)",
   },
   {
     name: "AI / ML Training",
     sub: "PyTorch · TensorFlow · CUDA · LoRA / PEFT",
-    value: 90,
+    tier: "deep",
     color: "#00D4FF",
     glow: "rgba(0,212,255,0.35)",
   },
   {
     name: "System Architecture",
     sub: "Microservices · async · vector DBs · edge",
-    value: 88,
+    tier: "proven",
     color: "#BFF7FF",
     glow: "rgba(191,247,255,0.35)",
   },
   {
     name: "Backend & APIs",
     sub: "FastAPI · WebSocket · Celery · Redis queues",
-    value: 88,
+    tier: "proven",
     color: "#F59E0B",
     glow: "rgba(245,158,11,0.4)",
   },
   {
     name: "DevOps & Cloud",
     sub: "Docker · Kubernetes · AWS · CI/CD · Nginx",
-    value: 85,
+    tier: "proven",
     color: "#FF6B35",
     glow: "rgba(255,107,53,0.35)",
   },
   {
     name: "Data Engineering",
     sub: "Postgres · Redis · MongoDB · pipelines",
-    value: 82,
+    tier: "active",
     color: "#7B2FBE",
     glow: "rgba(123,47,190,0.4)",
   },
   {
     name: "Frontend & Mobile",
     sub: "Next.js · Tailwind · Three.js · Flutter",
-    value: 78,
+    tier: "active",
     color: "#a4b6d1",
     glow: "rgba(164,182,209,0.3)",
   },
 ];
 
-const DOMAINS = [...RAW].sort((a, b) => b.value - a.value);
-const MEAN = Math.round(
-  DOMAINS.reduce((s, d) => s + d.value, 0) / DOMAINS.length
+const TIER_COUNT: Record<TierId, number> = DOMAINS.reduce(
+  (acc, d) => {
+    acc[d.tier]++;
+    return acc;
+  },
+  { core: 0, deep: 0, proven: 0, active: 0 } as Record<TierId, number>
 );
-const MAX = Math.max(...DOMAINS.map((d) => d.value));
-const MIN = Math.min(...DOMAINS.map((d) => d.value));
+
 const EASE = [0.16, 1, 0.3, 1] as const;
+
+/* -------------------------------------------------------------------------- */
 
 export default function CapabilityBars() {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -123,20 +173,18 @@ export default function CapabilityBars() {
             fig. 01 — production capability profile
           </div>
           <div className="mt-1 font-display text-2xl md:text-3xl">
-            Engineering depth · ranked
+            Engineering depth · by tier
           </div>
         </div>
-        <div className="flex flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
+        <div className="hidden flex-col items-end gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)] md:flex">
           <span className="tabular-nums text-[color:var(--accent-primary)]">
-            μ = {MEAN}
+            {DOMAINS.length} domains
           </span>
-          <span>
-            max = {MAX} · min = {MIN}
-          </span>
+          <span>{Object.keys(TIERS).length} tiers</span>
         </div>
       </header>
 
-      {/* ── Seniority strip — what the numbers actually represent ────── */}
+      {/* ── Seniority strip ─────────────────────────────────────────── */}
       <div className="flex flex-wrap items-center gap-1.5">
         {[
           "End-to-end ownership",
@@ -154,6 +202,27 @@ export default function CapabilityBars() {
         ))}
       </div>
 
+      {/* ── Tier distribution summary ───────────────────────────────── */}
+      <div className="flex flex-wrap items-center gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-2.5">
+        {(Object.values(TIERS) as TierDef[]).map((t) => (
+          <div key={t.id} className="flex items-center gap-2">
+            <span
+              className="inline-block h-2 w-2 rounded-full"
+              style={{
+                backgroundColor: t.accent,
+                boxShadow: `0 0 8px ${t.glow}`,
+              }}
+            />
+            <span className="font-mono text-[11px] uppercase tracking-[0.14em] text-white">
+              {t.label}
+            </span>
+            <span className="font-mono text-[10px] tabular-nums text-[color:var(--text-muted)]">
+              {TIER_COUNT[t.id]}
+            </span>
+          </div>
+        ))}
+      </div>
+
       {/* ── Bars card ───────────────────────────────────────────────── */}
       <div className="relative overflow-hidden rounded-2xl border border-white/5 bg-gradient-to-br from-white/[0.03] to-transparent p-4 md:p-5">
         {/* Column labels */}
@@ -161,14 +230,10 @@ export default function CapabilityBars() {
           <span className="w-6 shrink-0" />
           <span className="w-40 shrink-0">domain</span>
           <span className="flex-1">capability</span>
-          <span className="w-10 shrink-0 text-right">score</span>
+          <span className="w-[72px] shrink-0 text-right">tier</span>
         </div>
 
-        {/* Bars */}
-        <div className="relative flex flex-col">
-          {/* Mean reference line — spans the bar columns */}
-          <MeanLine mean={MEAN} inView={inView} />
-
+        <div className="flex flex-col">
           {DOMAINS.map((d, i) => (
             <BarRow
               key={d.name}
@@ -181,22 +246,7 @@ export default function CapabilityBars() {
             />
           ))}
         </div>
-
-        {/* Scale axis */}
-        <div className="mt-2 flex items-center gap-3">
-          <span className="w-6 shrink-0" />
-          <span className="w-40 shrink-0" />
-          <div className="relative flex-1">
-            <div className="flex justify-between font-mono text-[9.5px] tabular-nums text-[color:var(--text-muted)]">
-              {[0, 20, 40, 60, 80, 100].map((n) => (
-                <span key={n}>{n}</span>
-              ))}
-            </div>
-          </div>
-          <span className="w-10 shrink-0" />
-        </div>
       </div>
-
     </div>
   );
 }
@@ -220,6 +270,8 @@ function BarRow({
   onHover: () => void;
   onLeave: () => void;
 }) {
+  const tier = TIERS[domain.tier];
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 8 }}
@@ -256,12 +308,12 @@ function BarRow({
         </div>
       </div>
 
-      {/* Bar track */}
+      {/* Bar track — width reflects tier, not any numeric score */}
       <div className="relative flex-1 min-w-0">
         <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
           <motion.div
             initial={{ width: 0 }}
-            animate={inView ? { width: `${domain.value}%` } : {}}
+            animate={inView ? { width: `${tier.fill * 100}%` } : {}}
             transition={{
               duration: 1.1,
               delay: 0.25 + (rank - 1) * 0.06,
@@ -276,69 +328,28 @@ function BarRow({
             }}
           />
         </div>
-        {/* Tick marks at 20/40/60/80 — very faint */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 flex justify-between px-[20%]"
-        >
-          {[0, 1, 2].map((i) => (
-            <span
-              key={i}
-              className="h-full w-px"
-              style={{ backgroundColor: "rgba(255,255,255,0.04)" }}
-            />
-          ))}
-        </div>
       </div>
 
-      {/* Score pill */}
-      <div className="w-10 shrink-0 text-right">
+      {/* Tier badge — replaces the numeric score column */}
+      <div className="w-[72px] shrink-0 text-right">
         <span
-          className="font-mono text-[13px] font-semibold tabular-nums transition-colors"
-          style={{ color: isHovered ? domain.color : "#ffffff" }}
-        >
-          {domain.value}
-        </span>
-      </div>
-    </motion.div>
-  );
-}
-
-function MeanLine({ mean, inView }: { mean: number; inView: boolean }) {
-  // The mean line lives inside the bar column. It's painted absolutely over
-  // the whole column stack so it crosses every bar. Its horizontal position
-  // is `mean%` along the bar-column width.
-  return (
-    <motion.div
-      aria-hidden
-      initial={{ opacity: 0 }}
-      animate={inView ? { opacity: 1 } : {}}
-      transition={{ duration: 0.5, delay: 1.4, ease: EASE }}
-      className="pointer-events-none absolute inset-y-0 flex items-stretch"
-      style={{
-        // Left = rank chip (24px) + gap (12px) + label column (160px · w-40)
-        //        + gap (12px). Kept consistent at all breakpoints so the
-        //        μ marker stays aligned with the start of every bar track.
-        left: "calc(24px + 12px + 160px + 12px)",
-        right: "calc(40px + 12px)",
-      }}
-    >
-      <div className="relative h-full w-full">
-        <div
-          className="absolute inset-y-1 w-px"
+          className="inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.14em] transition-colors"
           style={{
-            left: `${mean}%`,
-            backgroundImage:
-              "linear-gradient(to bottom, rgba(0,212,255,0.55) 0 6px, transparent 6px 10px)",
-            backgroundSize: "1px 10px",
+            color: isHovered ? "#ffffff" : tier.accent,
+            borderColor: isHovered ? tier.accent : `${tier.accent}44`,
+            backgroundColor: isHovered ? `${tier.accent}22` : `${tier.accent}0E`,
+            boxShadow: isHovered ? `0 0 12px ${tier.glow}` : undefined,
           }}
-        />
-        <div
-          className="absolute -top-3 -translate-x-1/2 font-mono text-[9px] uppercase tracking-[0.14em] text-[color:var(--accent-primary)]"
-          style={{ left: `${mean}%` }}
         >
-          μ
-        </div>
+          <span
+            className="inline-block h-1 w-1 rounded-full"
+            style={{
+              backgroundColor: tier.accent,
+              boxShadow: `0 0 6px ${tier.glow}`,
+            }}
+          />
+          {tier.label}
+        </span>
       </div>
     </motion.div>
   );

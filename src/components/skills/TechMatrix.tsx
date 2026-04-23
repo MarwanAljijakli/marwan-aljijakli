@@ -347,43 +347,10 @@ function DomainGroup({
                 </div>
               </div>
 
-              {/* Proficiency bar */}
-              <div className="hidden w-32 shrink-0 sm:block md:w-36 lg:w-32 xl:w-44">
-                <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06]">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={inView ? { width: `${tech.proficiency}%` } : {}}
-                    transition={{
-                      duration: 1.1,
-                      delay: baseDelay + 0.25 + i * 0.05,
-                      ease: EASE,
-                    }}
-                    className="h-full rounded-full"
-                    style={{
-                      background: `linear-gradient(90deg, ${domain.color}99 0%, ${domain.color} 100%)`,
-                      boxShadow: isHovered
-                        ? `0 0 10px ${domain.glow}`
-                        : `0 0 4px ${domain.glow}`,
-                    }}
-                  />
-                </div>
-              </div>
-
-              {/* Pct */}
-              <div className="w-11 shrink-0 text-right">
-                <span
-                  className="font-mono text-[13px] font-semibold tabular-nums transition-colors"
-                  style={{ color: isHovered ? domain.color : "#a4b6d1" }}
-                >
-                  {tech.proficiency}
-                  <span className="text-[9px] text-[color:var(--text-muted)]">
-                    %
-                  </span>
-                </span>
-              </div>
-
-              {/* Years */}
-              <div className="w-11 shrink-0 text-right">
+              {/* Years of hands-on use — the only numeric readout kept.
+                  Years are verifiable (timeline-anchored) and professional,
+                  unlike self-rated percentage scores. */}
+              <div className="w-12 shrink-0 text-right">
                 <span
                   className="inline-block rounded-md border px-1.5 py-0.5 font-mono text-[10px] tabular-nums"
                   style={{
