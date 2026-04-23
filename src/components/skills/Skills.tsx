@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import DataStreamBackground from "@/components/backgrounds/DataStreamBackground";
 import GlitchText from "@/components/common/GlitchText";
 import LossCurveBackground from "./LossCurveBackground";
-import RadarChart from "./RadarChart";
+import CapabilityBars from "./CapabilityBars";
 import SkillsTicker from "./SkillsTicker";
 import TechCategoryCards from "./TechCategoryCards";
 import TechMatrix from "./TechMatrix";
@@ -133,14 +133,14 @@ export default function Skills() {
             className="max-w-xl text-[color:var(--text-secondary)]"
           >
             A live dashboard of the tools and frameworks that ship the systems.
-            The radar summarises depth per domain; the matrix lists every
-            tool with years of use.
+            The capability profile ranks depth per domain; the matrix lists
+            every tool with years of use.
           </motion.p>
         </header>
 
         {/* Main visualisations — side by side on lg+ */}
         <div className="grid grid-cols-1 gap-16 lg:grid-cols-2 lg:gap-12 lg:items-start">
-          <RadarChart />
+          <CapabilityBars />
           <TechMatrix />
         </div>
 
