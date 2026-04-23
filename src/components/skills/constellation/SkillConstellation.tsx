@@ -141,16 +141,59 @@ export default function SkillConstellation() {
         </AnimatePresence>
       </div>
 
-      {/* Legend */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+      {/* Caption — how to read the constellation */}
+      <div className="rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3">
+        <p className="text-[13px] leading-relaxed text-[color:var(--text-secondary)]">
+          <span className="font-mono uppercase tracking-[0.14em] text-[color:var(--accent-primary)]">
+            How to read:
+          </span>{" "}
+          <span className="text-white">Python</span> sits at the core. Each
+          orbital ring moves outward from foundational frameworks to specialist
+          tools. Lines link technologies in the same domain; colour denotes the
+          domain. Hover any node for details.
+        </p>
+      </div>
+
+      {/* Ring legend — explains the concentric structure */}
+      <div className="grid grid-cols-2 gap-2 md:grid-cols-4">
+        {[
+          { n: "0", title: "Core", desc: "Master language" },
+          { n: "1", title: "Foundations", desc: "Frameworks" },
+          { n: "2", title: "Specialists", desc: "Task-specific tools" },
+          { n: "3", title: "Tooling", desc: "Infra · storage · edge" },
+        ].map((r) => (
+          <div
+            key={r.n}
+            className="flex items-center gap-2 rounded-lg border border-white/5 bg-white/[0.02] px-2.5 py-1.5"
+          >
+            <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[color:var(--accent-primary)]/40 bg-[color:var(--accent-primary)]/10 font-mono text-[11px] text-[color:var(--accent-primary)]">
+              {r.n}
+            </span>
+            <div className="min-w-0">
+              <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-white">
+                {r.title}
+              </div>
+              <div className="truncate text-[11px] text-[color:var(--text-muted)]">
+                {r.desc}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Category legend — colour keys */}
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-white/5 pt-3">
+        <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
+          Domains:
+        </span>
         {(Object.entries(CATEGORIES) as [keyof typeof CATEGORIES, typeof CATEGORIES[keyof typeof CATEGORIES]][]).map(
           ([key, def]) => (
             <span
               key={key}
-              className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]"
+              className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-secondary)]"
             >
               <span
-                className="inline-block h-1.5 w-1.5 rounded-full"
+                className="inline-block h-2 w-2 rounded-full"
                 style={{
                   backgroundColor: def.color,
                   boxShadow: `0 0 8px ${def.color}`,

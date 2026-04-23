@@ -226,11 +226,11 @@ function StarNode({
         />
       </sprite>
 
-      {/* Label — always visible for core + ring 1, slightly faded for inner rings */}
+      {/* Label — always visible at high opacity so every node is readable. */}
       {labelTexture && (
         <sprite
-          position={[0, star.size + 0.35, 0]}
-          scale={[1.2, 0.3, 1]}
+          position={[0, star.size + 0.5, 0]}
+          scale={[2.0, 0.5, 1]}
           center-x={0.5}
         >
           <spriteMaterial
@@ -239,7 +239,7 @@ function StarNode({
             transparent
             depthWrite={false}
             toneMapped={false}
-            opacity={star.ring <= 1 ? 0.95 : isHovered ? 1 : 0.6}
+            opacity={isHovered ? 1 : star.ring === 0 ? 1 : 0.95}
           />
         </sprite>
       )}
@@ -278,8 +278,10 @@ function makeHaloTexture(): THREE.CanvasTexture {
 }
 
 function makeLabelTexture(name: string, color: string): THREE.CanvasTexture {
-  const w = 256;
-  const h = 64;
+  // Larger backing canvas so the label stays crisp even when scaled up
+  // in world space.
+  const w = 512;
+  const h = 128;
   const c = document.createElement("canvas");
   c.width = w;
   c.height = h;
@@ -288,19 +290,46 @@ function makeLabelTexture(name: string, color: string): THREE.CanvasTexture {
 
   ctx.clearRect(0, 0, w, h);
 
-  // Slight shadow halo so the label stays readable over the stars.
-  ctx.shadowColor = "rgba(5,10,15,0.8)";
-  ctx.shadowBlur = 8;
+  // Dark rounded chip behind the text — dramatically improves contrast
+  // over bright stars and connection lines.
+  const chipPadX = 26;
+  const chipPadY = 14;
+  const fontSize = 44;
+  ctx.font = `bold ${fontSize}px "Space Mono", ui-monospace, monospace`;
+  const textWidth = ctx.measureText(name.toUpperCase()).width;
+  const chipW = Math.min(textWidth + chipPadX * 2, w - 8);
+  const chipH = fontSize + chipPadY * 2;
+  const chipX = (w - chipW) / 2;
+  const chipY = (h - chipH) / 2 - 4;
+  const r = 10;
+
+  ctx.beginPath();
+  ctx.moveTo(chipX + r, chipY);
+  ctx.lineTo(chipX + chipW - r, chipY);
+  ctx.quadraticCurveTo(chipX + chipW, chipY, chipX + chipW, chipY + r);
+  ctx.lineTo(chipX + chipW, chipY + chipH - r);
+  ctx.quadraticCurveTo(chipX + chipW, chipY + chipH, chipX + chipW - r, chipY + chipH);
+  ctx.lineTo(chipX + r, chipY + chipH);
+  ctx.quadraticCurveTo(chipX, chipY + chipH, chipX, chipY + chipH - r);
+  ctx.lineTo(chipX, chipY + r);
+  ctx.quadraticCurveTo(chipX, chipY, chipX + r, chipY);
+  ctx.closePath();
+  ctx.fillStyle = "rgba(5,10,15,0.85)";
+  ctx.fill();
+  ctx.strokeStyle = `${color}88`;
+  ctx.lineWidth = 1.4;
+  ctx.stroke();
+
   ctx.fillStyle = "#ffffff";
   ctx.textAlign = "center";
   ctx.textBaseline = "middle";
-  ctx.font = 'bold 22px "Space Mono", ui-monospace, monospace';
-  ctx.fillText(name.toUpperCase(), w / 2, h / 2);
+  ctx.shadowColor = "rgba(0,0,0,0.75)";
+  ctx.shadowBlur = 6;
+  ctx.fillText(name.toUpperCase(), w / 2, h / 2 - 4);
 
-  // Small under-score in the category color.
   ctx.shadowBlur = 0;
   ctx.fillStyle = color;
-  ctx.fillRect(w / 2 - 20, h / 2 + 18, 40, 2);
+  ctx.fillRect(w / 2 - 18, chipY + chipH - 4, 36, 2);
 
   const tex = new THREE.CanvasTexture(c);
   tex.needsUpdate = true;

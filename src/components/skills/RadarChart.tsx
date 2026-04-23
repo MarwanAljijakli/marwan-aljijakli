@@ -142,6 +142,39 @@ export default function RadarChart() {
             />
           ))}
 
+          {/* Numeric scale markers along the upward axis so the reader can
+              decode the ring values at a glance. */}
+          {[0.2, 0.4, 0.6, 0.8, 1.0].map((t, i) => {
+            const y = CENTER_Y - MAX_RADIUS * t;
+            const label = `${Math.round(t * 100)}`;
+            return (
+              <g key={`scale-${i}`}>
+                <rect
+                  x={CENTER_X + 4}
+                  y={y - 8}
+                  width={30}
+                  height={16}
+                  rx={3}
+                  fill="rgba(5,10,15,0.85)"
+                  stroke="rgba(0,212,255,0.2)"
+                  strokeWidth={0.8}
+                />
+                <text
+                  x={CENTER_X + 19}
+                  y={y + 1}
+                  textAnchor="middle"
+                  dominantBaseline="middle"
+                  fontFamily="var(--font-space-mono), monospace"
+                  fontSize="10"
+                  fill="#7d92b8"
+                  style={{ letterSpacing: "0.08em" }}
+                >
+                  {label}
+                </text>
+              </g>
+            );
+          })}
+
           {/* Axis lines */}
           {AXES.map((ax, i) => {
             const a = axisAngle(i, N);
@@ -245,24 +278,33 @@ export default function RadarChart() {
                   textAnchor={textAnchor}
                   dominantBaseline="middle"
                   fontFamily="var(--font-space-mono), monospace"
-                  fontSize="11"
+                  fontSize="14"
                   fill={active ? "#00D4FF" : "#E8F4FD"}
                   style={{
                     textTransform: "uppercase",
                     letterSpacing: "0.14em",
                     transition: "fill 0.2s",
+                    fontWeight: 600,
                   }}
                 >
                   {ax.name}
                 </text>
                 <text
                   textAnchor={textAnchor}
-                  y="14"
+                  y="18"
                   fontFamily="var(--font-space-mono), monospace"
-                  fontSize="10"
-                  fill={active ? "#BFF7FF" : "#5a7298"}
+                  fontSize="13"
+                  fill={active ? "#BFF7FF" : "#00D4FF"}
+                  style={{ fontWeight: 700, letterSpacing: "0.05em" }}
                 >
                   {ax.value}
+                  <tspan
+                    fontSize="10"
+                    dx="1"
+                    fill={active ? "#BFF7FF" : "#7d92b8"}
+                  >
+                    %
+                  </tspan>
                 </text>
               </g>
             );
@@ -271,6 +313,29 @@ export default function RadarChart() {
 
         {/* Tooltip */}
         {hovered !== null && <AxisTooltip axis={AXES[hovered]} index={hovered} />}
+      </div>
+
+      {/* Human-readable caption — anchors the chart semantically. */}
+      <div className="mt-2 flex flex-col gap-3 rounded-xl border border-white/5 bg-white/[0.02] px-4 py-3 md:flex-row md:items-center md:justify-between">
+        <p className="text-[13px] leading-relaxed text-[color:var(--text-secondary)]">
+          <span className="font-mono uppercase tracking-[0.14em] text-[color:var(--accent-primary)]">
+            How to read:
+          </span>{" "}
+          each spoke is a domain, and the distance from the centre is
+          self-rated depth on a <span className="text-white">0 – 100</span>{" "}
+          scale. A fuller polygon means broader coverage.
+        </p>
+        <div className="flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
+          <span className="flex items-center gap-1.5">
+            <span className="h-2 w-2 rounded-full bg-[color:var(--accent-primary)] shadow-[0_0_8px_rgba(0,212,255,0.8)]" />
+            your value
+          </span>
+          <span className="flex items-center gap-1.5">
+            <span className="h-[2px] w-4 border-t border-dashed border-white/25" />
+            grid · 20 pts
+          </span>
+          <span className="hidden md:inline">hover · technologies</span>
+        </div>
       </div>
     </div>
   );
