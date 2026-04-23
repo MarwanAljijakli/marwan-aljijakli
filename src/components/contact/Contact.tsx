@@ -5,7 +5,6 @@ import StatisticalWaveBackground from "@/components/backgrounds/StatisticalWaveB
 import GlitchText from "@/components/common/GlitchText";
 import AvailabilityBadge from "./AvailabilityBadge";
 import ContactChannels from "./ContactChannels";
-import ContactForm from "./ContactForm";
 import RadarSweep from "./RadarSweep";
 
 /* ==========================================================================
@@ -103,8 +102,8 @@ export default function Contact() {
             className="mt-6 max-w-xl text-[color:var(--text-secondary)] md:text-lg"
             data-cursor="text"
           >
-            Pick any channel below, or send a direct transmission with the form.
-            Replies usually land inside 24h.
+            Pick any channel below — email, phone, or a social handle.
+            Replies usually land inside 24 hours.
           </motion.p>
         </div>
 
@@ -124,10 +123,6 @@ export default function Contact() {
           <ContactChannels />
         </div>
 
-        {/* Form */}
-        <div className="mt-20">
-          <ContactForm />
-        </div>
       </div>
     </section>
   );
