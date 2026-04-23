@@ -50,8 +50,8 @@ const DOMAINS: Domain[] = [
     color: "#00D4FF",
     glow: "rgba(0,212,255,0.35)",
     items: [
-      { name: "PyTorch", proficiency: 95, years: "4", note: "Model training · research to prod" },
-      { name: "TensorFlow", proficiency: 88, years: "4", note: "Production inference · serving" },
+      { name: "PyTorch", proficiency: 95, years: "2", note: "Model training · research to prod" },
+      { name: "TensorFlow", proficiency: 88, years: "2", note: "Production inference · serving" },
       { name: "LangChain", proficiency: 95, years: "2", note: "LLM orchestration · RAG" },
     ],
   },
@@ -61,9 +61,9 @@ const DOMAINS: Domain[] = [
     color: "#10dc78",
     glow: "rgba(16,220,120,0.35)",
     items: [
-      { name: "OpenCV", proficiency: 92, years: "5", note: "Image · video pipelines" },
+      { name: "OpenCV", proficiency: 92, years: "2", note: "Image · video pipelines" },
       { name: "YOLO v8 / v11", proficiency: 94, years: "2", note: "Real-time detection" },
-      { name: "MediaPipe", proficiency: 85, years: "2", note: "Face · pose · hands" },
+      { name: "MediaPipe", proficiency: 85, years: "1", note: "Face · pose · hands" },
     ],
   },
   {
@@ -73,7 +73,7 @@ const DOMAINS: Domain[] = [
     glow: "rgba(123,47,190,0.4)",
     items: [
       { name: "FAISS", proficiency: 95, years: "2", note: "Vector similarity search" },
-      { name: "PostgreSQL", proficiency: 88, years: "5", note: "Relational · structured data" },
+      { name: "PostgreSQL", proficiency: 88, years: "2", note: "Relational · structured data" },
     ],
   },
   {
@@ -82,8 +82,8 @@ const DOMAINS: Domain[] = [
     color: "#FF6B35",
     glow: "rgba(255,107,53,0.35)",
     items: [
-      { name: "FastAPI", proficiency: 95, years: "3", note: "Async microservices" },
-      { name: "Docker", proficiency: 92, years: "4", note: "Containerised deploys" },
+      { name: "FastAPI", proficiency: 95, years: "2", note: "Async microservices" },
+      { name: "Docker", proficiency: 92, years: "2", note: "Containerised deploys" },
       { name: "Git", proficiency: 96, years: "6+", note: "Source control · collab" },
       { name: "Linux", proficiency: 90, years: "6+", note: "Servers + edge hosts" },
     ],
@@ -95,7 +95,7 @@ const DOMAINS: Domain[] = [
     glow: "rgba(252,196,78,0.35)",
     items: [
       { name: "Flutter", proficiency: 82, years: "2", note: "Cross-platform mobile" },
-      { name: "Next.js", proficiency: 85, years: "2", note: "This portfolio · App Router" },
+      { name: "Next.js", proficiency: 85, years: "1", note: "This portfolio · App Router" },
     ],
   },
 ];
