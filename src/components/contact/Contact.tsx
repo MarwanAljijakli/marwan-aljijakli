@@ -118,7 +118,7 @@ export default function Contact() {
             className="mb-6 flex items-center gap-3 font-mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--text-muted)]"
           >
             <span className="inline-block h-px w-10 bg-[color:var(--text-muted)]" />
-            Transmission channels · 5 open
+            Ways to reach me · 5 channels
           </motion.div>
 
           <ContactChannels />

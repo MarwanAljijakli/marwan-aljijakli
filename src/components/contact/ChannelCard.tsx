@@ -8,11 +8,12 @@ export type ChannelAccent = "cyan" | "violet" | "blue" | "amber" | "sky";
 
 export interface Channel {
   id: string;
-  label: string;           // e.g. "Email"
-  displayValue: string;    // e.g. "marwan2004000@gmail.com"
+  label: string; // e.g. "Email"
+  displayValue: string; // e.g. "marwan2004000@gmail.com"
+  cta: string; // e.g. "Write an email"
   href: string;
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
-  accent: string;          // hex — border glow + icon tint on hover
+  accent: string;
   external?: boolean;
 }
 
@@ -25,15 +26,20 @@ interface ChannelCardProps {
 /* ==========================================================================
  * ChannelCard
  * --------------------------------------------------------------------------
- * A "transmission channel" tile. Renders an animated icon well, a label,
- * a clickable value, and a hover glow keyed to the channel's signature
- * color.
+ * A professional contact card. Renders an accent-colored icon well, the
+ * channel name, a readable value (email address / phone / handle), and a
+ * clear CTA row at the bottom ("Write an email →", "Call directly →",
+ * "View profile →") so visitors immediately know what tapping the card
+ * will do.
+ *
+ * Prior revisions had a "LIVE" pulsing chip and a "CH · 01" metadata
+ * footer — both added visual noise without adding information. Removed.
  * ========================================================================== */
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
 export default function ChannelCard({ channel, index, inView }: ChannelCardProps) {
-  const { Icon, href, label, displayValue, accent, external } = channel;
+  const { Icon, href, label, displayValue, cta, accent, external } = channel;
 
   return (
     <motion.a
@@ -50,7 +56,7 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
         ease: EASE_OUT_EXPO,
       }}
       whileHover={{ y: -6 }}
-      className="group relative flex min-w-[200px] flex-1 flex-col gap-4 overflow-hidden rounded-2xl border border-white/10 bg-[color:var(--bg-secondary)]/60 p-5 backdrop-blur-sm"
+      className="group relative flex min-w-[200px] flex-1 flex-col gap-5 overflow-hidden rounded-2xl border border-white/10 bg-[color:var(--bg-secondary)]/70 p-5 backdrop-blur-sm transition-colors duration-300 hover:border-white/20"
       style={{
         ["--ch-accent" as string]: accent,
       }}
@@ -60,9 +66,10 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
         aria-hidden
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
-          background: `radial-gradient(300px 220px at 50% 0%, ${accent}25, transparent 70%)`,
+          background: `radial-gradient(280px 200px at 30% 0%, ${accent}2a, transparent 70%)`,
         }}
       />
+
       {/* Top accent bar */}
       <span
         aria-hidden
@@ -72,19 +79,8 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
         }}
       />
 
-      {/* Status dot — live transmission indicator */}
-      <span className="absolute top-4 right-4 flex items-center gap-1 font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
-        <motion.span
-          className="inline-block h-1.5 w-1.5 rounded-full"
-          style={{ backgroundColor: accent, boxShadow: `0 0 8px ${accent}` }}
-          animate={{ opacity: [0.4, 1, 0.4] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-        />
-        live
-      </span>
-
       {/* Icon well */}
-      <div className="relative h-10 w-10">
+      <div className="relative h-12 w-12">
         <motion.span
           aria-hidden
           className="absolute inset-0 rounded-xl border transition-colors duration-300"
@@ -92,7 +88,7 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
             borderColor: `${accent}55`,
             backgroundColor: `${accent}12`,
           }}
-          whileHover={{ scale: 1.08, rotate: -4 }}
+          whileHover={{ scale: 1.06, rotate: -4 }}
           transition={{ type: "spring", stiffness: 300, damping: 18 }}
         />
         <motion.span
@@ -103,30 +99,36 @@ export default function ChannelCard({ channel, index, inView }: ChannelCardProps
           whileHover={{ rotate: -8 }}
           transition={{ type: "spring", stiffness: 200, damping: 15 }}
         >
-          <Icon className="h-5 w-5" strokeWidth={1.5} />
+          <Icon className="h-5 w-5" strokeWidth={1.6} />
         </motion.span>
       </div>
 
-      {/* Body */}
-      <div className="flex flex-col gap-1">
+      {/* Label + value */}
+      <div className="flex flex-col gap-1.5">
         <div
           className="font-mono text-[10px] uppercase tracking-[0.18em]"
           style={{ color: accent }}
         >
           {label}
         </div>
-        <div className="truncate font-mono text-[13px] text-[color:var(--text-primary)] transition-colors duration-200 group-hover:text-white">
+        <div
+          className="truncate text-[15px] font-semibold leading-snug text-[color:var(--text-primary)] transition-colors duration-200 group-hover:text-white"
+          title={displayValue}
+        >
           {displayValue}
         </div>
       </div>
 
-      {/* Footer arrow indicator */}
-      <div className="mt-auto flex items-center justify-between font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
-        <span>
-          CH · {String(index + 1).padStart(2, "0")}
+      {/* CTA footer — explicit action text so hover intent is obvious */}
+      <div className="mt-auto flex items-center justify-between gap-2 border-t border-white/5 pt-3">
+        <span
+          className="text-[12px] font-medium transition-colors duration-200"
+          style={{ color: "var(--text-secondary)" }}
+        >
+          {cta}
         </span>
         <ArrowUpRight
-          className="h-3.5 w-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+          className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
           style={{ color: accent }}
           strokeWidth={2}
         />
