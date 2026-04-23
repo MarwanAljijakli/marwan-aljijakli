@@ -1,9 +1,7 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import { PROJECTS, type Project } from "./data";
+import { PROJECTS } from "./data";
 import ProjectsHeader from "./ProjectsHeader";
-import ProjectModal from "./ProjectModal";
 import AuraFeaturedCard from "./cards/AuraFeaturedCard";
 import ProjectCard from "./cards/ProjectCard";
 import EcgChart from "./visuals/EcgChart";
@@ -18,16 +16,8 @@ import RagFlowDiagram from "./visuals/RagFlowDiagram";
  *  [RAG]    (+ space for future projects in the 2-col grid)
  */
 export default function Projects() {
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
-
-  const open = useCallback((slug: string) => setActiveSlug(slug), []);
-  const close = useCallback(() => setActiveSlug(null), []);
-
   const featured = PROJECTS.find((p) => p.slug === "aura");
   const rest = PROJECTS.filter((p) => p.slug !== "aura");
-
-  const activeProject: Project | null =
-    PROJECTS.find((p) => p.slug === activeSlug) ?? null;
 
   return (
     <section
@@ -61,27 +51,17 @@ export default function Projects() {
         <ProjectsHeader />
 
         {/* Featured */}
-        {featured && (
-          <AuraFeaturedCard project={featured} onOpen={() => open(featured.slug)} />
-        )}
+        {featured && <AuraFeaturedCard project={featured} />}
 
         {/* Grid of remaining projects */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {rest.map((p, i) => (
-            <ProjectCard
-              key={p.slug}
-              project={p}
-              index={i}
-              onOpen={() => open(p.slug)}
-            >
+            <ProjectCard key={p.slug} project={p} index={i}>
               {renderVisualFor(p.slug)}
             </ProjectCard>
           ))}
         </div>
       </div>
-
-      {/* Drawer */}
-      <ProjectModal project={activeProject} onClose={close} />
     </section>
   );
 }

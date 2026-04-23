@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useTransform } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
 import type { ReactNode } from "react";
 import { useTilt } from "@/lib/hooks/useTilt";
 import TechPill from "../TechPill";
@@ -28,12 +27,10 @@ export default function ProjectCard({
   project,
   index,
   children,
-  onOpen,
 }: {
   project: Project;
   index: number;
   children: ReactNode;
-  onOpen: () => void;
 }) {
   const tilt = useTilt({ maxDeg: 8 });
 
@@ -156,25 +153,9 @@ export default function ProjectCard({
             {project.impact}
           </div>
 
-          {/* Action */}
-          <div className="mt-auto flex items-center justify-between pt-2">
-            <button
-              type="button"
-              onClick={onOpen}
-              data-cursor="hover"
-              className="group/btn inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-primary)] transition-colors hover:text-[color:var(--accent-primary)]"
-              style={{ transform: "translateZ(0)" }}
-            >
-              View Project
-              <ArrowUpRight
-                className="h-4 w-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
-                strokeWidth={2}
-              />
-            </button>
-
-            <span
-              className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]"
-            >
+          {/* Footer — card index only */}
+          <div className="mt-auto flex items-center justify-end pt-2">
+            <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
               0{index + 2} / 04
             </span>
           </div>

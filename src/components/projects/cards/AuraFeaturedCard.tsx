@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { useRef } from "react";
 import { useLazySection } from "@/lib/hooks/useLazySection";
 import AuraSimulation from "../visuals/AuraSimulation";
@@ -15,10 +14,8 @@ import type { Project } from "../data";
  */
 export default function AuraFeaturedCard({
   project,
-  onOpen,
 }: {
   project: Project;
-  onOpen: () => void;
 }) {
   const speedRef = useRef<number>(1);
 
@@ -120,38 +117,6 @@ export default function AuraFeaturedCard({
           {project.impact}
         </div>
 
-        {/* CTAs */}
-        <div className="mt-auto flex flex-wrap items-center gap-3">
-          <button
-            type="button"
-            onClick={onOpen}
-            data-cursor="hover"
-            className="group/btn inline-flex items-center gap-2 rounded-full bg-[color:var(--accent-tertiary)] px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--bg-primary)] transition-transform duration-300 ease-out-expo hover:scale-[1.04]"
-            style={{
-              boxShadow: "0 0 0 rgba(255,107,53,0)",
-            }}
-          >
-            <span
-              aria-hidden
-              className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-[color:var(--accent-tertiary)] opacity-0 blur-xl transition-opacity duration-300 group-hover/btn:opacity-70"
-            />
-            View Project
-            <ArrowUpRight
-              className="h-4 w-4 transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
-              strokeWidth={2}
-            />
-          </button>
-
-          <button
-            type="button"
-            onClick={onOpen}
-            data-cursor="hover"
-            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-transparent px-6 py-3 font-mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--text-primary)] transition-colors hover:border-[color:var(--accent-tertiary)] hover:text-[color:var(--accent-tertiary)]"
-          >
-            Technical Details
-            <ArrowRight className="h-4 w-4" strokeWidth={2} />
-          </button>
-        </div>
       </div>
 
       {/* ---------------------------------------------------------------- */}
