@@ -8,11 +8,10 @@ import dynamic from "next/dynamic";
 const Typewriter = dynamic(() => import("typewriter-effect"), { ssr: false });
 
 const TYPEWRITER_PHRASES = [
-  "Building AI That Ships.",
-  "Computer Vision Expert.",
-  "Generative AI Architect.",
-  "From R&D to Production.",
-  "Based in Jeddah, Saudi Arabia.",
+  "AI/ML Engineer",
+  "Computer Vision Engineer",
+  "CTO",
+  "LLM & RAG Systems Engineer",
 ] as const;
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
@@ -46,7 +45,7 @@ export default function HeroContent() {
           CTO &amp; AI/ML Engineer
           <span className="ml-2 inline-flex items-center gap-1.5 text-[color:var(--text-muted)]">
             <span className="inline-block h-1.5 w-1.5 animate-pulse-slow rounded-full bg-[color:var(--accent-primary)]" />
-            Online · Jeddah, KSA
+            Available immediately · Open to remote roles globally and KSA on-site · Zero visa friction
           </span>
         </motion.div>
 
@@ -132,13 +131,13 @@ export default function HeroContent() {
           className="mt-6 flex flex-wrap items-center gap-4"
         >
           <a
-            href="#work"
+            href="#projects"
             data-cursor="hover"
             className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-[color:var(--accent-primary)] px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--bg-primary)] transition-transform duration-300 ease-out-expo hover:scale-[1.05]"
             style={{ boxShadow: "0 0 0 rgba(0,212,255,0)" }}
           >
             <span className="pointer-events-none absolute inset-0 -z-10 rounded-full bg-[color:var(--accent-primary)] opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-70" />
-            View My Work
+            View Projects
             <ArrowRight
               className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5"
               strokeWidth={2}
@@ -146,11 +145,12 @@ export default function HeroContent() {
           </a>
 
           <a
-            href="#contact"
+            href="/marwan-cv.pdf"
+            download
             data-cursor="hover"
             className="group relative inline-flex items-center gap-2 rounded-full border-2 border-[color:var(--accent-primary)] bg-transparent px-7 py-3.5 font-mono text-[11px] uppercase tracking-[0.16em] text-[color:var(--accent-primary)] transition-colors duration-300 hover:bg-[color:var(--accent-primary)] hover:text-[color:var(--bg-primary)]"
           >
-            Get In Touch
+            Download CV
             <ArrowUpRight
               className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
               strokeWidth={2}

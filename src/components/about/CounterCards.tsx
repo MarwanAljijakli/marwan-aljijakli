@@ -12,17 +12,17 @@ import { useCountUp } from "@/lib/hooks/useCountUp";
  * ========================================================================== */
 
 interface StatDef {
-  value: number | "∞";
+  value: number | string;
   suffix?: string;
   label: string;
   formatter?: (v: number) => string;
 }
 
 const STATS: StatDef[] = [
-  { value: 3, suffix: "+", label: "Years in AI Engineering" },
-  { value: 10, suffix: "+", label: "Production AI Systems Deployed" },
-  { value: 5, suffix: "+", label: "Industries Impacted" },
-  { value: "∞", label: "Lines of Code" },
+  { value: 3, label: "Production AI Systems" },
+  { value: 435, suffix: "", label: "University GPA", formatter: (v) => `${(v / 100).toFixed(2)}/5.0` },
+  { value: 800, suffix: "+", label: "Active Users" },
+  { value: "🏆", label: "National Competition Finalist" },
 ];
 
 export default function CounterCards() {
@@ -53,17 +53,19 @@ function StatCard({
   inView: boolean;
   index: number;
 }) {
-  const isInfinity = stat.value === "∞";
-  const targetNumber = isInfinity ? 0 : (stat.value as number);
+  const isString = typeof stat.value === "string";
+  const targetNumber = isString ? 0 : (stat.value as number);
 
   const animated = useCountUp(targetNumber, {
-    trigger: inView && !isInfinity,
+    trigger: inView && !isString,
     duration: 2000,
   });
 
-  const displayNumber = isInfinity
-    ? "∞"
-    : `${Math.round(animated)}${stat.suffix ?? ""}`;
+  const displayNumber = isString
+    ? (stat.value as string)
+    : stat.formatter
+      ? stat.formatter(animated) + (stat.suffix ?? "")
+      : `${Math.round(animated)}${stat.suffix ?? ""}`;
 
   return (
     <motion.div
@@ -91,7 +93,7 @@ function StatCard({
       />
 
       <div className="relative flex items-end gap-2">
-        {isInfinity ? (
+        {isString ? (
           <motion.span
             className="font-display leading-none text-[color:var(--accent-primary)]"
             style={{

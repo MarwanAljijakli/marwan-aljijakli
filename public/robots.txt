@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://marwan-aljijakli.com/sitemap.xml

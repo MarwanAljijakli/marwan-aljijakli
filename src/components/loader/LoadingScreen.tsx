@@ -376,7 +376,7 @@ function ParticleShatter() {
     sctx.fillStyle = "#00D4FF";
     sctx.textAlign = "center";
     sctx.textBaseline = "middle";
-    sctx.font = `700 ${sizePx}px "Bebas Neue", Impact, Oswald, Arial, sans-serif`;
+    sctx.font = `700 ${sizePx}px "Space Grotesk", Inter, system-ui, sans-serif`;
     sctx.fillText("MA", w / 2, h / 2);
 
     const img = sctx.getImageData(0, 0, w, h);

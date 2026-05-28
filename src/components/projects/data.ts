@@ -1,4 +1,4 @@
-export type AccentColor = "cyan" | "violet" | "orange" | "amber";
+export type AccentColor = "cyan" | "violet" | "orange" | "amber" | "green";
 
 export interface ProjectLink {
   label: string;
@@ -68,9 +68,9 @@ export const PROJECTS: Project[] = [
       "Edge deployment via Docker Compose on Jetson / commodity GPU",
     ],
     metrics: [
-      { label: "Cameras / site", value: "24+" },
-      { label: "End-to-end latency", value: "<1s" },
-      { label: "Alert pipelines", value: "5" },
+      { label: "Detection Accuracy", value: "94.2% mAP" },
+      { label: "Live Streams", value: "6 simultaneous RTSP" },
+      { label: "Processing Speed", value: "28 FPS" },
     ],
     year: "2024",
     role: "CTO & Lead Engineer",
@@ -111,9 +111,9 @@ export const PROJECTS: Project[] = [
       "FastAPI microservice mesh with per-service health checks",
     ],
     metrics: [
-      { label: "Inference", value: "Real-time" },
-      { label: "Contact required", value: "None" },
-      { label: "Signals", value: "HR · HRV · SpO₂" },
+      { label: "HR Accuracy", value: "91%" },
+      { label: "Processing Speed", value: "28 FPS" },
+      { label: "Latency", value: "<145ms" },
     ],
     year: "2024",
     role: "AI Engineer",
@@ -152,9 +152,9 @@ export const PROJECTS: Project[] = [
       "Safety-risk ranking with explainable feature contributions",
     ],
     metrics: [
-      { label: "Competition stage", value: "Finalist" },
-      { label: "Signal sources", value: "3" },
-      { label: "Sector", value: "Mining" },
+      { label: "Prediction Accuracy", value: "88%" },
+      { label: "Teams Competing", value: "38" },
+      { label: "Competition Result", value: "Finalist" },
     ],
     year: "2024",
     role: "AI Engineer",
@@ -195,15 +195,81 @@ export const PROJECTS: Project[] = [
       "Citation-first answer formatting with source-link preservation",
     ],
     metrics: [
-      { label: "Models routed", value: "GPT-4 · Claude" },
-      { label: "Vector stores", value: "FAISS · Chroma" },
-      { label: "Trace coverage", value: "100%" },
+      { label: "Query Latency", value: "<165ms" },
+      { label: "Precision@5", value: "76%" },
+      { label: "Knowledge Base", value: "30K documents" },
     ],
     year: "2024",
     role: "AI Engineer",
     links: [
       { label: "View Project", href: "#", primary: true },
       { label: "Technical Details", href: "#" },
+    ],
+  },
+  {
+    slug: "greenhouse",
+    title: "Smart Greenhouse",
+    subtitle: "12-Node IoT Mesh + YOLOv5 Pest Detection",
+    description:
+      "12-node ESP32 sensor mesh with automated climate control and YOLOv5-based plant disease and pest detection. Full pipeline from sensor ingestion to computer vision inference at sub-500ms latency.",
+    longDescription: [
+      "A distributed IoT system spanning 12 ESP32 nodes communicating over MQTT with a central Node-RED orchestrator. Each node manages temperature, humidity, soil moisture, and light sensors with closed-loop PID control for actuators.",
+      "YOLOv5 inference runs on edge hardware scanning camera feeds for early signs of disease and pest infestation, triggering targeted treatment alerts before spread occurs.",
+      "Telemetry is pushed to InfluxDB for time-series analytics; Grafana dashboards give growers a live operational view of all 12 zones simultaneously.",
+    ],
+    impact:
+      "Enabled early pest detection and automated climate response, reducing crop loss and manual monitoring overhead.",
+    tech: ["ESP32", "YOLOv5", "MQTT", "Python", "Node-RED", "InfluxDB"],
+    accent: "green",
+    features: [
+      "12-node ESP32 sensor mesh with sub-50ms inter-node latency",
+      "YOLOv5 pest and disease detection at 94% accuracy",
+      "Closed-loop PID climate control (temperature, humidity, ventilation)",
+      "MQTT broker with Node-RED flow orchestration",
+      "InfluxDB time-series storage + Grafana dashboards",
+    ],
+    metrics: [
+      { label: "Pest Detection Accuracy", value: "94%" },
+      { label: "Sensor Nodes", value: "12" },
+      { label: "End-to-End Latency", value: "<500ms" },
+    ],
+    year: "2024",
+    role: "IoT Systems Engineer",
+    links: [
+      { label: "GitHub", href: "https://github.com/MarwanAljijakli", primary: true },
+    ],
+  },
+  {
+    slug: "ble-positioning",
+    title: "BLE Indoor Positioning",
+    subtitle: "Sub-2m Accuracy Navigation via nRF52840 + BLE 5.0",
+    description:
+      "Bluetooth 5.0 mesh firmware on nRF52840 with trilateration-based indoor positioning achieving ±1.8m accuracy across 200+ simultaneous connections. Designed for large-scale industrial facility navigation.",
+    longDescription: [
+      "A BLE 5.0 mesh network built on the nRF52840 SoC with custom C/C++ firmware. Each anchor node broadcasts calibrated RSSI beacons; a Python post-processing layer applies weighted trilateration with Kalman filtering to produce stable position estimates.",
+      "The system supports 200+ simultaneous connections with sub-100ms position update rates, making it viable for real-time worker and asset tracking in industrial environments.",
+      "Firmware runs FreeRTOS with custom BLE stack configuration to maximise connection density while staying within regulatory RF power limits.",
+    ],
+    impact:
+      "Delivered ±1.8m indoor positioning accuracy at scale, enabling real-time asset and personnel tracking without GPS infrastructure.",
+    tech: ["nRF52840", "BLE 5.0", "C/C++", "FreeRTOS", "Python", "RSSI trilateration"],
+    accent: "violet",
+    features: [
+      "BLE 5.0 mesh firmware on nRF52840 with FreeRTOS",
+      "Weighted trilateration with Kalman filtering",
+      "200+ simultaneous BLE connections",
+      "±1.8m position accuracy in multi-path environments",
+      "Sub-100ms position update rate",
+    ],
+    metrics: [
+      { label: "Position Accuracy", value: "±1.8m" },
+      { label: "Simultaneous Connections", value: "200+" },
+      { label: "Firmware", value: "BLE 5.0 Mesh" },
+    ],
+    year: "2023",
+    role: "Embedded Systems Engineer",
+    links: [
+      { label: "GitHub", href: "https://github.com/MarwanAljijakli", primary: true },
     ],
   },
 ];

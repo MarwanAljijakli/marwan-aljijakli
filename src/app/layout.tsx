@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Mono, Bebas_Neue } from "next/font/google";
+import { Inter, Space_Mono, Space_Grotesk } from "next/font/google";
 import AppShell from "@/components/providers/AppShell";
 import "./globals.css";
 
@@ -20,11 +20,11 @@ const spaceMono = Space_Mono({
   weight: ["400", "700"],
 });
 
-const bebasNeue = Bebas_Neue({
+const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
-  variable: "--font-bebas",
+  variable: "--font-display",
   display: "swap",
-  weight: "400",
+  weight: ["400", "500", "600", "700"],
 });
 
 /* -------------------------------------------------------------------------- */
@@ -32,15 +32,15 @@ const bebasNeue = Bebas_Neue({
 /* -------------------------------------------------------------------------- */
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://marwan.dev"
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://marwan-aljijakli.com"
   ),
   title: {
     default:
-      "Marwan Aljijakli — CTO & AI/ML Engineer | Jeddah, Saudi Arabia",
+      "Marwan Aljijakli — AI/ML Engineer | Computer Vision | LLM & RAG Systems",
     template: "%s · Marwan Aljijakli",
   },
   description:
-    "CTO and AI/ML Engineer specializing in Computer Vision, Generative AI, LLM Applications, and production-grade AI systems. Building rPPG health platforms, RAG pipelines, and industrial safety AI.",
+    "AI/ML Engineer and CTO with 3 production AI systems deployed. Specializing in Computer Vision (YOLO, OpenCV), LLM/RAG pipelines, and IoT. Based in Jeddah, Saudi Arabia. Available immediately.",
   keywords: [
     "AI Engineer",
     "ML Engineer",
@@ -79,31 +79,22 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Marwan Aljijakli — CTO & AI/ML Engineer",
+    title: "Marwan Aljijakli — AI/ML Engineer | Computer Vision | LLM & RAG Systems",
     description:
-      "Building AI that ships. From rPPG health systems to industrial safety AI.",
+      "AI/ML Engineer and CTO with 3 production AI systems deployed. Specializing in Computer Vision, LLM/RAG pipelines, and IoT. Based in Jeddah, Saudi Arabia.",
     type: "website",
     locale: "en_US",
     url: "/",
     siteName: "Marwan Aljijakli",
-    images: [
-      {
-        url: "/og-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "Marwan Aljijakli — CTO & AI/ML Engineer",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marwan Aljijakli — CTO & AI/ML Engineer",
+    title: "Marwan Aljijakli — AI/ML Engineer | Computer Vision | LLM & RAG Systems",
     description:
-      "Building AI that ships. From rPPG health systems to industrial safety AI.",
-    images: ["/og-image.jpg"],
+      "AI/ML Engineer and CTO with 3 production AI systems deployed. Specializing in Computer Vision, LLM/RAG, and IoT. Based in Jeddah, Saudi Arabia.",
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://marwan-aljijakli.com",
   },
 };
 
@@ -123,9 +114,42 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceMono.variable} ${bebasNeue.variable}`}
+      className={`${inter.variable} ${spaceMono.variable} ${spaceGrotesk.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Marwan Aljijakli",
+              url: "https://marwan-aljijakli.com",
+              email: "marwan2004000@gmail.com",
+              telephone: "+966572221939",
+              jobTitle: "AI/ML Engineer & CTO",
+              worksFor: [
+                { "@type": "Organization", name: "BOHIO" },
+                { "@type": "Organization", name: "VLEED" },
+              ],
+              alumniOf: {
+                "@type": "CollegeOrUniversity",
+                name: "Jeddah International College",
+              },
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Jeddah",
+                addressCountry: "SA",
+              },
+              sameAs: [
+                "https://github.com/MarwanAljijakli",
+                "https://www.linkedin.com/in/marwan-aljijakli-7ba965241/",
+              ],
+            }),
+          }}
+        />
+      </head>
       <body className="min-h-dvh bg-bg-primary text-text-primary antialiased selection:bg-accent-cyan selection:text-bg-primary">
         {/* Skip to main content — hidden until focused by keyboard. */}
         <a

@@ -21,15 +21,18 @@ const ACCENT_HEX: Record<AccentColor, string> = {
   violet: "#7B2FBE",
   orange: "#FF6B35",
   amber: "#FCC44E",
+  green: "#22C55E",
 };
 
 export default function ProjectCard({
   project,
   index,
+  total,
   children,
 }: {
   project: Project;
   index: number;
+  total?: number;
   children: ReactNode;
 }) {
   const tilt = useTilt({ maxDeg: 8 });
@@ -156,7 +159,8 @@ export default function ProjectCard({
           {/* Footer — card index only */}
           <div className="mt-auto flex items-center justify-end pt-2">
             <span className="font-mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--text-muted)]">
-              0{index + 2} / 04
+              {String(index + 2).padStart(2, "0")}
+              {total != null ? ` / ${String(total).padStart(2, "0")}` : ""}
             </span>
           </div>
         </div>

@@ -1,5 +1,5 @@
 export type Side = "left" | "right";
-export type NodeColor = "cyan" | "violet" | "orange";
+export type NodeColor = "cyan" | "violet" | "orange" | "amber";
 
 export interface Experience {
   slug: string;
@@ -28,11 +28,11 @@ export const EXPERIENCES: Experience[] = [
     tagline: "Technology leadership",
     visual: "orgChart",
     achievements: [
-      "Defined technology strategy and AI product roadmap",
-      "Led cross-functional teams delivering AI-powered products",
-      "Architected scalable cloud-native AI systems (Docker + FastAPI + Vector DBs)",
-      "Oversaw full-stack AI: LLM integration, RAG pipelines, fine-tuning workflows",
-      "Drove rapid prototyping and vibe coding sessions for feature validation",
+      "Led full AI product roadmap serving 800+ users at 99.7% production uptime",
+      "Architected LLM/RAG pipelines and cloud-native infrastructure with FastAPI, Docker, and GitHub Actions CI/CD",
+      "Directed cross-functional team across ML engineering, backend, and DevOps",
+      "Reduced deployment cycle time by 60% via automated CI/CD pipelines",
+      "Evaluated and selected production LLM vendors and vector database solutions",
     ],
   },
   {
@@ -46,11 +46,11 @@ export const EXPERIENCES: Experience[] = [
     tagline: "Health platform · biometrics",
     visual: "heartLine",
     achievements: [
-      "Engineered rPPG engine: Heart Rate, HRV, SpO₂ from facial video",
-      "Deployed RAG pipelines (LangChain + FAISS/Chroma) for medical data analysis",
-      "Built production FastAPI services on Docker for live video processing",
-      "Unified wearable APIs + lab data into SQL data warehouse",
-      "Contributed across full product lifecycle: training → deployment → insights",
+      "Built production rPPG engine achieving 91% HR accuracy at 28 FPS with <145ms latency",
+      "Deployed to mobile SDK serving 300+ users with real-time HR/HRV/SpO₂ extraction",
+      "Engineered RAG-backed health knowledge retrieval pipeline (LangChain + FAISS)",
+      "Built production FastAPI microservices for biometric data processing and storage",
+      "Contributed across full product lifecycle: training → deployment → mobile SDK",
     ],
   },
   {
@@ -63,9 +63,42 @@ export const EXPERIENCES: Experience[] = [
     tagline: "Applied ML · benchmarking",
     visual: "confusionMatrix",
     achievements: [
-      "Built and trained deep learning classification models end-to-end",
+      "Built 88% accuracy deep learning classifier on 12K industrial samples",
+      "Achieved 3× faster anomaly detection vs baseline models",
       "Developed benchmarking scripts and real-time performance dashboards",
-      "Collaborated with stakeholders to align ML accuracy with business goals",
+    ],
+  },
+  {
+    slug: "iot-freelance",
+    side: "left",
+    role: "IoT Systems Engineer",
+    company: "Freelance",
+    period: "2023 – 2025",
+    current: false,
+    nodeColor: "orange",
+    tagline: "Embedded systems · BLE · MQTT",
+    visual: "orgChart",
+    achievements: [
+      "Designed and deployed multi-node ESP32 sensor mesh systems processing 100K+ events/day at sub-50ms latency",
+      "Developed BLE 5.0 mesh firmware on nRF52840 for indoor positioning (±1.8m accuracy, 200+ connections)",
+      "Built 12-node smart greenhouse with YOLOv5 pest detection at 94% accuracy",
+      "Delivered 5+ production IoT deployments for industrial and agricultural clients",
+    ],
+  },
+  {
+    slug: "embedded-intern",
+    side: "right",
+    role: "Embedded Systems Intern",
+    company: "Industry Placement",
+    period: "2024",
+    current: false,
+    nodeColor: "amber",
+    tagline: "STM32 · FreeRTOS · HAL",
+    visual: "confusionMatrix",
+    achievements: [
+      "Developed STM32 HAL drivers with FreeRTOS achieving <0.8ms interrupt response time",
+      "Implemented UART/SPI/I2C communication drivers for industrial sensor peripherals",
+      "Documented embedded firmware architecture for team knowledge transfer",
     ],
   },
 ];
@@ -74,4 +107,5 @@ export const NODE_HEX: Record<NodeColor, string> = {
   cyan: "#00D4FF",
   violet: "#7B2FBE",
   orange: "#FF6B35",
+  amber: "#F59E0B",
 };
