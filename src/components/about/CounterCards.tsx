@@ -20,7 +20,7 @@ interface StatDef {
 
 const STATS: StatDef[] = [
   { value: 3, label: "Production AI Systems" },
-  { value: 435, suffix: "", label: "University GPA", formatter: (v) => `${(v / 100).toFixed(2)}/5.0` },
+  { value: 6, label: "IEEE Research Papers" },
   { value: 800, suffix: "+", label: "Active Users" },
   { value: "🏆", label: "National Competition Finalist" },
 ];
