@@ -7,6 +7,8 @@ import ProjectCard from "./cards/ProjectCard";
 import EcgChart from "./visuals/EcgChart";
 import MiningBarChart from "./visuals/MiningBarChart";
 import RagFlowDiagram from "./visuals/RagFlowDiagram";
+import GreenhouseVisual from "./visuals/GreenhouseVisual";
+import BlePositioningVisual from "./visuals/BlePositioningVisual";
 
 /**
  * Projects section — the "What I've Built" band.
@@ -56,7 +58,7 @@ export default function Projects() {
         {/* Grid of remaining projects */}
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {rest.map((p, i) => (
-            <ProjectCard key={p.slug} project={p} index={i}>
+            <ProjectCard key={p.slug} project={p} index={i} total={PROJECTS.length}>
               {renderVisualFor(p.slug)}
             </ProjectCard>
           ))}
@@ -75,6 +77,10 @@ function renderVisualFor(slug: string) {
       return <MiningBarChart />;
     case "rag":
       return <RagFlowDiagram />;
+    case "greenhouse":
+      return <GreenhouseVisual />;
+    case "ble-positioning":
+      return <BlePositioningVisual />;
     default:
       return null;
   }

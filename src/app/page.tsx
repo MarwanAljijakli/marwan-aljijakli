@@ -2,6 +2,7 @@
 
 import About from "@/components/about/About";
 import Contact from "@/components/contact/Contact";
+import EducationSection from "@/components/education/EducationSection";
 import Experience from "@/components/experience/Experience";
 import Hero from "@/components/hero/Hero";
 import Footer from "@/components/layout/Footer";
@@ -18,9 +19,10 @@ export default function HomePage() {
     >
       <Hero />
       <About />
-      <Projects />
       <Skills />
       <Experience />
+      <Projects />
+      <EducationSection />
       <Contact />
       <Footer />
     </main>

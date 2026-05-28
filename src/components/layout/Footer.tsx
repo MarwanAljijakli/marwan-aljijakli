@@ -17,9 +17,10 @@ import LinkedinIcon from "@/components/contact/icons/LinkedinIcon";
 
 const NAV_LINKS = [
   { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
   { href: "#skills", label: "Skills" },
   { href: "#experience", label: "Experience" },
+  { href: "#projects", label: "Projects" },
+  { href: "#education", label: "Education" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -170,10 +171,7 @@ function FooterImpl() {
             <span className="text-[color:var(--text-secondary)]">
               Marwan Aljijakli
             </span>
-            . Built with AI, deployed with purpose.{" "}
-            <span className="text-[color:var(--text-secondary)]">
-              Jeddah, Saudi Arabia 🇸🇦
-            </span>
+            . Built with ❤️ and too much Python.
           </p>
 
           <p className="font-mono text-[10px] text-[color:var(--text-muted)]/70">

@@ -16,23 +16,27 @@ interface Milestone {
   title: string;
   org: string;
   detail?: string;
+  year?: string;
 }
 
 const MILESTONES: Milestone[] = [
   {
     title: "B.Sc. Artificial Intelligence",
     org: "Jeddah International College",
-    detail: "Core AI foundations · ML · CV",
+    detail: "GPA: 4.35/5.0 · Graduating 2026",
+    year: "2026",
   },
   {
-    title: "AI Training",
-    org: "SDAIA",
-    detail: "Saudi Data & AI Authority",
+    title: "AI Training Program",
+    org: "SDAIA — Saudi Data & AI Authority",
+    detail: "National AI authority certification",
+    year: "2024",
   },
   {
-    title: "AI Training",
+    title: "AI Training Program",
     org: "KAUST",
-    detail: "King Abdullah University",
+    detail: "King Abdullah University of Science and Technology",
+    year: "2024",
   },
 ];
 

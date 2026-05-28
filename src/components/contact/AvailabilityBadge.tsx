@@ -33,9 +33,9 @@ export default function AvailabilityBadge() {
         />
       </span>
       <span>
-        <span className="text-[#5ef5a6]">Available</span>
+        <span className="text-[#5ef5a6]">Available Immediately</span>
         <span className="ml-2 text-[color:var(--text-muted)]">
-          for new opportunities
+          · Senior ML, CV &amp; Technical Lead roles · Global &amp; KSA
         </span>
       </span>
     </motion.div>

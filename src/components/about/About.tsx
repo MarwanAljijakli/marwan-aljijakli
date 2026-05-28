@@ -7,7 +7,6 @@ import BioReveal from "./BioReveal";
 import Portrait from "./Portrait";
 import BrainOrb from "./BrainOrb";
 import CounterCards from "./CounterCards";
-import EducationTimeline from "./EducationTimeline";
 import SkillBars from "./SkillBars";
 import Terminal from "./Terminal";
 
@@ -103,12 +102,6 @@ export default function About() {
           </div>
         </div>
 
-        {/* ------------------------------------------------------------- */}
-        {/* Full-width education timeline                                 */}
-        {/* ------------------------------------------------------------- */}
-        <div className="mt-24 border-t border-white/5 pt-16">
-          <EducationTimeline />
-        </div>
       </div>
     </section>
   );
