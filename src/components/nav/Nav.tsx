@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion, useScroll, useTransform } from "framer-motion";
 import { ArrowUpRight, Mail } from "lucide-react";
+import Image from "next/image";
 import { memo, useEffect, useState, type MouseEvent } from "react";
 import { useActiveSection } from "@/lib/hooks/useActiveSection";
 import { scrollToId, scrollToTop } from "@/lib/scroll";
@@ -104,21 +105,27 @@ function NavImpl() {
             onClick={handleLogoClick}
             aria-label="Marwan Aljijakli — home"
             data-cursor="hover"
-            className="group inline-flex items-baseline gap-1"
+            className="group relative inline-flex items-center"
           >
-            <span
-              className="font-display text-2xl tracking-wide text-[color:var(--text-primary)] transition-colors group-hover:text-[color:var(--accent-primary)] md:text-[28px]"
-              style={{ letterSpacing: "0.02em" }}
-            >
-              MA
+            <span className="relative">
+              <Image
+                src="/marwan-portrait.png"
+                alt="Marwan Aljijakli"
+                width={38}
+                height={38}
+                className="rounded-full object-cover ring-2 ring-white/10 transition-all duration-300 group-hover:ring-[color:var(--accent-primary)]"
+                style={{ aspectRatio: "1/1" }}
+                priority
+              />
+              {/* Pulsing online dot */}
+              <motion.span
+                aria-hidden
+                className="absolute -bottom-0.5 -right-0.5 h-2.5 w-2.5 rounded-full border-2 border-[color:var(--bg-primary)] bg-[color:var(--accent-primary)]"
+                animate={{ opacity: [1, 0.4, 1], scale: [1, 1.15, 1] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                style={{ boxShadow: "0 0 8px rgba(0,212,255,0.8)" }}
+              />
             </span>
-            <motion.span
-              aria-hidden
-              className="inline-block h-1.5 w-1.5 translate-y-[-2px] rounded-full bg-[color:var(--accent-primary)]"
-              animate={{ opacity: [1, 0.4, 1], scale: [1, 1.15, 1] }}
-              transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-              style={{ boxShadow: "0 0 10px rgba(0,212,255,0.8)" }}
-            />
           </a>
 
           {/* --- Center: desktop links ------------------------------------ */}
