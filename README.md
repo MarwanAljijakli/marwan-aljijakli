@@ -1,36 +1,70 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marwan Aljijakli — Portfolio
 
-## Getting Started
+The source for [marwan-aljijakli.com](https://marwan-aljijakli.com), a fast bilingual portfolio for Marwan Aljijakli, AI & Data Engineer.
 
-First, run the development server:
+## What is included
+
+- English and Arabic content with complete LTR/RTL switching
+- Light and dark themes with saved preferences and no theme flash
+- A server-rendered editorial interface with a deliberately small client runtime
+- Verified experience, education, awards, projects, and contact details
+- Downloadable CV, social metadata, structured data, sitemap, robots file, and web manifest
+- Responsive layouts for mobile, tablet, and desktop
+- Reduced-motion support and keyboard-friendly navigation
+
+## Stack
+
+- Next.js 16 App Router
+- React 19
+- TypeScript
+- Plain CSS with no runtime styling dependency
+- Vercel
+
+## Local development
+
+Node.js 22 is required.
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality checks
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run lint
+npm run typecheck
+npm run build
+```
 
-## Learn More
+To verify the built site contracts, start the production server:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run start
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Then use a second terminal:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run verify
+```
 
-## Deploy on Vercel
+Set `SITE_URL` to test another origin. Set `CHECK_EXTERNAL=1` to include the public project links.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```powershell
+$env:SITE_URL = "https://marwan-aljijakli.com"
+$env:CHECK_EXTERNAL = "1"
+npm run verify
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Content updates
+
+Portfolio copy and project data live in `src/content/portfolio.ts`. Design tokens and responsive rules live in `src/app/globals.css`.
+
+The public CV is stored at `public/marwan-cv.pdf`. Keep claims in the site aligned with the current CV and live project sources.
+
+## Deployment
+
+The repository is linked to the `marwan-aljijakli` Vercel project. Production deploys target [marwan-aljijakli.com](https://marwan-aljijakli.com).
