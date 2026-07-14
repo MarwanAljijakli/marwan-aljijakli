@@ -1,71 +1,68 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Mono, Space_Grotesk } from "next/font/google";
-import AppShell from "@/components/providers/AppShell";
+import { Manrope, Noto_Sans_Arabic } from "next/font/google";
+import { Bilingual } from "@/components/Bilingual";
+import { interfaceCopy } from "@/content/portfolio";
 import "./globals.css";
 
-/* -------------------------------------------------------------------------- */
-/*  Fonts                                                                     */
-/* -------------------------------------------------------------------------- */
-const inter = Inter({
+const manrope = Manrope({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-latin",
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
-const spaceMono = Space_Mono({
-  subsets: ["latin"],
-  variable: "--font-space-mono",
+const notoArabic = Noto_Sans_Arabic({
+  subsets: ["arabic"],
+  variable: "--font-arabic",
   display: "swap",
-  weight: ["400", "700"],
+  preload: false,
 });
 
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-  weight: ["400", "500", "600", "700"],
-});
+const siteUrl = "https://marwan-aljijakli.com";
 
-/* -------------------------------------------------------------------------- */
-/*  Metadata                                                                  */
-/* -------------------------------------------------------------------------- */
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://marwan-aljijakli.com"
-  ),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? siteUrl),
   title: {
-    default:
-      "Marwan Aljijakli — AI/ML Engineer | Computer Vision | LLM & RAG Systems",
+    default: "Marwan Aljijakli — AI & Data Engineer | CTO",
     template: "%s · Marwan Aljijakli",
   },
   description:
-    "AI/ML Engineer and CTO with 3 production AI systems deployed. Specializing in Computer Vision (YOLO, OpenCV), LLM/RAG pipelines, and IoT. Based in Jeddah, Saudi Arabia. Available immediately.",
+    "AI & Data Engineer and hands-on CTO in Jeddah, building production systems across model inference, secure APIs, data architecture, testing and cloud delivery.",
   keywords: [
-    "AI Engineer",
-    "ML Engineer",
-    "CTO",
-    "Computer Vision",
-    "LLM",
-    "RAG",
-    "Generative AI",
-    "Jeddah",
-    "Saudi Arabia",
-    "YOLO",
-    "LangChain",
-    "Docker",
-    "FastAPI",
     "Marwan Aljijakli",
+    "AI Engineer Jeddah",
+    "Data Engineer Saudi Arabia",
+    "Computer Vision Engineer",
+    "Technical Lead",
+    "CTO",
+    "FastAPI",
+    "PyTorch",
+    "PostgreSQL",
+    "Supabase",
+    "Embedded Systems",
   ],
-  authors: [{ name: "Marwan Aljijakli" }],
+  authors: [{ name: "Marwan Aljijakli", url: siteUrl }],
   creator: "Marwan Aljijakli",
   publisher: "Marwan Aljijakli",
   applicationName: "Marwan Aljijakli Portfolio",
   category: "technology",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
+  alternates: {
+    canonical: siteUrl,
+  },
+  openGraph: {
+    type: "profile",
+    url: siteUrl,
+    siteName: "Marwan Aljijakli",
+    title: "Marwan Aljijakli — AI & Data Engineer | CTO",
+    description:
+      "End-to-end technical ownership across AI, data, secure APIs and cloud delivery. Based in Jeddah, Saudi Arabia.",
+    locale: "en_US",
+    alternateLocale: ["ar_SA"],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marwan Aljijakli — AI & Data Engineer | CTO",
+    description:
+      "Building production systems across model inference, data, APIs and cloud delivery.",
   },
   robots: {
     index: true,
@@ -78,87 +75,104 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-  openGraph: {
-    title: "Marwan Aljijakli — AI/ML Engineer | Computer Vision | LLM & RAG Systems",
-    description:
-      "AI/ML Engineer and CTO with 3 production AI systems deployed. Specializing in Computer Vision, LLM/RAG pipelines, and IoT. Based in Jeddah, Saudi Arabia.",
-    type: "website",
-    locale: "en_US",
-    url: "/",
-    siteName: "Marwan Aljijakli",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Marwan Aljijakli — AI/ML Engineer | Computer Vision | LLM & RAG Systems",
-    description:
-      "AI/ML Engineer and CTO with 3 production AI systems deployed. Specializing in Computer Vision, LLM/RAG, and IoT. Based in Jeddah, Saudi Arabia.",
-  },
-  alternates: {
-    canonical: "https://marwan-aljijakli.com",
-  },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050A0F",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
+  themeColor: [
+    { media: "(prefers-color-scheme: dark)", color: "#0c0e0c" },
+    { media: "(prefers-color-scheme: light)", color: "#f3f0e7" },
+  ],
+  colorScheme: "dark light",
 };
 
-/* -------------------------------------------------------------------------- */
-/*  Root layout                                                               */
-/* -------------------------------------------------------------------------- */
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+const preferenceScript = `
+(function () {
+  var root = document.documentElement;
+  root.classList.add('js');
+  try {
+    var storedLocale = localStorage.getItem('portfolio-locale');
+    var locale = storedLocale === 'ar' ? 'ar' : 'en';
+    root.dataset.locale = locale;
+    root.lang = locale;
+    root.dir = locale === 'ar' ? 'rtl' : 'ltr';
+
+    var storedTheme = localStorage.getItem('portfolio-theme');
+    var theme = storedTheme === 'light' || storedTheme === 'dark'
+      ? storedTheme
+      : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    root.dataset.theme = theme;
+    root.style.colorScheme = theme;
+  } catch (error) {
+    root.dataset.locale = 'en';
+    root.dataset.theme = 'dark';
+  }
+})();`;
+
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: "Marwan Aljijakli",
+  url: siteUrl,
+  image: `${siteUrl}/marwan-portrait.webp`,
+  email: "mailto:marwan2004000@gmail.com",
+  telephone: "+966572221939",
+  jobTitle: ["AI & Data Engineer", "Chief Technology Officer"],
+  worksFor: {
+    "@type": "Organization",
+    name: "BOHIO",
+  },
+  alumniOf: {
+    "@type": "CollegeOrUniversity",
+    name: "Jeddah International College",
+  },
+  memberOf: {
+    "@type": "Organization",
+    name: "Saudi Council of Engineers",
+  },
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Jeddah",
+    addressCountry: "SA",
+  },
+  sameAs: [
+    "https://github.com/MarwanAljijakli",
+    "https://www.linkedin.com/in/marwan-aljijakli-7ba965241/",
+  ],
+  knowsAbout: [
+    "Artificial Intelligence",
+    "Data Engineering",
+    "Computer Vision",
+    "Signal Processing",
+    "Backend Engineering",
+    "Embedded Systems",
+  ],
+};
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${spaceMono.variable} ${spaceGrotesk.variable}`}
+      dir="ltr"
+      data-locale="en"
+      data-theme="dark"
+      className={`${manrope.variable} ${notoArabic.variable}`}
       suppressHydrationWarning
     >
       <head>
+        <script dangerouslySetInnerHTML={{ __html: preferenceScript }} />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify({
-              "@context": "https://schema.org",
-              "@type": "Person",
-              name: "Marwan Aljijakli",
-              url: "https://marwan-aljijakli.com",
-              email: "marwan2004000@gmail.com",
-              telephone: "+966572221939",
-              jobTitle: "AI/ML Engineer & CTO",
-              worksFor: [
-                { "@type": "Organization", name: "BOHIO" },
-                { "@type": "Organization", name: "VLEED" },
-              ],
-              alumniOf: {
-                "@type": "CollegeOrUniversity",
-                name: "Jeddah International College",
-              },
-              address: {
-                "@type": "PostalAddress",
-                addressLocality: "Jeddah",
-                addressCountry: "SA",
-              },
-              sameAs: [
-                "https://github.com/MarwanAljijakli",
-                "https://www.linkedin.com/in/marwan-aljijakli-7ba965241/",
-              ],
-            }),
-          }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
         />
       </head>
-      <body className="min-h-dvh bg-bg-primary text-text-primary antialiased selection:bg-accent-cyan selection:text-bg-primary">
-        {/* Skip to main content — hidden until focused by keyboard. */}
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[300] focus:rounded-full focus:bg-[color:var(--accent-primary)] focus:px-4 focus:py-2 focus:font-mono focus:text-[11px] focus:uppercase focus:tracking-[0.14em] focus:text-[color:var(--bg-primary)] focus:shadow-lg"
-        >
-          Skip to content
+      <body>
+        <a className="skip-link" href="#main-content">
+          <Bilingual text={interfaceCopy.skip} />
         </a>
-        <AppShell>{children}</AppShell>
+        {children}
       </body>
     </html>
   );

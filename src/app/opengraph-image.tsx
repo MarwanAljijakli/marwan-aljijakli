@@ -1,11 +1,10 @@
 import { ImageResponse } from "next/og";
 
-export const runtime = "edge";
-export const alt = "Marwan Aljijakli — AI/ML Engineer & CTO";
+export const alt = "Marwan Aljijakli — AI & Data Engineer and CTO";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-export default function OGImage() {
+export default function OpenGraphImage() {
   return new ImageResponse(
     (
       <div
@@ -14,150 +13,66 @@ export default function OGImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
-          padding: "80px",
-          background: "linear-gradient(135deg, #050A0F 0%, #0D1B2A 50%, #0A0F1A 100%)",
-          fontFamily: "sans-serif",
+          justifyContent: "space-between",
+          color: "#f4f1e8",
+          background: "#0c0e0c",
+          padding: "68px 72px 58px",
+          fontFamily: "Arial, sans-serif",
           position: "relative",
+          overflow: "hidden",
         }}
       >
-        {/* Grid background */}
         <div
           style={{
             position: "absolute",
             inset: 0,
-            backgroundImage:
-              "linear-gradient(rgba(0,212,255,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(0,212,255,0.04) 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-
-        {/* Glow orb */}
-        <div
-          style={{
-            position: "absolute",
-            top: -100,
-            right: -100,
-            width: 600,
-            height: 600,
-            borderRadius: "50%",
-            background:
-              "radial-gradient(circle, rgba(0,212,255,0.12) 0%, transparent 65%)",
-          }}
-        />
-
-        {/* Top accent line */}
-        <div
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 4,
-            background:
-              "linear-gradient(90deg, transparent, #00D4FF 30%, #7B2FBE 70%, transparent)",
-          }}
-        />
-
-        {/* Available badge */}
-        <div
-          style={{
             display: "flex",
-            alignItems: "center",
-            gap: 10,
-            marginBottom: 40,
+            backgroundImage:
+              "linear-gradient(rgba(244,241,232,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(244,241,232,.08) 1px, transparent 1px)",
+            backgroundSize: "64px 64px",
+            maskImage: "linear-gradient(90deg, transparent 36%, black 100%)",
           }}
-        >
-          <div
-            style={{
-              width: 10,
-              height: 10,
-              borderRadius: "50%",
-              background: "#10dc78",
-              boxShadow: "0 0 16px #10dc78",
-            }}
-          />
-          <span
-            style={{
-              fontFamily: "monospace",
-              fontSize: 16,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              color: "#5ef5a6",
-            }}
-          >
-            Available Immediately
+        />
+
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 58,
+                height: 58,
+                borderRadius: 29,
+                color: "#0c0e0c",
+                background: "#c9ff57",
+                fontSize: 20,
+                fontWeight: 800,
+                letterSpacing: "-0.06em",
+              }}
+            >
+              MA
+            </div>
+            <span style={{ fontSize: 20, letterSpacing: "0.05em" }}>MARWAN ALJIJAKLI</span>
+          </div>
+          <span style={{ color: "#c9ff57", fontSize: 16, letterSpacing: "0.16em" }}>JEDDAH / SA</span>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", maxWidth: 960 }}>
+          <span style={{ color: "#c9ff57", fontSize: 20, letterSpacing: "0.14em", marginBottom: 22 }}>
+            AI & DATA ENGINEER · CTO
+          </span>
+          <span style={{ fontSize: 76, lineHeight: 1.02, letterSpacing: "-0.045em", fontWeight: 700 }}>
+            Building the intelligence layer — and the systems that carry it.
           </span>
         </div>
 
-        {/* Name */}
-        <div
-          style={{
-            fontSize: 96,
-            fontWeight: 700,
-            lineHeight: 0.92,
-            letterSpacing: "-0.02em",
-            color: "#ffffff",
-            marginBottom: 24,
-          }}
-        >
-          MARWAN
-        </div>
-        <div
-          style={{
-            fontSize: 96,
-            fontWeight: 700,
-            lineHeight: 0.92,
-            letterSpacing: "-0.02em",
-            color: "transparent",
-            WebkitTextStroke: "2px #00D4FF",
-            marginBottom: 40,
-          }}
-        >
-          ALJIJAKLI
-        </div>
-
-        {/* Role tags */}
-        <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
-          {["AI/ML Engineer", "Computer Vision", "LLM & RAG Systems", "CTO"].map(
-            (tag) => (
-              <div
-                key={tag}
-                style={{
-                  display: "flex",
-                  padding: "10px 20px",
-                  borderRadius: 999,
-                  border: "1px solid rgba(0,212,255,0.35)",
-                  background: "rgba(0,212,255,0.08)",
-                  fontFamily: "monospace",
-                  fontSize: 15,
-                  letterSpacing: "0.1em",
-                  textTransform: "uppercase",
-                  color: "#00D4FF",
-                }}
-              >
-                {tag}
-              </div>
-            )
-          )}
-        </div>
-
-        {/* URL */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: 48,
-            right: 80,
-            fontFamily: "monospace",
-            fontSize: 18,
-            letterSpacing: "0.1em",
-            color: "rgba(255,255,255,0.3)",
-          }}
-        >
-          marwan-aljijakli.com
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
+          <span style={{ fontSize: 18, color: "#a9ada5" }}>Models · Data · APIs · Product · Production</span>
+          <span style={{ fontSize: 18, color: "#a9ada5" }}>marwan-aljijakli.com</span>
         </div>
       </div>
     ),
-    { width: 1200, height: 630 }
+    size
   );
 }
