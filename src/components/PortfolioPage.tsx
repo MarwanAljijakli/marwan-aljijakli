@@ -348,7 +348,14 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
         </section>
 
         <section className="section recognition-section" id="recognition" aria-labelledby="recognition-title">
-          <div className="shell">
+          <LoopVideo
+            asset={media.awards}
+            locale={locale}
+            background
+            className="recognition-background-media"
+          />
+
+          <div className="shell recognition-stage-content">
             <SectionIntro
               index="05"
               eyebrow={recognition.eyebrow}
@@ -357,8 +364,6 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
               id="recognition-title"
               locale={locale}
             />
-
-            <LoopVideo asset={media.awards} locale={locale} className="recognition-film" />
 
             <div className="recognition-layout">
               <ol className="award-list">
@@ -388,16 +393,26 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
                 <small>{localize(credential.valid, locale)}</small>
               </aside>
             </div>
+          </div>
+        </section>
 
+        <section className="section education-section" aria-labelledby="education-title">
+          <LoopVideo
+            asset={media.certifications}
+            locale={locale}
+            background
+            className="education-background-media"
+          />
+
+          <div className="shell education-stage-content">
             <div className="education-layout">
-              <LoopVideo asset={media.certifications} locale={locale} className="education-film" />
               <article className="education-copy reveal" data-reveal>
                 <div className="education-gpa">
                   <span>{localize(recognition.education.gpaLabel, locale)}</span>
                   <strong>{recognition.education.gpa}</strong>
                 </div>
                 <p className="education-label">{localize(recognition.education.label, locale)}</p>
-                <h3>{localize(recognition.education.degree, locale)}</h3>
+                <h3 id="education-title">{localize(recognition.education.degree, locale)}</h3>
                 <p className="education-specialization">
                   {localize(recognition.education.specialization, locale)}
                 </p>
