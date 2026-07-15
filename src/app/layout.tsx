@@ -1,16 +1,16 @@
 import type { Metadata, Viewport } from "next";
-import { Manrope, Noto_Sans_Arabic } from "next/font/google";
+import { Bricolage_Grotesque, Noto_Kufi_Arabic } from "next/font/google";
 import { Bilingual } from "@/components/Bilingual";
 import { interfaceCopy } from "@/content/portfolio";
 import "./globals.css";
 
-const manrope = Manrope({
+const bricolage = Bricolage_Grotesque({
   subsets: ["latin"],
   variable: "--font-latin",
   display: "swap",
 });
 
-const notoArabic = Noto_Sans_Arabic({
+const notoArabic = Noto_Kufi_Arabic({
   subsets: ["arabic"],
   variable: "--font-arabic",
   display: "swap",
@@ -82,8 +82,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#0c0e0c" },
-    { media: "(prefers-color-scheme: light)", color: "#f3f0e7" },
+    { media: "(prefers-color-scheme: dark)", color: "#071715" },
+    { media: "(prefers-color-scheme: light)", color: "#f1eee7" },
   ],
   colorScheme: "dark light",
 };
@@ -158,7 +158,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       dir="ltr"
       data-locale="en"
       data-theme="dark"
-      className={`${manrope.variable} ${notoArabic.variable}`}
+      className={`${bricolage.variable} ${notoArabic.variable}`}
       suppressHydrationWarning
     >
       <head>
