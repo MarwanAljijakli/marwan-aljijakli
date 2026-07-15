@@ -98,8 +98,7 @@
   let reducedMotion = reducedMotionQuery.matches;
   let limitAutoplay =
     reducedMotion ||
-    Boolean(navigator.connection && navigator.connection.saveData) ||
-    compactViewportQuery.matches;
+    Boolean(navigator.connection && navigator.connection.saveData);
 
   const revealItems = Array.from(document.querySelectorAll("[data-reveal]"));
   if (reducedMotion || !("IntersectionObserver" in window)) {
@@ -121,6 +120,10 @@
   const mediaItems = Array.from(document.querySelectorAll("[data-loop-media]"));
   let currentMedia = null;
   const pendingMediaPlays = new WeakSet();
+  const autoplayAllowedFor = (media) =>
+    !limitAutoplay &&
+    media.dataset.userPaused !== "true" &&
+    (media.dataset.mediaVariant === "background" || !compactViewportQuery.matches);
 
   const updateMediaControl = (media, playing) => {
     media.classList.toggle("is-playing", playing);
@@ -160,7 +163,7 @@
   };
 
   const playMedia = async (media, userInitiated = false) => {
-    if (limitAutoplay && !userInitiated) return;
+    if (!userInitiated && !autoplayAllowedFor(media)) return;
     if (!userInitiated && media.dataset.mediaEager === "true" && media.dataset.eagerReleased !== "true") {
       return;
     }
@@ -197,13 +200,16 @@
   };
 
   const syncVisibleMedia = () => {
-    if (limitAutoplay) return;
     const ranked = mediaItems
+      .filter((media) => media.dataset.userStarted === "true" || autoplayAllowedFor(media))
       .map((media) => ({ media, ratio: mediaVisibilityRatio(media) }))
       .sort((a, b) => b.ratio - a.ratio);
     const best = ranked[0]?.ratio >= 0.22 ? ranked[0].media : null;
     mediaItems.forEach((media) => {
-      if (media !== best) pauseMedia(media);
+      if (media !== best) {
+        delete media.dataset.userStarted;
+        pauseMedia(media);
+      }
     });
     if (best) void playMedia(best);
   };
@@ -225,8 +231,16 @@
     video?.addEventListener("playing", () => updateMediaControl(media, true));
     video?.addEventListener("pause", () => updateMediaControl(media, false));
     control?.addEventListener("click", () => {
-      if (!video || video.paused) void playMedia(media, true);
-      else pauseMedia(media);
+      if (!video) return;
+      if (video.paused) {
+        delete media.dataset.userPaused;
+        media.dataset.userStarted = "true";
+        void playMedia(media, true);
+      } else {
+        delete media.dataset.userStarted;
+        media.dataset.userPaused = "true";
+        pauseMedia(media);
+      }
     });
   });
 
@@ -237,7 +251,7 @@
           if (!entry.isIntersecting) return;
           const media = entry.target;
           loadPoster(media);
-          if (!limitAutoplay && media.dataset.mediaEager !== "true") loadMedia(media);
+          if (autoplayAllowedFor(media) && media.dataset.mediaEager !== "true") loadMedia(media);
           observer.unobserve(media);
         });
       },
@@ -255,7 +269,7 @@
 
   const startEagerMedia = () => {
     const eagerMedia = mediaItems.find((item) => item.dataset.mediaEager === "true");
-    if (!eagerMedia || limitAutoplay) return;
+    if (!eagerMedia || !autoplayAllowedFor(eagerMedia)) return;
     loadMedia(eagerMedia);
     window.setTimeout(() => {
       eagerMedia.dataset.eagerReleased = "true";
@@ -271,8 +285,7 @@
     reducedMotion = reducedMotionQuery.matches;
     const shouldLimit =
       reducedMotion ||
-      Boolean(navigator.connection && navigator.connection.saveData) ||
-      compactViewportQuery.matches;
+      Boolean(navigator.connection && navigator.connection.saveData);
     const becameLimited = shouldLimit && !limitAutoplay;
     const becameUnrestricted = !shouldLimit && limitAutoplay;
     limitAutoplay = shouldLimit;
@@ -281,11 +294,20 @@
   };
 
   reducedMotionQuery.addEventListener?.("change", refreshPlaybackPreference);
-  compactViewportQuery.addEventListener?.("change", refreshPlaybackPreference);
+  compactViewportQuery.addEventListener?.("change", () => {
+    if (compactViewportQuery.matches && currentMedia?.dataset.mediaVariant !== "background") {
+      pauseMedia(currentMedia);
+    }
+    syncVisibleMedia();
+  });
   navigator.connection?.addEventListener?.("change", refreshPlaybackPreference);
 
   document.addEventListener("visibilitychange", () => {
-    if (document.hidden && currentMedia) pauseMedia(currentMedia);
+    if (document.hidden) {
+      if (currentMedia) pauseMedia(currentMedia);
+      return;
+    }
+    syncVisibleMedia();
   });
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
