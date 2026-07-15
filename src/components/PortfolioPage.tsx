@@ -475,7 +475,6 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
           </a>
           <p>
             <span>© {new Date().getFullYear()} {locale === "ar" ? site.nameArabic : site.name}.</span>
-            <span>{localize(interfaceCopy.footer, locale)}</span>
           </p>
           <a className="footer-top" href="#top">
             {localize(interfaceCopy.home, locale)}

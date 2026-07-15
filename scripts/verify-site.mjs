@@ -49,6 +49,8 @@ check(!english.includes("hero-proof") && !arabic.includes("hero-proof"), "redund
 check(!english.includes("Two roles, both close to the code."), "old vague experience copy is absent");
 check(!english.includes("Capabilities I use to carry a system end to end."), "old vague capability copy is absent");
 check(!english.includes("Two first places, one third place"), "old list-like recognition copy is absent");
+check(!english.includes("Designed and engineered in Jeddah."), "English footer tagline is absent");
+check(!arabic.includes("صُمّم وطُوّر في جدة."), "Arabic footer tagline is absent");
 
 check(english.includes("1272601") && english.includes("13 July 2027"), "English SCE membership is prominent");
 check(arabic.includes("1272601") && arabic.includes("13 يوليو 2027"), "Arabic SCE membership is prominent");
