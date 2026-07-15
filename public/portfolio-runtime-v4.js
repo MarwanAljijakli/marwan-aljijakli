@@ -2,39 +2,23 @@
   "use strict";
 
   const root = document.documentElement;
+  const locale = root.dataset.locale === "ar" ? "ar" : "en";
   const email = "marwan2004000@gmail.com";
   const copy = {
-    themeToLight: {
-      en: "Dark theme active; switch to light theme",
-      ar: "الوضع الداكن مفعّل؛ التبديل إلى الوضع الفاتح",
-    },
-    themeToDark: {
-      en: "Light theme active; switch to dark theme",
-      ar: "الوضع الفاتح مفعّل؛ التبديل إلى الوضع الداكن",
-    },
+    themeToLight: { en: "Switch to light theme", ar: "التبديل إلى الوضع الفاتح" },
+    themeToDark: { en: "Switch to dark theme", ar: "التبديل إلى الوضع الداكن" },
     playVideo: { en: "Play visual", ar: "تشغيل المشهد" },
     pauseVideo: { en: "Pause visual", ar: "إيقاف المشهد مؤقتًا" },
     copyEmail: { en: "Copy email", ar: "نسخ البريد" },
     copiedEmail: { en: "Email copied", ar: "تم نسخ البريد" },
-    copyFailed: { en: "Email selected — press Ctrl+C", ar: "تم تحديد البريد — اضغط Ctrl+C" },
+    copyFailed: { en: "Copy failed — use the email link", ar: "تعذر النسخ — استخدم رابط البريد" },
   };
-
-  const localizedLabel = (value) => `${value.en} / ${value.ar}`;
+  const t = (value) => value[locale];
 
   const syncThemeControl = (theme) => {
     const button = document.querySelector("[data-theme-toggle]");
     if (!button) return;
-    button.setAttribute(
-      "aria-label",
-      localizedLabel(theme === "dark" ? copy.themeToLight : copy.themeToDark)
-    );
-  };
-
-  const applyLocale = (locale) => {
-    root.dataset.locale = locale;
-    root.lang = locale;
-    root.dir = locale === "ar" ? "rtl" : "ltr";
-    window.localStorage.setItem("portfolio-locale", locale);
+    button.setAttribute("aria-label", t(theme === "dark" ? copy.themeToLight : copy.themeToDark));
   };
 
   const applyTheme = (theme) => {
@@ -44,17 +28,22 @@
     syncThemeControl(theme);
   };
 
-  document.querySelector("[data-locale-toggle]")?.addEventListener("click", () => {
-    const current = root.dataset.locale === "ar" ? "ar" : "en";
-    applyLocale(current === "en" ? "ar" : "en");
-  });
-
   document.querySelector("[data-theme-toggle]")?.addEventListener("click", () => {
     const current = root.dataset.theme === "light" ? "light" : "dark";
     applyTheme(current === "dark" ? "light" : "dark");
   });
-
   syncThemeControl(root.dataset.theme === "light" ? "light" : "dark");
+
+  document.querySelectorAll("[data-menu-summary]").forEach((summary) => {
+    const details = summary.closest("details");
+    if (!details) return;
+    const syncMenuLabel = () => {
+      const label = details.open ? summary.dataset.menuCloseLabel : summary.dataset.menuOpenLabel;
+      if (label) summary.setAttribute("aria-label", label);
+    };
+    details.addEventListener("toggle", syncMenuLabel);
+    syncMenuLabel();
+  });
 
   const copyButton = document.querySelector("[data-copy-email]");
   const copyStatus = document.querySelector("[data-copy-status]");
@@ -69,10 +58,8 @@
         : state === "failed"
           ? copy.copyFailed
           : copy.copyEmail;
-    copyButton.setAttribute("aria-label", localizedLabel(value));
-    if (copyStatus) {
-      copyStatus.textContent = state === "idle" ? "" : value[root.dataset.locale === "ar" ? "ar" : "en"];
-    }
+    copyButton.setAttribute("aria-label", t(value));
+    if (copyStatus) copyStatus.textContent = state === "idle" ? "" : t(value);
   };
 
   const copyWithSelection = () => {
@@ -87,17 +74,8 @@
     field.select();
     const copied = document.execCommand("copy");
     field.remove();
-    if (copied) {
-      if (focusedElement instanceof HTMLElement) focusedElement.focus({ preventScroll: true });
-      return true;
-    }
-    const visibleEmail = document.querySelector(".contact-email span");
-    if (visibleEmail) {
-      const selection = window.getSelection();
-      const range = document.createRange();
-      range.selectNodeContents(visibleEmail);
-      selection?.removeAllRanges();
-      selection?.addRange(range);
+    if (copied && focusedElement instanceof HTMLElement) {
+      focusedElement.focus({ preventScroll: true });
     }
     return copied;
   };
@@ -149,22 +127,15 @@
     media.classList.toggle("is-paused", !playing);
     const control = media.querySelector("[data-video-control]");
     if (!control) return;
-    const value = playing ? copy.pauseVideo : copy.playVideo;
-    const labelEn = media.dataset.mediaLabelEn || "visual";
-    const labelAr = media.dataset.mediaLabelAr || "المشهد";
-    control.setAttribute("aria-label", `${value.en}: ${labelEn} / ${value.ar}: ${labelAr}`);
+    const label = media.dataset.mediaLabel || (locale === "ar" ? "المشهد" : "visual");
+    control.setAttribute("aria-label", `${t(playing ? copy.pauseVideo : copy.playVideo)}: ${label}`);
     control.setAttribute("aria-pressed", playing ? "true" : "false");
   };
 
   const loadPoster = (media) => {
     if (media.dataset.posterLoaded === "true") return;
     const poster = media.querySelector("[data-poster-src]");
-    if (!poster) {
-      media.dataset.posterLoaded = "true";
-      return;
-    }
-    if (!poster.dataset.posterSrc) return;
-    poster.src = poster.dataset.posterSrc;
+    if (poster?.dataset.posterSrc) poster.src = poster.dataset.posterSrc;
     media.dataset.posterLoaded = "true";
   };
 
@@ -190,22 +161,17 @@
 
   const playMedia = async (media, userInitiated = false) => {
     if (limitAutoplay && !userInitiated) return;
-    if (
-      !userInitiated &&
-      media.dataset.mediaEager === "true" &&
-      media.dataset.eagerReleased !== "true"
-    ) {
+    if (!userInitiated && media.dataset.mediaEager === "true" && media.dataset.eagerReleased !== "true") {
       return;
     }
     loadMedia(media);
     const video = media.querySelector("[data-loop-video]");
-    if (!video) return;
+    if (!video || pendingMediaPlays.has(media)) return;
     if (!video.paused) {
       currentMedia = media;
       updateMediaControl(media, true);
       return;
     }
-    if (pendingMediaPlays.has(media)) return;
     mediaItems.forEach((candidate) => {
       if (candidate !== media) pauseMedia(candidate);
     });
@@ -277,14 +243,10 @@
       },
       { rootMargin: "320px 0px", threshold: 0 }
     );
-
-    const mediaObserver = new IntersectionObserver(
-      () => {
-        syncVisibleMedia();
-      },
-      { rootMargin: "0px", threshold: [0, 0.12, 0.22, 0.5] }
-    );
-
+    const mediaObserver = new IntersectionObserver(syncVisibleMedia, {
+      rootMargin: "0px",
+      threshold: [0, 0.12, 0.22, 0.5],
+    });
     mediaItems.forEach((media) => {
       mediaLoadObserver.observe(media);
       mediaObserver.observe(media);
@@ -299,7 +261,7 @@
       eagerMedia.dataset.eagerReleased = "true";
       const bounds = eagerMedia.getBoundingClientRect();
       if (bounds.bottom > 0 && bounds.top < window.innerHeight) void playMedia(eagerMedia);
-    }, 2200);
+    }, 1800);
   };
 
   if (document.readyState === "complete") startEagerMedia();
@@ -314,14 +276,8 @@
     const becameLimited = shouldLimit && !limitAutoplay;
     const becameUnrestricted = !shouldLimit && limitAutoplay;
     limitAutoplay = shouldLimit;
-    if (becameLimited) {
-      mediaItems.forEach((media) => {
-        loadPoster(media);
-        pauseMedia(media);
-      });
-    } else if (becameUnrestricted) {
-      startEagerMedia();
-    }
+    if (becameLimited) mediaItems.forEach((media) => pauseMedia(media));
+    if (becameUnrestricted) startEagerMedia();
   };
 
   reducedMotionQuery.addEventListener?.("change", refreshPlaybackPreference);
@@ -331,45 +287,16 @@
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && currentMedia) pauseMedia(currentMedia);
   });
-
   document.addEventListener("click", (event) => {
     if (!(event.target instanceof Element)) return;
     if (!event.target.closest(".mobile-nav a")) return;
     event.target.closest("details")?.removeAttribute("open");
   });
-
   window.addEventListener("storage", (event) => {
-    if (event.key === "portfolio-locale" && (event.newValue === "en" || event.newValue === "ar")) {
-      applyLocale(event.newValue);
-    }
     if (event.key === "portfolio-theme" && (event.newValue === "light" || event.newValue === "dark")) {
       applyTheme(event.newValue);
     }
   });
-
-  const atlas = document.querySelector("[data-system-atlas]");
-  if (atlas) {
-    let atlasFrame = 0;
-    atlas.addEventListener("pointermove", (event) => {
-      if (window.matchMedia("(prefers-reduced-motion: reduce), (pointer: coarse)").matches) return;
-      const bounds = atlas.getBoundingClientRect();
-      const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-      const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-      window.cancelAnimationFrame(atlasFrame);
-      atlasFrame = window.requestAnimationFrame(() => {
-        atlas.style.setProperty("--atlas-rotate-x", `${(-y * 5).toFixed(2)}deg`);
-        atlas.style.setProperty("--atlas-rotate-y", `${(x * 6).toFixed(2)}deg`);
-        atlas.style.setProperty("--atlas-light-x", `${((x + 0.5) * 100).toFixed(1)}%`);
-        atlas.style.setProperty("--atlas-light-y", `${((y + 0.5) * 100).toFixed(1)}%`);
-      });
-    });
-    atlas.addEventListener("pointerleave", () => {
-      atlas.style.setProperty("--atlas-rotate-x", "0deg");
-      atlas.style.setProperty("--atlas-rotate-y", "0deg");
-      atlas.style.setProperty("--atlas-light-x", "50%");
-      atlas.style.setProperty("--atlas-light-y", "35%");
-    });
-  }
 
   root.classList.add("runtime-ready");
 })();
