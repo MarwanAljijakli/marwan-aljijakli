@@ -468,5 +468,4 @@ export const interfaceCopy = {
   copyEmail: text("Copy email", "نسخ البريد"),
   copiedEmail: text("Email copied", "تم نسخ البريد"),
   copyFailed: text("Copy failed — use the email link", "تعذر النسخ — استخدم رابط البريد"),
-  footer: text("Designed and engineered in Jeddah.", "صُمّم وطُوّر في جدة."),
 } as const;
