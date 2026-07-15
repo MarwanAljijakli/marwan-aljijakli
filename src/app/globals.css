@@ -1442,6 +1442,10 @@ html[lang="ar"] .expertise-card h3 {
   color: #f4f0e7;
 }
 
+.recognition-section {
+  scroll-margin-block-start: calc(var(--header-height) + 12px);
+}
+
 .recognition-stage-content,
 .education-stage-content {
   position: relative;
