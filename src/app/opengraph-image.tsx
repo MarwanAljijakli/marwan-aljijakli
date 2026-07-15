@@ -14,8 +14,8 @@ export default function OpenGraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          color: "#f4f1e8",
-          background: "#0c0e0c",
+          color: "#f3f0e8",
+          background: "#071715",
           padding: "68px 72px 58px",
           fontFamily: "Arial, sans-serif",
           position: "relative",
@@ -28,7 +28,7 @@ export default function OpenGraphImage() {
             inset: 0,
             display: "flex",
             backgroundImage:
-              "linear-gradient(rgba(244,241,232,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(244,241,232,.08) 1px, transparent 1px)",
+              "linear-gradient(rgba(184,213,204,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(184,213,204,.08) 1px, transparent 1px)",
             backgroundSize: "64px 64px",
             maskImage: "linear-gradient(90deg, transparent 36%, black 100%)",
           }}
@@ -44,8 +44,8 @@ export default function OpenGraphImage() {
                 width: 58,
                 height: 58,
                 borderRadius: 29,
-                color: "#0c0e0c",
-                background: "#c9ff57",
+                color: "#72d7c7",
+                border: "1px solid rgba(114,215,199,.5)",
                 fontSize: 20,
                 fontWeight: 800,
                 letterSpacing: "-0.06em",
@@ -55,21 +55,24 @@ export default function OpenGraphImage() {
             </div>
             <span style={{ fontSize: 20, letterSpacing: "0.05em" }}>MARWAN ALJIJAKLI</span>
           </div>
-          <span style={{ color: "#c9ff57", fontSize: 16, letterSpacing: "0.16em" }}>JEDDAH / SA</span>
+          <span style={{ color: "#72d7c7", fontSize: 16, letterSpacing: "0.16em" }}>JEDDAH / SA</span>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column", maxWidth: 960 }}>
-          <span style={{ color: "#c9ff57", fontSize: 20, letterSpacing: "0.14em", marginBottom: 22 }}>
-            AI & DATA ENGINEER · CTO
+          <span style={{ color: "#d6a36d", fontSize: 20, letterSpacing: "0.14em", marginBottom: 22 }}>
+            AI & DATA ENGINEER · CTO AT BOHIO
           </span>
-          <span style={{ fontSize: 76, lineHeight: 1.02, letterSpacing: "-0.045em", fontWeight: 700 }}>
-            Building the intelligence layer — and the systems that carry it.
+          <span style={{ fontSize: 72, lineHeight: 1.02, letterSpacing: "-0.045em", fontWeight: 700 }}>
+            I build the model — and everything it needs to become a product.
           </span>
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end" }}>
-          <span style={{ fontSize: 18, color: "#a9ada5" }}>Models · Data · APIs · Product · Production</span>
-          <span style={{ fontSize: 18, color: "#a9ada5" }}>marwan-aljijakli.com</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, color: "#d6a36d", fontSize: 17 }}>
+            <span style={{ padding: "5px 11px", border: "1px solid #d6a36d", borderRadius: 18, fontSize: 13 }}>SCE</span>
+            <span>Active Member No. 1272601</span>
+          </div>
+          <span style={{ fontSize: 18, color: "#9bb0aa" }}>marwan-aljijakli.com</span>
         </div>
       </div>
     ),
