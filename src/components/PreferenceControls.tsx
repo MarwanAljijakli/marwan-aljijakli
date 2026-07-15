@@ -17,7 +17,7 @@ export function PreferenceControls({ locale }: Readonly<{ locale: Locale }>) {
         href={languageHref}
         hrefLang={locale === "ar" ? "en" : "ar"}
         lang={locale === "ar" ? "en" : "ar"}
-        aria-label={localize(interfaceCopy.languageLabel, locale)}
+        aria-label={`${languageCode} — ${localize(interfaceCopy.languageLabel, locale)}`}
       >
         <LanguageIcon />
         <span>{languageCode}</span>

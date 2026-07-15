@@ -7,7 +7,7 @@ type LoopVideoProps = Readonly<{
   locale: Locale;
   className?: string;
   eager?: boolean;
-  compactCaption?: boolean;
+  background?: boolean;
 }>;
 
 export function LoopVideo({
@@ -15,16 +15,17 @@ export function LoopVideo({
   locale,
   className = "",
   eager = false,
-  compactCaption = false,
+  background = false,
 }: LoopVideoProps) {
   const label = localize(asset.label, locale);
 
   return (
     <figure
-      className={`loop-media ${className}`.trim()}
+      className={`loop-media${background ? " loop-media-background" : ""} ${className}`.trim()}
       data-loop-media
       data-media-eager={eager ? "true" : "false"}
       data-media-label={label}
+      data-media-variant={background ? "background" : "inline"}
     >
       {/* Fixed-dimension WebP posters reserve layout; video sources attach only near the viewport. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -55,13 +56,15 @@ export function LoopVideo({
 
       <span className="loop-media-shade" aria-hidden="true" />
 
-      <figcaption className={compactCaption ? "media-caption media-caption-compact" : "media-caption"}>
-        <span className="media-caption-label">
-          <span className="media-live-mark" aria-hidden="true" />
-          {label}
-        </span>
-        <span className="media-caption-note">{localize(asset.note, locale)}</span>
-      </figcaption>
+      {!background ? (
+        <figcaption className="media-caption">
+          <span className="media-caption-label">
+            <span className="media-live-mark" aria-hidden="true" />
+            {label}
+          </span>
+          <span className="media-caption-note">{localize(asset.note, locale)}</span>
+        </figcaption>
+      ) : null}
 
       <button
         className="media-control"
@@ -69,6 +72,7 @@ export function LoopVideo({
         aria-label={`${localize(interfaceCopy.playVideo, locale)}: ${label}`}
         aria-pressed="false"
         data-video-control
+        data-background-animation={background ? "true" : undefined}
       >
         <PauseIcon className="media-control-pause" />
         <PlayIcon className="media-control-play" />

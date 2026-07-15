@@ -116,7 +116,7 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
     <>
       <header className="site-header">
         <div className="site-header-inner shell">
-          <a className="wordmark" href="#top" aria-label={localize(interfaceCopy.home, locale)}>
+          <a className="wordmark" href="#top" aria-label={`MA — ${localize(interfaceCopy.home, locale)}`}>
             <span className="wordmark-monogram" aria-hidden="true">
               MA
             </span>
@@ -154,6 +154,13 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
 
       <main id="main-content">
         <section className="hero" id="top" aria-labelledby="hero-title">
+          <LoopVideo
+            asset={media.introduction}
+            locale={locale}
+            eager
+            background
+            className="hero-background-media"
+          />
           <div className="hero-grid shell">
             <div className="hero-copy">
               <p className="hero-kicker hero-enter hero-enter-1">
@@ -187,36 +194,30 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
               </div>
             </div>
 
-            <div className="hero-visual hero-enter hero-enter-3">
-              <LoopVideo
-                asset={media.introduction}
-                locale={locale}
-                eager
-                compactCaption
-                className="hero-media"
+            <aside
+              className="hero-profile-card hero-enter hero-enter-3"
+              aria-label={localize(credential.short, locale)}
+            >
+              <Image
+                src="/marwan-portrait.webp"
+                width={88}
+                height={88}
+                priority
+                alt={localize(hero.portraitAlt, locale)}
               />
-              <aside className="hero-profile-card" aria-label={localize(credential.short, locale)}>
-                <Image
-                  src="/marwan-portrait.webp"
-                  width={88}
-                  height={88}
-                  priority
-                  alt={localize(hero.portraitAlt, locale)}
-                />
-                <div>
-                  <p>
-                    <span className="credential-mark" aria-hidden="true">
-                      SCE
-                    </span>
-                    {localize(credential.activeTag, locale)}
-                  </p>
-                  <strong>{localize(credential.short, locale)}</strong>
-                  <small>
-                    {localize(credential.numberLabel, locale)} {credential.number} · {localize(credential.valid, locale)}
-                  </small>
-                </div>
-              </aside>
-            </div>
+              <div>
+                <p>
+                  <span className="credential-mark" aria-hidden="true">
+                    SCE
+                  </span>
+                  {localize(credential.activeTag, locale)}
+                </p>
+                <strong>{localize(credential.short, locale)}</strong>
+                <small>
+                  {localize(credential.numberLabel, locale)} {credential.number} · {localize(credential.valid, locale)}
+                </small>
+              </div>
+            </aside>
           </div>
         </section>
 
@@ -454,7 +455,7 @@ export function PortfolioPage({ locale }: Readonly<{ locale: Locale }>) {
 
       <footer className="site-footer">
         <div className="footer-inner shell">
-          <a className="footer-mark" href="#top" aria-label={localize(interfaceCopy.home, locale)}>
+          <a className="footer-mark" href="#top" aria-label={`MA — ${localize(interfaceCopy.home, locale)}`}>
             MA
           </a>
           <p>

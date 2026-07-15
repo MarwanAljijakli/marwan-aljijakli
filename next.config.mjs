@@ -57,7 +57,7 @@ const nextConfig = {
         ],
       },
       {
-        source: "/portfolio-runtime-v4.js",
+        source: "/portfolio-runtime-v5.js",
         headers: [
           {
             key: "Cache-Control",
