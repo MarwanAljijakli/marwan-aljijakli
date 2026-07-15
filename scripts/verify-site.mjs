@@ -69,9 +69,16 @@ check(count(english, /<figure[^>]+data-loop-media/gi) === 5, "five intentional v
 check(count(english, /<video[^>]+data-loop-video/gi) === 5, "five lazy looping videos are rendered");
 check(count(english, /<source[^>]+data-src="\/media\/v2-[^"]+\.mp4"/gi) === 5, "video sources are deferred in server HTML");
 check(!/<source[^>]+\ssrc=/i.test(english), "video binaries are absent from the initial request graph");
-check(count(english, /data-media-variant="background"/gi) === 1, "one intentional Hero background animation is rendered");
+check(count(english, /data-media-variant="background"/gi) === 3, "three intentional section background animations are rendered");
 check(english.includes("hero-background-media") && !english.includes("hero-visual"), "Hero no longer renders a standalone video column");
-check(count(english, /<figcaption class="media-caption"/gi) === 4, "Hero background has no visible media caption");
+check(
+  english.includes("recognition-background-media") &&
+    english.includes("education-background-media") &&
+    !english.includes("recognition-film") &&
+    !english.includes("education-film"),
+  "awards and certifications render only as section backgrounds"
+);
+check(count(english, /<figcaption class="media-caption"/gi) === 2, "background animations have no visible media captions");
 check(count(english, /aria-label="MA — Back to top"/gi) === 2, "visible MA marks are included in their accessible names");
 check(
   english.includes('aria-label="AR — View this page in Arabic"') &&
@@ -128,7 +135,7 @@ check(
 check(!runtimeSource.includes("portfolio-locale"), "locale routing does not depend on local storage");
 check(
   runtimeSource.includes("autoplayAllowedFor") && runtimeSource.includes('media.dataset.mediaVariant === "background"'),
-  "compact screens allow only the Hero background to autoplay"
+  "compact screens allow intentional background animations to autoplay"
 );
 check(
   runtimeSource.includes("userPaused") && runtimeSource.includes("userStarted"),
