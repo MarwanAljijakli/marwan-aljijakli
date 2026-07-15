@@ -1,3 +1,3 @@
 export function ClientRuntime() {
-  return <script src="/portfolio-runtime-v3.js" defer />;
+  return <script src="/portfolio-runtime-v4.js" defer />;
 }

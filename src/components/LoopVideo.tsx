@@ -1,10 +1,10 @@
-import { Bilingual } from "@/components/Bilingual";
 import { PauseIcon, PlayIcon } from "@/components/Icons";
-import { interfaceCopy } from "@/content/portfolio";
-import type { MediaAsset } from "@/content/portfolio";
+import { interfaceCopy, localize } from "@/content/portfolio";
+import type { Locale, MediaAsset } from "@/content/portfolio";
 
 type LoopVideoProps = Readonly<{
   asset: MediaAsset;
+  locale: Locale;
   className?: string;
   eager?: boolean;
   compactCaption?: boolean;
@@ -12,19 +12,21 @@ type LoopVideoProps = Readonly<{
 
 export function LoopVideo({
   asset,
+  locale,
   className = "",
   eager = false,
   compactCaption = false,
 }: LoopVideoProps) {
+  const label = localize(asset.label, locale);
+
   return (
     <figure
       className={`loop-media ${className}`.trim()}
       data-loop-media
       data-media-eager={eager ? "true" : "false"}
-      data-media-label-en={asset.label.en}
-      data-media-label-ar={asset.label.ar}
+      data-media-label={label}
     >
-      {/* Posters are pre-compressed WebP files with fixed dimensions; the hero is fetched at high priority. */}
+      {/* Fixed-dimension WebP posters reserve layout; video sources attach only near the viewport. */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         className="loop-media-poster"
@@ -52,22 +54,19 @@ export function LoopVideo({
       </video>
 
       <span className="loop-media-shade" aria-hidden="true" />
-      <span className="loop-media-grid" aria-hidden="true" />
 
       <figcaption className={compactCaption ? "media-caption media-caption-compact" : "media-caption"}>
         <span className="media-caption-label">
           <span className="media-live-mark" aria-hidden="true" />
-          <Bilingual text={asset.label} />
+          {label}
         </span>
-        <span className="media-caption-note">
-          <Bilingual text={asset.note} />
-        </span>
+        <span className="media-caption-note">{localize(asset.note, locale)}</span>
       </figcaption>
 
       <button
         className="media-control"
         type="button"
-        aria-label={`${interfaceCopy.playVideo.en}: ${asset.label.en} / ${interfaceCopy.playVideo.ar}: ${asset.label.ar}`}
+        aria-label={`${localize(interfaceCopy.playVideo, locale)}: ${label}`}
         aria-pressed="false"
         data-video-control
       >
@@ -76,7 +75,7 @@ export function LoopVideo({
       </button>
 
       <p className="media-unavailable" role="status">
-        <Bilingual text={interfaceCopy.videoUnavailable} />
+        {localize(interfaceCopy.videoUnavailable, locale)}
       </p>
     </figure>
   );

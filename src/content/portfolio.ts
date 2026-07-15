@@ -1,10 +1,12 @@
+export type Locale = "en" | "ar";
+
 export type LocalizedText = Readonly<{
   en: string;
   ar: string;
 }>;
 
 export type ProjectLink = Readonly<{
-  href: string;
+  href: string | LocalizedText;
   label: LocalizedText;
   external?: boolean;
 }>;
@@ -18,10 +20,26 @@ export type MediaAsset = Readonly<{
   note: LocalizedText;
 }>;
 
-const text = (en: string, ar: string): LocalizedText => ({ en, ar });
+export type ProjectImage = Readonly<{
+  type: "image";
+  src: LocalizedText;
+  alt: LocalizedText;
+  browserLabel: LocalizedText;
+  width: number;
+  height: number;
+}>;
+
+export type ProjectVideo = Readonly<{
+  type: "video";
+  asset: MediaAsset;
+}>;
+
+export const text = (en: string, ar: string): LocalizedText => ({ en, ar });
+export const localize = (value: LocalizedText, locale: Locale) => value[locale];
 
 export const site = {
   name: "Marwan Aljijakli",
+  nameArabic: "مروان الجيجكلي",
   email: "marwan2004000@gmail.com",
   phoneDisplay: "+966 572 221 939",
   phoneHref: "tel:+966572221939",
@@ -36,25 +54,22 @@ export const site = {
 
 export const navItems = [
   { href: "#work", label: text("Work", "الأعمال") },
-  { href: "#systems", label: text("System range", "نطاق الأنظمة") },
+  { href: "#approach", label: text("Approach", "المنهجية") },
   { href: "#experience", label: text("Experience", "الخبرة") },
+  { href: "#expertise", label: text("Expertise", "المهارات") },
   { href: "#recognition", label: text("Recognition", "الإنجازات") },
-  { href: "#contact", label: text("Contact", "تواصل") },
+  { href: "#contact", label: text("Contact", "التواصل") },
 ] as const;
 
 export const credential = {
   short: text(
-    "Saudi Council of Engineers · Active Member",
-    "عضو في الهيئة السعودية للمهندسين"
-  ),
-  full: text(
-    "Saudi Council of Engineers · Active Member No. 1272601 · Valid through 13 July 2027",
-    "عضو في الهيئة السعودية للمهندسين · رقم العضوية 1272601 · سارية حتى 13 يوليو 2027"
+    "Active member of the Saudi Council of Engineers",
+    "عضو ساري العضوية في الهيئة السعودية للمهندسين"
   ),
   number: "1272601",
-  numberLabel: text("Member No.", "رقم العضوية"),
-  activeTag: text("Active / 2027", "سارية / 2027"),
+  numberLabel: text("Membership no.", "رقم العضوية"),
   valid: text("Valid through 13 July 2027", "سارية حتى 13 يوليو 2027"),
+  activeTag: text("Active membership", "عضوية سارية"),
 } as const;
 
 export const media = {
@@ -63,31 +78,31 @@ export const media = {
     poster: "/media/v2-introduction-poster.webp",
     width: 1280,
     height: 720,
-    label: text("Ambient system study", "مشهد بصري تجريدي للأنظمة"),
-    note: text("Ambient visual reference — not project footage", "مرجع بصري تجريدي — ليس تسجيلًا لمشروع"),
+    label: text("Systems in motion", "أنظمة قيد التشغيل"),
+    note: text("A visual study of connected technical systems", "دراسة بصرية لأنظمة تقنية مترابطة"),
   },
   rppg: {
     mp4: "/media/v2-rppg.mp4",
     poster: "/media/v2-rppg-poster.webp",
     width: 800,
     height: 800,
-    label: text("Abstract signal visual", "مشهد تجريدي للإشارة"),
-    note: text("Ambient visual — the implementation details below are from verified work", "مشهد فني — تفاصيل التنفيذ أدناه من عمل موثّق"),
+    label: text("Facial video to pulse signal", "من فيديو الوجه إلى إشارة النبض"),
+    note: text("Visualized from verified rPPG engineering work", "تصوّر مبني على عمل هندسي موثّق في rPPG"),
   },
   awards: {
     mp4: "/media/v2-awards.mp4",
     poster: "/media/v2-awards-poster.webp",
     width: 1280,
     height: 574,
-    label: text("Recognition backdrop", "خلفية قسم الإنجازات"),
-    note: text("The award record is taken from the supplied CV", "بيانات الجوائز مأخوذة من السيرة الذاتية المرفقة"),
+    label: text("Engineering recognition", "إنجازات هندسية"),
+    note: text("Award details are taken from the supplied CV", "تفاصيل الجوائز مأخوذة من السيرة الذاتية المرفقة"),
   },
   certifications: {
     mp4: "/media/v2-certifications.mp4",
     poster: "/media/v2-certifications-poster.webp",
     width: 960,
     height: 540,
-    label: text("Education backdrop", "خلفية قسم التعليم"),
+    label: text("Education and training", "التعليم والتدريب"),
     note: text("Only the listed credentials belong to Marwan", "المؤهلات المكتوبة فقط هي الخاصة بمروان"),
   },
   contact: {
@@ -95,187 +110,218 @@ export const media = {
     poster: "/media/v2-contact-poster.webp",
     width: 960,
     height: 540,
-    label: text("Contact backdrop", "خلفية قسم التواصل"),
-    note: text("Ambient visual", "مشهد بصري"),
+    label: text("Start a conversation", "ابدأ محادثة"),
+    note: text("Direct contact details below", "بيانات التواصل المباشر أدناه"),
   },
 } satisfies Record<string, MediaAsset>;
 
 export const hero = {
   eyebrow: text(
-    "AI & Data Engineer · CTO at BOHIO · Jeddah",
-    "مهندس ذكاء اصطناعي وبيانات · المدير التقني في BOHIO · جدة"
+    "Marwan Aljijakli · AI & Data Engineer · CTO at BOHIO",
+    "مروان الجيجكلي · مهندس ذكاء اصطناعي وبيانات · المدير التقني في BOHIO"
   ),
-  titleLines: {
-    en: ["I build the model —", "and everything it", "needs to become a", "product."],
-    ar: ["أبني النموذج،", "وكل ما يحتاجه", "ليصبح منتجًا."],
-  },
+  title: text(
+    "I build AI systems from prototype to production.",
+    "أبني أنظمة ذكاء اصطناعي من النموذج الأولي إلى التشغيل الفعلي."
+  ),
   lead: text(
-    "My work spans model inference, data pipelines, secure APIs, testing and cloud delivery. I currently lead BOHIO’s architecture for AI-assisted financial modeling.",
-    "يمتد عملي من استدلال النماذج وخطوط البيانات إلى الواجهات الآمنة والاختبارات والنشر السحابي. أقود حاليًا معمارية BOHIO للنمذجة المالية المدعومة بالذكاء الاصطناعي."
+    "Based in Jeddah, Saudi Arabia, I work across AI engineering, data engineering, backend software, computer vision and embedded systems. I currently lead BOHIO’s technology and product architecture.",
+    "أعمل من جدة، السعودية، في هندسة الذكاء الاصطناعي والبيانات والبرمجيات الخلفية والرؤية الحاسوبية والأنظمة المضمنة. وأقود حاليًا التقنية ومعمارية المنتج في BOHIO."
   ),
-  primaryCta: text("See the systems", "استعرض الأنظمة"),
-  secondaryCta: text("Download verified CV", "حمّل السيرة الموثّقة"),
+  primaryCta: text("Explore selected work", "استعرض الأعمال المختارة"),
+  secondaryCta: text("Download CV", "تحميل السيرة الذاتية"),
   portraitAlt: text("Portrait of Marwan Aljijakli", "صورة مروان الجيجكلي"),
-  proof: [
-    { value: "01", label: text("Product architecture", "معمارية المنتج") },
-    { value: "02", label: text("Model & data systems", "أنظمة النماذج والبيانات") },
-    { value: "03", label: text("Release & operations", "الإصدار والتشغيل") },
-  ],
 } as const;
 
 export const work = {
   eyebrow: text("Selected work", "أعمال مختارة"),
   title: text(
-    "What I built, what I owned, and how it works.",
-    "ما بنيته، وما تولّيته، وكيف يعمل."
+    "Selected work across AI, data and connected systems.",
+    "أعمال مختارة في الذكاء الاصطناعي والبيانات والأنظمة المتصلة."
   ),
   intro: text(
-    "The projects below separate public product links from private implementation details. No client interface or confidential data is presented as public work.",
-    "تفصل المشاريع أدناه بين المنتجات العامة وتفاصيل التنفيذ الخاصة. لا تُعرض أي واجهة عميل أو بيانات سرية على أنها عمل عام."
+    "Each case explains the problem, my responsibility and the technical path to a working product. Public links are included where available.",
+    "يوضح كل مشروع المشكلة، ومسؤوليتي، والمسار التقني الذي قاد إلى منتج يعمل. أدرجت الروابط العامة حيثما كانت متاحة."
   ),
   cases: [
     {
       number: "01",
       company: "BOHIO",
-      kind: text("Current · Product architecture", "حاليًا · معمارية منتج"),
+      kind: text("Current · Product architecture", "حاليًا · معمارية المنتج"),
       title: text(
-        "Financial models, engineered as a governed product.",
-        "نماذج مالية صُمّمت لتعمل كمنتج منضبط."
+        "AI-assisted financial modeling built around real Excel workflows.",
+        "نمذجة مالية مدعومة بالذكاء الاصطناعي، مبنية حول مسارات العمل الحقيقية في Excel."
       ),
       description: text(
-        "I lead the hands-on architecture of an AI-assisted real-estate financial modeling platform, from the calculation engine and workbook workflows to secure data, bilingual product surfaces, admin operations, testing and controlled releases.",
-        "أقود المعمارية التنفيذية لمنصة نمذجة مالية عقارية مدعومة بالذكاء الاصطناعي؛ من محرك الحساب ومسارات المصنفات إلى البيانات الآمنة والواجهة ثنائية اللغة وعمليات الإدارة والاختبارات والإصدارات المنضبطة."
+        "At BOHIO, I lead the architecture and hands-on delivery of a real-estate financial-modeling platform. My work spans the calculation engine, Excel workflows, secure APIs, bilingual UX, administration, telemetry, testing and controlled releases.",
+        "في BOHIO، أقود معمارية منصة للنمذجة المالية العقارية وتنفيذها عمليًا. يمتد عملي من محرك الحساب ومسارات ملفات Excel إلى واجهات API الآمنة، وتجربة الاستخدام ثنائية اللغة، والإدارة، والقياس التشغيلي، والاختبارات، والإصدارات المنضبطة."
       ),
       facts: [
-        text("Calculation engine and workbook workflows", "محرك الحساب ومسارات المصنفات"),
-        text("Authentication, RLS and product APIs", "المصادقة وRLS وواجهات المنتج"),
-        text("Bilingual UX, telemetry and release controls", "تجربة ثنائية اللغة وقياس تشغيلي وضوابط إصدار"),
+        text("Calculation engine and Excel workflows", "محرك الحساب ومسارات Excel"),
+        text("Secure data access and product APIs", "وصول آمن للبيانات وواجهات API للمنتج"),
+        text("Bilingual product, testing and release controls", "منتج ثنائي اللغة واختبارات وضوابط إصدار"),
       ],
       stack: ["Next.js", "TypeScript", "PostgreSQL", "Supabase", "ExcelJS"],
-      links: [] as ProjectLink[],
-      media: null,
+      links: [
+        {
+          href: "https://bohiotech.com",
+          label: text("Visit BOHIO", "زيارة BOHIO"),
+          external: true,
+        },
+      ] as ProjectLink[],
+      visual: {
+        type: "image",
+        src: text("/projects/bohio-platform.webp", "/projects/bohio-platform.webp"),
+        alt: text("BOHIO public product homepage", "الصفحة العامة لمنتج BOHIO"),
+        browserLabel: text("bohiotech.com", "bohiotech.com"),
+        width: 1280,
+        height: 888,
+      } satisfies ProjectImage,
     },
     {
       number: "02",
       company: "VLEED",
-      kind: text("2024—2025 · Vision + signal", "2024—2025 · رؤية + إشارة"),
-      title: text(
-        "A camera stream becomes a physiological signal.",
-        "يتحوّل بث الكاميرا إلى إشارة فسيولوجية."
-      ),
+      kind: text("2024—2025 · Computer vision", "2024—2025 · رؤية حاسوبية"),
+      title: text("Estimating heart rate from facial video.", "تقدير معدل نبض القلب من فيديو الوجه."),
       description: text(
-        "I turned an open-source rPPG/POS pipeline into a Dockerized FastAPI service: face-region segmentation with LinkNet, POS signal extraction, FFT analysis and a production-facing API boundary.",
-        "حوّلت مسار rPPG/POS مفتوح المصدر إلى خدمة FastAPI داخل Docker: تحديد منطقة الوجه عبر LinkNet، واستخراج الإشارة بخوارزمية POS، وتحليل FFT، ثم تقديمها عبر واجهة جاهزة للمنتج."
+        "At VLEED, I productized an open-source rPPG/POS pipeline as a Dockerized FastAPI service. It combines face-region segmentation, POS signal extraction and FFT analysis behind a production API.",
+        "في VLEED، حوّلت مسار rPPG/POS مفتوح المصدر إلى خدمة FastAPI تعمل داخل Docker. تجمع الخدمة بين تحديد منطقة الوجه، واستخراج الإشارة بخوارزمية POS، وتحليل FFT ضمن واجهة جاهزة للاستخدام الإنتاجي."
       ),
       facts: [
-        text("Face region segmentation", "تحديد منطقة الوجه"),
-        text("POS extraction and FFT analysis", "استخراج POS وتحليل FFT"),
-        text("Dockerized FastAPI delivery", "تسليم الخدمة عبر Docker وFastAPI"),
+        text("Face-region segmentation", "تحديد منطقة الوجه"),
+        text("POS signal extraction and FFT analysis", "استخراج إشارة POS وتحليل FFT"),
+        text("Dockerized FastAPI service", "خدمة FastAPI داخل Docker"),
       ],
       stack: ["Python", "PyTorch", "OpenCV", "FastAPI", "Docker"],
       links: [] as ProjectLink[],
-      media: media.rppg,
+      visual: { type: "video", asset: media.rppg } satisfies ProjectVideo,
     },
     {
       number: "03",
       company: "BLUECARE",
       kind: text("Public product · Bilingual AAC", "منتج عام · تواصل بديل ثنائي اللغة"),
       title: text(
-        "Communication support designed for three different users.",
-        "دعم للتواصل صُمّم لثلاثة أنواع مختلفة من المستخدمين."
+        "Communication support designed for children, families and therapists.",
+        "دعم تواصل مخصص للطفل والأسرة والمعالج."
       ),
       description: text(
-        "A free English-Arabic AAC web app for non-verbal and minimally verbal children with autism, with distinct experiences for children, caregivers and therapists.",
-        "تطبيق ويب مجاني للتواصل المعزّز والبديل بالعربية والإنجليزية للأطفال ذوي التوحّد من غير الناطقين أو محدودي النطق، مع تجارب مستقلة للطفل والأسرة والمعالج."
+        "BlueCare is a free, bilingual AAC web app for non-verbal and minimally verbal children with autism. Children communicate through picture boards, while caregivers and therapists use dedicated progress and support tools.",
+        "BlueCare تطبيق ويب مجاني ثنائي اللغة للتواصل المعزّز والبديل، مخصص للأطفال ذوي التوحّد من غير الناطقين أو محدودي النطق. يستخدم الأطفال لوحات مصوّرة للتواصل، بينما تتوفر للأسر والمعالجين أدوات مستقلة للمتابعة والدعم."
       ),
       facts: [
-        text("Child, caregiver and therapist flows", "مسارات للطفل والأسرة والمعالج"),
-        text("English and Arabic interfaces", "واجهات بالعربية والإنجليزية"),
-        text("Public build and source available", "نسخة عامة ومصدر متاحان"),
+        text("Dedicated child, caregiver and therapist flows", "مسارات مستقلة للطفل والأسرة والمعالج"),
+        text("English and Arabic product interfaces", "واجهات منتج بالعربية والإنجليزية"),
+        text("Public application and source code", "تطبيق عام وشيفرة مصدرية متاحة"),
       ],
-      stack: ["Next.js", "TypeScript", "PostgreSQL", "RTL"],
+      stack: ["Next.js", "TypeScript", "PostgreSQL", "RTL", "Accessibility"],
       links: [
         {
-          href: "https://bcare-ten.vercel.app/en",
-          label: text("Open live product", "افتح المنتج الحي"),
+          href: text("https://bcare-ten.vercel.app/en", "https://bcare-ten.vercel.app/ar"),
+          label: text("Open BlueCare", "فتح BlueCare"),
           external: true,
         },
         {
           href: "https://github.com/MarwanAljijakli/Bcare",
-          label: text("View source", "اعرض المصدر"),
+          label: text("View source", "عرض المصدر"),
           external: true,
         },
       ] as ProjectLink[],
-      media: null,
+      visual: {
+        type: "image",
+        src: text("/projects/bluecare-en.webp", "/projects/bluecare-ar.webp"),
+        alt: text("BlueCare bilingual AAC product interface", "واجهة تطبيق BlueCare للتواصل المعزّز والبديل"),
+        browserLabel: text("bcare-ten.vercel.app/en", "bcare-ten.vercel.app/ar"),
+        width: 1280,
+        height: 888,
+      } satisfies ProjectImage,
     },
     {
       number: "04",
       company: "WATHBA",
-      kind: text("Edge + cloud", "الحافة + السحابة"),
+      kind: text("Edge, cloud and telemetry", "الحافة والسحابة والقياس التشغيلي"),
       title: text(
-        "Telemetry that remains understandable when a device goes quiet.",
-        "قياس تشغيلي يبقى مفهومًا حتى عندما يتوقف الجهاز عن الإرسال."
+        "Reliable device monitoring from firmware to dashboard.",
+        "مراقبة موثوقة للأجهزة من البرنامج الثابت إلى لوحة المتابعة."
       ),
       description: text(
-        "An edge-to-cloud monitoring flow with ESP32 firmware, NVS configuration, authenticated HTTPS telemetry to Supabase and Vercel, stale-state detection and device diagnostics.",
-        "منظومة مراقبة من الحافة إلى السحابة عبر برمجيات ESP32 وإعدادات NVS وإرسال HTTPS موثّق إلى Supabase وVercel، مع اكتشاف تقادم الحالة وتشخيص الجهاز."
+        "Wathba connects ESP32 firmware and NVS configuration to authenticated HTTPS telemetry, Supabase, Vercel and a dashboard that distinguishes live, stale and offline devices while exposing diagnostics.",
+        "يربط Wathba برمجيات ESP32 وإعدادات NVS بإرسال HTTPS موثّق إلى Supabase وVercel، ثم يوضح في لوحة المتابعة ما إذا كان الجهاز متصلًا أو توقفت بياناته عن التحديث أو انقطع، مع معلومات للتشخيص."
       ),
       facts: [
-        text("Authenticated device telemetry", "قياس موثّق من الجهاز"),
-        text("Stale-state and disconnect handling", "معالجة التقادم والانقطاع"),
+        text("Authenticated ESP32 telemetry", "قياس موثّق من ESP32"),
+        text("Live, stale and offline state handling", "معالجة حالات الاتصال والتقادم والانقطاع"),
         text("Firmware-to-dashboard diagnostics", "تشخيص من البرنامج الثابت إلى لوحة المتابعة"),
       ],
       stack: ["ESP32", "NVS", "HTTPS", "Supabase", "Vercel"],
-      links: [] as ProjectLink[],
-      media: null,
+      links: [
+        {
+          href: "https://energytovalue.com/app/ai-router",
+          label: text("Open live telemetry view", "فتح واجهة القياس الحية"),
+          external: true,
+        },
+      ] as ProjectLink[],
+      visual: {
+        type: "image",
+        src: text("/projects/wathba-router.webp", "/projects/wathba-router.webp"),
+        alt: text("Wathba energy telemetry and AI routing dashboard", "لوحة Wathba لقياس الطاقة والتوجيه الذكي"),
+        browserLabel: text("energytovalue.com/app/ai-router", "energytovalue.com/app/ai-router"),
+        width: 1280,
+        height: 888,
+      } satisfies ProjectImage,
     },
   ],
 } as const;
 
-export const systemAtlas = {
-  eyebrow: text("System range", "نطاق النظام"),
+export const approach = {
+  eyebrow: text("Engineering approach", "منهجية العمل"),
   title: text(
-    "The model is one layer. The product needs all five.",
-    "النموذج طبقة واحدة، والمنتج يحتاج الطبقات الخمس."
+    "What it takes to ship a dependable AI product.",
+    "ما يحتاجه منتج ذكاء اصطناعي موثوق للوصول إلى التشغيل."
   ),
   intro: text(
-    "I work across the boundaries that usually split a prototype from a dependable product.",
-    "أعمل عبر الحدود التي تفصل عادةً بين النموذج الأولي والمنتج الذي يمكن الاعتماد عليه."
+    "Model accuracy is only one part. Reliable products also need sound data, secure services, usable workflows and controlled operations.",
+    "دقة النموذج جزء واحد فقط؛ فالمنتج الموثوق يحتاج أيضًا إلى بيانات سليمة، وخدمات آمنة، ومسارات استخدام واضحة، وتشغيل منضبط."
   ),
-  layers: [
+  start: text("Prototype", "نموذج أولي"),
+  end: text("Production", "تشغيل فعلي"),
+  steps: [
     {
       number: "01",
-      title: text("Model inference", "استدلال النموذج"),
-      detail: text("Vision, signals and GPU execution", "الرؤية والإشارات والتنفيذ على GPU"),
+      title: text("AI & signal processing", "الذكاء الاصطناعي ومعالجة الإشارات"),
+      detail: text("Turn images, video and sensor readings into useful signals.", "تحويل الصور والفيديو وقراءات الحساسات إلى إشارات مفيدة."),
     },
     {
       number: "02",
-      title: text("Data pipelines", "خطوط البيانات"),
-      detail: text("Schemas, transformations and integrity", "المخططات والتحويلات وسلامة البيانات"),
+      title: text("Data foundations", "أساس البيانات"),
+      detail: text("Define schemas, transformations and checks that protect integrity.", "تعريف المخططات والتحويلات والفحوصات التي تحمي سلامة البيانات."),
     },
     {
       number: "03",
-      title: text("Secure APIs", "واجهات آمنة"),
-      detail: text("Authentication, RLS and service boundaries", "المصادقة وRLS وحدود الخدمات"),
+      title: text("Backend & security", "الأنظمة الخلفية والأمان"),
+      detail: text("Expose the work through authenticated services and clear boundaries.", "تقديم العمل عبر خدمات موثّقة وحدود واضحة للصلاحيات."),
     },
     {
       number: "04",
       title: text("Product experience", "تجربة المنتج"),
-      detail: text("Bilingual flows and usable decisions", "مسارات ثنائية اللغة وقرارات قابلة للاستخدام"),
+      detail: text("Design workflows that make complex decisions understandable.", "تصميم مسارات تجعل القرارات المعقدة مفهومة وقابلة للاستخدام."),
     },
     {
       number: "05",
-      title: text("Release & observability", "الإصدار والمراقبة"),
-      detail: text("Tests, telemetry and controlled delivery", "اختبارات وقياس تشغيلي وتسليم منضبط"),
+      title: text("Quality & operations", "الجودة والتشغيل"),
+      detail: text("Test, release, observe and recover without guesswork.", "الاختبار والإصدار والمراقبة والاستعادة دون تخمين."),
     },
   ],
 } as const;
 
 export const experience = {
-  eyebrow: text("Experience", "الخبرة"),
+  eyebrow: text("Professional experience", "الخبرة المهنية"),
   title: text(
-    "Two roles, both close to the code.",
-    "دوران مهنيان، وفي كليهما كنت قريبًا من التنفيذ."
+    "Professional experience in AI and product engineering.",
+    "خبرة مهنية في هندسة الذكاء الاصطناعي والمنتجات."
+  ),
+  intro: text(
+    "Hands-on roles spanning applied AI services, software architecture and the responsibility of operating what gets shipped.",
+    "أدوار تنفيذية تجمع بين خدمات الذكاء الاصطناعي التطبيقية، ومعمارية البرمجيات، ومسؤولية تشغيل ما يصل إلى المستخدم."
   ),
   roles: [
     {
@@ -284,8 +330,8 @@ export const experience = {
       date: text("Jan 2026 — Present", "يناير 2026 — الآن"),
       current: true,
       summary: text(
-        "Leading architecture and hands-on delivery of a real-estate financial modeling platform with AI-assisted workflows.",
-        "أقود معمارية وتنفيذ منصة للنمذجة المالية العقارية بمسارات عمل مدعومة بالذكاء الاصطناعي."
+        "Lead product architecture and hands-on delivery across the calculation engine, backend, data, bilingual UX, administration, testing and release controls.",
+        "أقود معمارية المنتج وتنفيذه عمليًا عبر محرك الحساب، والأنظمة الخلفية، والبيانات، وتجربة الاستخدام ثنائية اللغة، والإدارة، والاختبارات، وضوابط الإصدار."
       ),
       stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "ExcelJS"],
     },
@@ -295,63 +341,81 @@ export const experience = {
       date: text("Jun 2024 — Dec 2025", "يونيو 2024 — ديسمبر 2025"),
       current: false,
       summary: text(
-        "Productized computer-vision, signal-processing and generative-media pipelines for health and facial-media workflows.",
-        "حوّلت مسارات للرؤية الحاسوبية ومعالجة الإشارات والوسائط التوليدية إلى خدمات قابلة للاستخدام في تطبيقات الصحة ووسائط الوجه."
+        "Built production services for computer vision, physiological signal processing and generative media using Python, PyTorch, FastAPI, OpenCV and Docker.",
+        "بنيت خدمات إنتاجية للرؤية الحاسوبية ومعالجة الإشارات الفسيولوجية والوسائط التوليدية باستخدام Python وPyTorch وFastAPI وOpenCV وDocker."
       ),
       stack: ["Python", "PyTorch", "FastAPI", "OpenCV", "Docker"],
     },
   ],
 } as const;
 
-export const capabilities = {
-  eyebrow: text("Capabilities", "القدرات"),
+export const expertise = {
+  eyebrow: text("Technical expertise", "الخبرات التقنية"),
   title: text(
-    "Capabilities I use to carry a system end to end.",
-    "قدرات أستخدمها لنقل النظام من الفكرة إلى التشغيل."
+    "Technical expertise, organized by the problems it solves.",
+    "خبرات تقنية مصنّفة بحسب المشكلات التي تحلها."
+  ),
+  intro: text(
+    "The stack changes with the problem. These are the areas I use repeatedly to move from research and prototypes to dependable products.",
+    "تتغير الأدوات بحسب المشكلة. وهذه المجالات هي التي أستخدمها باستمرار للانتقال من البحث والنماذج الأولية إلى منتجات يمكن الاعتماد عليها."
   ),
   groups: [
     {
       number: "01",
-      title: text("AI, vision & signals", "الذكاء والرؤية والإشارات"),
+      title: text("AI, computer vision & signals", "الذكاء الاصطناعي والرؤية والإشارات"),
+      detail: text("Build and serve vision models, physiological-signal pipelines and image-processing systems.", "بناء وتشغيل نماذج الرؤية ومسارات الإشارات الفسيولوجية وأنظمة معالجة الصور."),
       items: ["Python", "PyTorch", "OpenCV", "rPPG/POS", "FFT", "LinkNet"],
     },
     {
       number: "02",
-      title: text("Application & data", "التطبيق والبيانات"),
-      items: ["Next.js", "TypeScript", "FastAPI", "PostgreSQL", "Supabase", "RLS"],
+      title: text("Generative AI & LLM systems", "الذكاء التوليدي وأنظمة النماذج اللغوية"),
+      detail: text("Connect language models to guarded tools, documents and business workflows.", "ربط النماذج اللغوية بأدوات ووثائق ومسارات عمل محكومة."),
+      items: ["OpenAI", "Anthropic", "Tool calling", "RAG", "Evaluation"],
     },
     {
       number: "03",
-      title: text("Quality & delivery", "الجودة والتسليم"),
-      items: ["Docker", "GitHub Actions", "Playwright", "Vitest", "Vercel", "Sentry"],
+      title: text("Backend & data engineering", "الأنظمة الخلفية وهندسة البيانات"),
+      detail: text("Design typed services, relational data models and permission-aware APIs.", "تصميم خدمات محددة الأنواع ونماذج بيانات علائقية وواجهات تراعي الصلاحيات."),
+      items: ["Next.js", "TypeScript", "FastAPI", "PostgreSQL", "Supabase", "RLS"],
     },
     {
       number: "04",
-      title: text("Embedded & telemetry", "الأنظمة المضمنة والقياس"),
+      title: text("Cloud, quality & delivery", "السحابة والجودة والتسليم"),
+      detail: text("Automate tests and releases, inspect failures and keep production observable.", "أتمتة الاختبارات والإصدارات، وتشخيص الأعطال، وإبقاء بيئة الإنتاج قابلة للمراقبة."),
+      items: ["Docker", "GitHub Actions", "Playwright", "Vitest", "Vercel", "Sentry"],
+    },
+    {
+      number: "05",
+      title: text("Embedded systems & IoT", "الأنظمة المضمنة وإنترنت الأشياء"),
+      detail: text("Move trustworthy telemetry from firmware and sensors to cloud decisions.", "نقل قياسات موثوقة من البرامج الثابتة والحساسات إلى قرارات سحابية."),
       items: ["ESP32", "STM32", "FreeRTOS", "MQTT", "BLE", "I2C/SPI"],
     },
   ],
 } as const;
 
 export const recognition = {
-  eyebrow: text("Recognition & education", "الإنجازات والتعليم"),
+  eyebrow: text("Recognition & credentials", "الجوائز والمؤهلات"),
   title: text(
-    "Two first places, one third place, and an active engineering membership.",
-    "مركزان أولان، ومركز ثالث، وعضوية سارية في هيئة المهندسين."
+    "Awards, education and professional registration.",
+    "الجوائز والتعليم والتسجيل المهني."
+  ),
+  intro: text(
+    "First-place awards in aerial engineering and programming, third place in a Saudi AI hackathon, and active membership in the Saudi Council of Engineers.",
+    "مركزان أولان في الهندسة الجوية والبرمجة، ومركز ثالث في هاكاثون سعودي للذكاء الاصطناعي، وعضوية سارية في الهيئة السعودية للمهندسين."
   ),
   awards: [
     {
-      place: text("1st", "المركز الأول"),
+      place: text("First place", "المركز الأول"),
       title: text("SAQIR Saudi Aerial Quadcopter Engineering Race", "سباق صقر السعودي لهندسة الطائرات الرباعية"),
       meta: text("Drone Challenge · 2025", "تحدي الطائرات المسيّرة · 2025"),
     },
     {
-      place: text("1st", "المركز الأول"),
+      place: text("First place", "المركز الأول"),
       title: text("CPC Programming Problem-Solving Competition", "مسابقة CPC لحل مسائل البرمجة"),
       meta: text("Jeddah International College · Team award", "كلية جدة العالمية · جائزة فريق"),
     },
     {
-      place: text("3rd", "المركز الثالث"),
+      place: text("Third place", "المركز الثالث"),
       title: text("Taghna AI Hackathon", "هاكاثون تغنى للذكاء الاصطناعي"),
       meta: text("Saudi Arabia · 2025", "المملكة العربية السعودية · 2025"),
     },
@@ -360,12 +424,12 @@ export const recognition = {
     label: text("Education", "التعليم"),
     gpaLabel: text("GPA", "المعدل التراكمي"),
     degree: text("B.Sc. Computer Science", "بكالوريوس علوم الحاسب"),
-    specialization: text("Specialization in Artificial Intelligence", "تخصص الذكاء الاصطناعي"),
-    institution: text("Jeddah International College · 2026", "كلية جدة العالمية · 2026"),
+    specialization: text("Artificial Intelligence specialization", "تخصص الذكاء الاصطناعي"),
+    institution: text("Jeddah International College · Expected 2026", "كلية جدة العالمية · متوقع 2026"),
     gpa: "4.35/5.0",
   },
   training: [
-    text("SDAIA advanced AI/ML curriculum and projects", "برنامج متقدم في الذكاء الاصطناعي وتعلّم الآلة لدى سدايا"),
+    text("SDAIA advanced AI and machine-learning curriculum", "برنامج متقدم في الذكاء الاصطناعي وتعلّم الآلة لدى سدايا"),
     text("KAUST applied AI research and engineering program", "برنامج كاوست التطبيقي في أبحاث وهندسة الذكاء الاصطناعي"),
   ],
   leadership: text(
@@ -375,24 +439,25 @@ export const recognition = {
 } as const;
 
 export const contact = {
-  eyebrow: text("Contact", "تواصل"),
-  title: text("Tell me what you are trying to build.", "أخبرني بما تريد بناءه."),
+  eyebrow: text("Contact", "التواصل"),
+  title: text("Let’s talk about what you are building.", "لنتحدث عن المشروع الذي تعمل عليه."),
   body: text(
-    "For a focused conversation about AI, data, computer vision, backend systems or hands-on technical leadership, reach me directly.",
-    "لنقاش واضح حول الذكاء الاصطناعي أو البيانات أو الرؤية الحاسوبية أو الأنظمة الخلفية أو القيادة التقنية التنفيذية، تواصل معي مباشرة."
+    "If you need hands-on engineering across AI, data, backend, computer vision or embedded systems, send a short note about the problem and the outcome you need.",
+    "إذا كنت تحتاج إلى تنفيذ عملي في الذكاء الاصطناعي أو البيانات أو الأنظمة الخلفية أو الرؤية الحاسوبية أو الأنظمة المضمنة، أرسل نبذة قصيرة عن المشكلة والنتيجة التي تريد الوصول إليها."
   ),
-  emailLabel: text("Email Marwan", "راسل مروان"),
   linkedinLabel: text("LinkedIn", "LinkedIn"),
   githubLabel: text("GitHub", "GitHub"),
-  phoneLabel: text("Call", "اتصل"),
+  phoneLabel: text("Call", "اتصال"),
 } as const;
 
 export const interfaceCopy = {
   skip: text("Skip to main content", "انتقل إلى المحتوى الرئيسي"),
   home: text("Back to top", "العودة إلى الأعلى"),
-  language: text("Switch language", "تبديل اللغة"),
-  theme: text("Toggle color theme", "تبديل ألوان الموقع"),
+  language: text("العربية", "English"),
+  languageLabel: text("View this page in Arabic", "عرض هذه الصفحة بالإنجليزية"),
+  themeToLight: text("Switch to light theme", "التبديل إلى الوضع الفاتح"),
   menu: text("Open navigation", "فتح قائمة التنقل"),
+  closeMenu: text("Close navigation", "إغلاق قائمة التنقل"),
   menuLabel: text("Primary navigation", "التنقل الرئيسي"),
   current: text("Current", "حاليًا"),
   privateWork: text("Private implementation", "تنفيذ خاص"),
@@ -402,6 +467,6 @@ export const interfaceCopy = {
   videoUnavailable: text("Visual could not be loaded", "تعذّر تحميل المشهد"),
   copyEmail: text("Copy email", "نسخ البريد"),
   copiedEmail: text("Email copied", "تم نسخ البريد"),
-  copyFailed: text("Email selected — press Ctrl+C", "تم تحديد البريد — اضغط Ctrl+C"),
+  copyFailed: text("Copy failed — use the email link", "تعذر النسخ — استخدم رابط البريد"),
   footer: text("Designed and engineered in Jeddah.", "صُمّم وطُوّر في جدة."),
 } as const;

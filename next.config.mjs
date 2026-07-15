@@ -48,7 +48,25 @@ const nextConfig = {
         ],
       },
       {
-        source: "/portfolio-runtime-v3.js",
+        source: "/projects/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/portfolio-runtime-v4.js",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "public, max-age=31536000, immutable",
+          },
+        ],
+      },
+      {
+        source: "/opengraph-ar.png",
         headers: [
           {
             key: "Cache-Control",
